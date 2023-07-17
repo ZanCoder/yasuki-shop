@@ -140,84 +140,12 @@
             <li class="header__nav-item">
                 <a th:href="@{/list-product}" class="header__nav-link">Sản Phẩm</a>
                 <div class="sub-nav-wrap grid wide">
-                    <ul class="sub-nav">
+                    <ul th:each="grCategory : ${session.dataCategory}" class="sub-nav">
                         <li class="sub-nav__item">
-                            <a href="" class="sub-nav__link heading">Nước hoa</a>
+                            <a href="" class="sub-nav__link heading">[[${grCategory.name}]]</a>
                         </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc toàn thân vvv</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Khuyến mãi</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc cơ thể</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc miệng</a>
-                        </li>
-                    </ul>
-                    <ul class="sub-nav">
-                        <li class="sub-nav__item">
-                            <a href="" class="sub-nav__link heading">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc toàn thân vvv</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Khuyến mãi</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc cơ thể</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc miệng</a>
-                        </li>
-                    </ul>
-                    <ul class="sub-nav">
-                        <li class="sub-nav__item">
-                            <a href="" class="sub-nav__link heading">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc toàn thân vvv</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Khuyến mãi</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc cơ thể</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc miệng</a>
-                        </li>
-                    </ul>
-                    <ul class="sub-nav">
-                        <li class="sub-nav__item">
-                            <a href="" class="sub-nav__link heading">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc toàn thân vvv</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Khuyến mãi</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc cơ thể</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Nước hoa</a>
-                        </li>
-                        <li class="sub-nav__item">
-                            <a href="listProduct.html" class="sub-nav__link">Chăm sóc miệng</a>
+                        <li th:each="category : ${grCategory.categories}" class="sub-nav__item">
+                            <a href="" class="sub-nav__link">[[${category.name}]]</a>
                         </li>
                     </ul>
                 </div>
