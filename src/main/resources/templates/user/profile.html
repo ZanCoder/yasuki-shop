@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments :: main_header('tag')"></head>
+    <title>Yasuki.com | Mỹ phẩm</title>
+    <!-- index -->
+    <link href="./assets/css/home.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div class="main">
+        <div class="box-header">
+
+        </div>
+        <div class="row fontsize-profile">
+            <div class="col-75">
+                <div class="container">
+                    <form>
+
+                        <div class="row">
+                            <div class="col-50 input-profile">
+                                <label for="fname"><i class="fa fa-user"></i> Tên đăng nhập</label>
+                                <input type="text" id="fname" name="username" placeholder="Vinfast">
+                                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                                <input type="text" id="email" name="email" placeholder="vinfast@gmail.com">
+                                <label for="adr"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
+                                <input type="text" id="adr" name="address" placeholder="123 Đường, Phường, Quận">
+                                <label for="city"><i class="fa fa-institution"></i> Thành phố</label>
+                                <input type="text" id="city" name="city" placeholder="Hồ Chí Minh">
+                            </div>
+
+                            <div class="col-50 input-profile">
+                                <label for="hotline">Số diện thoại</label>
+                                <input type="text" id="hotline" name="hotline" placeholder="312321321312">
+                                <label for="ccnum">Ngày/Tháng/Năm Sinh</label>
+                                <input type="text" id="ccnum" name="cardnumber" placeholder="12-13-2023">
+                            </div>
+
+                        </div>
+                        <input type="submit" value="Lưu thông tin" class="btn-profile">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments :: footer"></div>
+    <div th:replace="fragments :: modal_form"></div>
+
+    <script>
+        $('.owl-carousel.hight').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        })
+        $('.owl-carousel.news').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 2
+                }
+            }
+        })
+        $('.owl-carousel.bands').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 2000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 6
+                }
+            }
+        })
+    </script>
+    <!-- Script common -->
+    <script src="./assets/js/homeScript.js"></script>
+    <script src="./assets/js/commonscript.js"></script>
+</body>
+
+</html>

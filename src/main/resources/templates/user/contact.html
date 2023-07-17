@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragments :: main_header('tag')"></head>
+    <title>Thanh Toán</title>
+    <!-- index -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/contact.css">
+</head>
+
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div class="main">
+        <div class="grid wide">
+            <div class="main__breadcrumb">
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">Trang chủ</a>
+                </div>
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">Giới thiệu</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l-6 m-12 s-12">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.035258488779!2d106.76473278470591!3d10.884922829534812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d86295d25f3d%3A0xb6a0165f49771291!2zxJDGsOG7nW5nIHPhu5EgNywgTGluaCBYdcOibiwgVGjhu6cgxJDhu6ljLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1687161992881!5m2!1svi!2s" width="100%"
+                        height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="col l-6 m-12 s-12">
+                    <div class="contact__wrap">
+                        <div class="contact__img">
+                            <img src="http://mauweb.monamedia.net/vanihome/wp-content/uploads/2018/04/logo-mona.png" alt="">
+                        </div>
+                        <ul class="contact__info">
+                            <li class="contact__text">
+                                <i class="fas fa-map-marked-alt"></i> Đường số 7, Phường Linh Xuân, Quận Thủ Đức, Tp.HCM
+                            </li>
+                            <li>
+                                <a href="tel:076 922 0162" class="contact__link">
+                                    <i class="fas fa-phone"></i> 0862 153 723
+                                </a>
+                                <a href="tel:076 922 0162" class="contact__link">
+                                    &#8212; 076 922 0162
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="contact__link">
+                                    <i class="fas fa-envelope"></i> yasuki.cometics@gmail.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="about-us">
+                        <div class="about-us__heading">Liên hệ với chúng tôi</div>
+                        <div class="form__group">
+                            <div>
+                                <input type="text" value="Họ và tên">
+                            </div>
+                            <div>
+                                <input type="text" value="Email">
+                            </div>
+                            <div>
+                                <input type="text" value="Địa chỉ">
+                            </div>
+                            <div>
+                                <input type="text" value="Số điện thoại">
+                            </div>
+                        </div>
+                        <textarea name="" id="" cols="30" rows="5" placeholder="Lời nhắn"></textarea>
+                        <button type="submit" class="btn btn--default">Gửi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div th:replace="fragments :: footer"></div>
+    <div th:replace="fragments :: modal_form"></div>
+    <!-- Sccipt for owl caroucel -->
+
+    <!-- Script common -->
+    <script src="./assets/js/commonscript.js"></script>
+</body>
+</html>
