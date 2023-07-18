@@ -12,6 +12,5 @@ import java.util.List;
 public interface GroupCategoryRepo extends JpaRepository<GroupCategory, Integer> {
     MyCategory findGroupCategoryBySlug(String slug);
 
-//    @Query("SELECT o FROM GroupCategory o WHERE o.isActive = true")
     List<GroupCategory> findTop6ByIsActiveTrue();
 }

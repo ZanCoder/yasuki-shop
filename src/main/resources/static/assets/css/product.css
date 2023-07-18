@@ -146,6 +146,12 @@
     font-size: 1.8rem;
     font-weight: 400;
 }
+.pagination__link.disable{
+    cursor: initial;
+}
+.pagination__link.disable i{
+    color: #ced3d3;
+}
 
 .pagination__link:hover {
     opacity: 0.7;

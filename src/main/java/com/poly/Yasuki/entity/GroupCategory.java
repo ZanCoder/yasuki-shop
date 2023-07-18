@@ -27,7 +27,6 @@ public class GroupCategory implements Serializable {
     private String slug;
     private Boolean isActive;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<MyCategory> categories =  new HashSet<>();
 }

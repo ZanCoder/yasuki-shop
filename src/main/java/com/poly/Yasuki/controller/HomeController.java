@@ -5,6 +5,7 @@ import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.MyCategoryService;
+import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.GlobalSessionUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
     private final GroupCategoryService groupCategoryService;
+    private final ProductService productService;
     @GetMapping("/")
     public String mainPage(Model model, HttpSession httpSession){
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
         httpSession.setAttribute("dataCategory", myCategoryList);
+        model.addAttribute("listTopSelling", productService.getTopSelling());
+        model.addAttribute("listTopDiscount", productService.getTopDiscount());
+        model.addAttribute("listTopDateRelease", productService.getTopDateRelease());
         return "user/index";
     }
 
@@ -29,10 +34,7 @@ public class HomeController {
     public String viewHomePage(Model model){
         return "user/index";
     }
-    @GetMapping("/list-product")
-    public String viewListProductPage(Model model){
-        return "user/listProduct";
-    }
+
     @GetMapping("/cart")
     public String viewCartPage(Model model){
         return "user/cart";
@@ -51,10 +53,7 @@ public class HomeController {
     public String viewPaymentPage(Model model){
         return "user/pay";
     }
-    @GetMapping("/product")
-    public String viewProductPage(Model model){
-        return "user/product";
-    }
+
     @GetMapping("/profile")
     public String viewProfilePage(Model model){
         return "user/profile";
