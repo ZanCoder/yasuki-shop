@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments :: main_header('tag')"></head>
+    <title>Đăng nhập | Yasuki.com</title>
+    <!-- index -->
+</head>
+
+<body>
+    <form th:action="@{/login}" method="post" class="authen-modal login">
+        <div class="head_login">
+            <h3 class="authen-modal__title">Đăng Nhập</h3>
+            <a href="#" class="header__logo">
+                <img src="./assets/logo.png" alt="">
+            </a>
+        </div>
+        <div class="form-group">
+            <label for="username" class="form-label">Địa chỉ email *</label>
+            <input id="username" name="username" type="text" class="form-control">
+<!--            <span class="form-message">Tài khoản không chính xác !</span>-->
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu *</label>
+            <input id="password" name="password" type="text" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <div class="authen__btns">
+            <button type="submit" class="btn btn--default">Đăng Nhập</button>
+            <input type="checkbox" class="authen-checkbox" name="remember-me">
+            <label class="form-label">Ghi nhớ mật khẩu</label>
+        </div>
+        <a th:href="@{/forgot-pass}" class="authen__link">Quên mật khẩu ?</a>
+    </form>
+</body>
+
+</html>

@@ -1518,3 +1518,13 @@ textarea.form-control {
         font-size: 1.5rem;
     }
 }
+
+/* config login page v1 */
+.head_login{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__logo img{
+    width: 100px;
+}

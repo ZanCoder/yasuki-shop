@@ -58,4 +58,8 @@ public class MyUserDetails implements UserDetails {
     public String getFullName(){
         return userApp.getFullName();
     }
+
+    public UserApp getUserApp(){
+        return userApp;
+    }
 }
