@@ -1,11 +1,8 @@
 package com.poly.Yasuki.database;
 
-import com.poly.Yasuki.entity.GroupCategory;
-import com.poly.Yasuki.entity.MyCategory;
-import com.poly.Yasuki.entity.Product;
-import com.poly.Yasuki.service.GroupCategoryService;
-import com.poly.Yasuki.service.MyCategoryService;
-import com.poly.Yasuki.service.ProductService;
+import com.poly.Yasuki.entity.*;
+import com.poly.Yasuki.enums.RoleName;
+import com.poly.Yasuki.service.*;
 import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +17,8 @@ public class initDB implements CommandLineRunner {
     private final MyCategoryService categoryService;
     private final GroupCategoryService groupCategoryService;
     private final ProductService productService;
+    private final RoleService roleService;
+    private final MyUserService userService;
     @Override
     public void run(String... args) throws Exception {
 
@@ -61,5 +60,24 @@ public class initDB implements CommandLineRunner {
         productService.create(product2);
         productService.create(product3);
         productService.create(product4);
+
+        //        init role
+        RoleApp roleApp1 = new RoleApp(null, RoleName.ROLE_ADMIN);
+        RoleApp roleApp2 = new RoleApp(null, RoleName.ROLE_USER);
+        roleService.create(roleApp1);
+        roleService.create(roleApp2);
+
+        //        init user
+        Set<RoleApp> roles1 = new HashSet<>();
+        roles1.add(roleApp1);
+        UserApp userApp1 = new UserApp(null,"tuanki9et@gmail.com", "123", "Tuan Kiet", true, roles1);
+
+        Set<RoleApp> roles2 = new HashSet<>();
+        roles1.add(roleApp2);
+        UserApp userApp2 = new UserApp(null,"duccong@gmail.com", "123", "Duc Cong", true, roles2);
+
+        userService.create(userApp1);
+        userService.create(userApp2);
+
     }
 }
