@@ -38,7 +38,7 @@
     border-bottom: 3px solid rgba(0, 0, 0, 0.1);
 }
 
-.main__cart .row.item {
+.main__cart .row.cart-item {
     height: 100px;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);

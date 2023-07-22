@@ -1,10 +1,9 @@
 package com.poly.Yasuki.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
 import java.math.BigDecimal;
 
 @Data
@@ -19,5 +18,21 @@ public class CartDto {
     public BigDecimal getTotalPrice(){
         BigDecimal result = BigDecimal.valueOf(quantity).multiply(priceProduct);
         return result;
+    }
+
+    public CartDto(String nameProduct, BigDecimal priceProduct) {
+        this.nameProduct = nameProduct;
+        this.priceProduct = priceProduct;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }

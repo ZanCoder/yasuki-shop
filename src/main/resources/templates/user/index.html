@@ -85,7 +85,7 @@
                                         <h3 class="product__name">[[${product.name}]]</h3>
                                         <div class="product__price">
                                             <div class="price__old">
-                                                [[${product.price}]] đ
+                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
                                             </div>
                                             <div class="price__new">[[${product.priceDiscount}]] <span class="price__unit">đ</span></div>
                                         </div>
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:href="@{cart}" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -111,9 +111,9 @@
                                         <h3 class="product__name">[[${product.name}]]</h3>
                                         <div class="product__price">
                                             <div class="price__old">
-                                                [[${product.price}]] đ
+                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
                                             </div>
-                                            <div class="price__new">[[${product.priceDiscount}]] <span class="price__unit">đ</span></div>
+                                            <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit">đ</span></div>
                                         </div>
                                         <div class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:href="@{cart}" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -137,9 +137,9 @@
                                         <h3 class="product__name">[[${product.name}]]</h3>
                                         <div class="product__price">
                                             <div class="price__old">
-                                                [[${product.price}]] đ
+                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
                                             </div>
-                                            <div class="price__new">[[${product.priceDiscount}]] <span class="price__unit">đ</span></div>
+                                            <div class="price__new"> [[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit">đ</span></div>
                                         </div>
                                         <div class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -147,7 +147,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:href="@{cart}" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -168,9 +168,9 @@
                             <h3 class="product__name">[[${product.name}]]</h3>
                             <div class="product__price">
                                 <div class="price__old">
-                                    100.000 đ
+                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
                                 </div>
-                                <div class="price__new"> [[${product.price}]]<span class="price__unit">đ</span></div>
+                                <div class="price__new"> [[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
                             </div>
                             <div class="product__sale">
                                 <span class="product__sale-percent">[[${product.percentDiscount}]]</span>
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                         <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                        <a th:href="@{cart}" class="addToCart">Thêm vào giỏ</a>
+                        <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart" >Thêm vào giỏ</a>
                     </div>
                 </div>
             </div>
@@ -365,5 +365,7 @@
     <!-- Script common -->
     <script th:src="@{/assets/js/homeScript.js}"></script>
     <script th:src="@{/assets/js/commonscript.js}"></script>
+    <!--    add to cart-->
+
 </body>
 </html>

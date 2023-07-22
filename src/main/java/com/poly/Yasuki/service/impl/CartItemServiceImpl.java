@@ -10,6 +10,7 @@ import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,17 +18,16 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartItemServiceImpl implements CartItemService {
     private final CartItemRepo cartItemRepo;
     private final ProductService productService;
 
     @Override
     public void addToCart(CartDto cartDto, UserApp userApp) {
-        String slugProduct = SlugGenerator.generateSlug(cartDto.getNameProduct());
-        Product product = productService.findBySlug(slugProduct);
+        Product product = getProductByName(cartDto.getNameProduct());
         CartItem cartItem = new CartItem(cartDto.getQuantity(),product, userApp);
-
-        // cart is exist | +1
+        // cart is exist | + 1
         CartItem oldCart = getExistCartItem(userApp, product);
         if(oldCart != null){
             Integer newQuantity = oldCart.getQuantity() + 1;
@@ -49,8 +49,32 @@ public class CartItemServiceImpl implements CartItemService {
         return cartDtoList;
     }
 
+
+    @Override
+    public void deleteCartItem(String productName, UserApp currentUser) {
+        Product product = getProductByName(productName);
+        cartItemRepo.deleteByProductAndUserApp(product, currentUser);
+    }
+
+    @Override
+    public void updateCartItem(String action, String nameProduct, UserApp currentUser) {
+        CartItem currentCart =  cartItemRepo.findByUserAppAndProduct(currentUser, getProductByName(nameProduct));
+        if(action.equals("increase")){
+            currentCart.setQuantity( currentCart.getQuantity() + 1);
+        }else if(action.equals("decrease")){
+            currentCart.setQuantity( currentCart.getQuantity() - 1);
+        }
+        cartItemRepo.save(currentCart);
+    }
+
     private CartItem getExistCartItem(UserApp userApp, Product product) {
         CartItem cartItem = cartItemRepo.findByUserAppAndProduct(userApp, product);
         return cartItem;
+    }
+
+    private Product getProductByName(String productName){
+        String slugProduct = SlugGenerator.generateSlug(productName);
+        Product product = productService.findBySlug(slugProduct);
+        return product;
     }
 }

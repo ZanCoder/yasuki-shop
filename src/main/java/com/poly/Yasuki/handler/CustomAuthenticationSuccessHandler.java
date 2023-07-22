@@ -1,9 +1,15 @@
 package com.poly.Yasuki.handler;
 
+import com.poly.Yasuki.dto.CartDto;
+import com.poly.Yasuki.entity.GroupCategory;
+import com.poly.Yasuki.entity.UserApp;
+import com.poly.Yasuki.security.MyUserDetails;
+import com.poly.Yasuki.service.CartItemService;
+import com.poly.Yasuki.service.GroupCategoryService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.session.StandardSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -12,19 +18,33 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
-//    private final RefreshTokenService refreshTokenService;
+    private final CartItemService cartItemService;
+    private final GroupCategoryService groupCategoryService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        this.setGlobalData(request);
+        //redirect page by role
         this.redirectAfterLogin(request,response,authentication);
     }
+
+    private void setGlobalData(HttpServletRequest request) {
+        // set cart in session
+        List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
+        request.getSession().setAttribute("listCart", cartDtoList);
+
+        // set global category in session
+        List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
+        request.getSession().setAttribute("dataCategory", myCategoryList);
+    }
+
     public void redirectAfterLogin(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException{
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
         boolean hasUserRole = false;
@@ -41,11 +61,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         if (hasUserRole) {
-            redirectStrategy.sendRedirect(request, response, "/");
-        } else if (hasAdminRole) {
-            redirectStrategy.sendRedirect(request, response, "/admin/index");
+            redirectStrategy.sendRedirect(request, response, "/cart");
+        } else if (hasAdminRole) { //admin/index
+            redirectStrategy.sendRedirect(request, response, "/cart");
         } else {
             throw new IllegalStateException();
         }
+    }
+
+    public UserApp getCurrentUser(){
+        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        return userDetails.getUserApp();
     }
 }

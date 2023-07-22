@@ -13,10 +13,10 @@
         <div class="grid wide">
             <h3 class="main__notify">
                 <div class="main__notify-icon">
-                    <i class="fas fa-check"></i>
+<!--                    <i class="fas fa-check"></i>-->
                     <!-- <i class="fas fa-times"></i> -->
                 </div>
-                <div class="main__notify-text">Giỏ hàng đã được cập nhật.</div>
+<!--                <div class="main__notify-text">Giỏ hàng đã được cập nhật.</div>-->
             </h3>
             <div class="row">
                 <div class="col l-8 m-12 s-12">
@@ -29,38 +29,46 @@
                             <div class="col l-2 m-2 s-4">Tổng</div>
                             <div class="col l-1 m-1 s-0">Xóa</div>
                         </div>
-                        <div th:each="cartItem : ${session.listCart}" class="row item">
+                        <div th:each="cartDto, itrStat : ${session.listCart}" class="row cart-item" >
+<!--                            <input type="hidden" name="nameProd" th:value="${cartDto.nameProduct}">-->
+<!--                            <input type="hidden" name="priceProd" th:value="${cartDto.priceProduct}">-->
                             <div class="col l-1 m-1 s-0">
-                                <input type="checkbox" name="a">
+                                <input name="chkCartItem" type="checkbox"
+                                       th:value="${cartDto}">
                             </div>
                             <div class="col l-4 m-4 s-8">
                                 <div class="main__cart-product">
                                     <img src="./assets/img/product/product2.jpg" alt="">
-                                    <div class="name">[[${cartItem.nameProduct}]]</div>
+                                    <div class="name">[[${cartDto.nameProduct}]]</div>
                                 </div>
                             </div>
                             <div class="col l-2 m-2 s-0">
-                                <div class="main__cart-price">[[${cartItem.priceProduct}]] đ</div>
+                                <div class="main__cart-price">[[${#numbers.formatDecimal(cartDto.priceProduct, 3,'POINT', 0,'COMMA')}]] đ</div>
                             </div>
                             <div class="col l-2 m-2 s-0">
                                 <div class="buttons_added">
-                                    <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
-                                    <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" th:value="${cartItem.quantity}">
-                                    <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                                    <input class="minus is-form" type="button" value="-" th:onclick="$(this).minusProduct([[${cartDto.nameProduct}]],[[${'cartIndex'+itrStat.index}]])">
+                                    <input
+                                           th:value="${cartDto.quantity}"
+                                           th:id="${'cartIndex'+ itrStat.index}"
+                                           aria-label="quantity" class="input-qty" max="10" min="1" name="quantity" type="number" >
+                                    <input class="plus is-form" type="button" value="+" th:onclick="$(this).plusProduct([[${cartDto.nameProduct}]], [[${'cartIndex'+itrStat.index}]])">
                                 </div>
                             </div>
                             <div class="col l-2 m-2 s-4">
-                                <div class="main__cart-price">[[${cartItem.priceProduct * cartItem.quantity}]] đ</div>
+                                <div class="main__cart-price">
+                                    [[${#numbers.formatDecimal((cartDto.priceProduct * cartDto.quantity), 3,'POINT', 0,'COMMA')}]] đ
+                                </div>
                             </div>
-                            <div class="col l-1 m-1 s-0">
+                            <div th:onclick="$(this).deleteCart([[${cartDto.nameProduct}]])" class="col l-1 m-1 s-0">
                                 <span class="main__cart-icon">
                                 <i class="far fa-times-circle "></i>
                             </span>
                             </div>
                         </div>
-                        <div class="btn btn--default">
-                            Cập nhật giỏ hàng
-                        </div>
+<!--                        <div id="updateCart"  class="btn btn&#45;&#45;default">-->
+<!--                            Cập nhật giỏ hàng-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="col l-4 m-12 s-12">
@@ -70,7 +78,7 @@
                             <div class="main__pay-text">
                                 Tổng phụ</div>
                             <div class="main__pay-price">
-                                1,120,000 ₫
+                                <span class="totalCart">0</span> ₫
                             </div>
                         </div>
                         <div class="pay-info">
@@ -86,10 +94,10 @@
                             <div class="main__pay-text">
                                 Tổng thành tiền</div>
                             <div class="main__pay-price">
-                                1,120,000 ₫
+                                <span class="totalCart">0</span> ₫
                             </div>
                         </div>
-                        <div class="btn btn--default orange">Tiến hành thanh toán</div>
+                        <div id="order" class="btn btn--default orange">Tiến hành thanh toán</div>
                         <div class="main__pay-title">Phiếu ưu đãi</div>
                         <input type="text" class="form-control">
                         <div class="btn btn--default">Áp dụng</div>
@@ -104,7 +112,50 @@
 
     <!-- Script common -->
     <script src="./assets/js/commonscript.js"></script>
+    <script>
+    "use strict";
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                updateTotalPrice();
+            });
 
+            $("input[type='checkbox'][name='chkCartItem']").on('click', function(){
+                updateTotalPrice();
+             });
+
+            $('#order').on('click', function(){
+                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
+                    let listCartSelected = getListCartSelected(selectedItems);
+                    if(listCartSelected.length !== 0){
+                        var listCartJSon = JSON.stringify(listCartSelected);
+                        localStorage.setItem('dataOrder', listCartJSon);
+                        window.location = '/yasuki/order';
+                    }else{
+                        alert('ban chua chon sp nao')
+                    }
+            });
+
+            function getListCartSelected(selectedItems){
+                    let listCartSelected = [];
+                    selectedItems.each(function(index, element){
+                        let item = $(this).val();
+                        let itemObject = JSON.parse(item);
+                        let quantityValue = parseInt(itemObject.quantity)
+                        listCartSelected.push(itemObject);
+                    });
+                    return listCartSelected;
+            }
+
+            function updateTotalPrice(){
+                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
+                    let totalPrice = getListCartSelected(selectedItems).reduce((total, item) => {
+                       return total + item.totalPrice;
+                    },0);
+                     $('.totalCart').text(formatDecimal(totalPrice));
+            }
+        });
+    </script>
+    <!--Script post order cart item-->
 
 </body>
 

@@ -447,6 +447,9 @@ input[type=checkbox]:checked:after {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     padding: 8px 12px;
 }
+.form-group{
+    margin-top : 20px;
+}
 
 textarea.form-control {
     height: 105px;

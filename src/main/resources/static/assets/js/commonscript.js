@@ -30,7 +30,6 @@ if (line) {
 
 tabs.forEach((tab, index) => {
     const pane = panes[index];
-
     tab.onclick = function() {
         document.querySelector(".tab-item.active").classList.remove("active");
         document.querySelector(".tab-pane.active").classList.remove("active");
@@ -42,6 +41,56 @@ tabs.forEach((tab, index) => {
         pane.classList.add("active");
     };
 })
+
+// cart
+$(document).ready(function(){
+        var urlInCreaseCart = '/yasuki/cart/update?action=increase';
+        var urlDecreaseCart = '/yasuki/cart/update?action=decrease';
+        var urlDeleteCart = '/yasuki/cart/delete';
+        var urlAddCart = '/yasuki/cart/add';
+
+        $.fn.addToCart = function(name, price){
+            event.preventDefault();
+            let data = {nameProduct : name, priceProduct : price}
+            callAjaxCart(addToCart,'POST', data);
+            location.reload();
+        }
+
+        $.fn.deleteCart =  function(nameProduct){
+            let data =  {nameProduct : nameProduct}
+            callAjaxCart(urlDeleteCart,'DELETE', data);
+            location.reload();
+        }
+
+         $.fn.plusProduct =  function(nameProduct, cartIndex){
+            let data = {nameProduct : nameProduct};
+            callAjaxCart(urlInCreaseCart, 'POST', data);
+            location.reload();
+         }
+         $.fn.minusProduct =  function(nameProduct, cartIndex){
+             var currentVal = parseInt($('#'+ cartIndex).val());
+             if(currentVal <= 1) return;
+             let data =  {nameProduct : nameProduct}
+             callAjaxCart(urlDecreaseCart, 'POST', data);
+             location.reload();
+         }
+
+         function callAjaxCart(url, method, data){
+            $.ajax({
+                    url : url,
+                    method : method,
+                    data :  data
+            }).then(function(){
+
+            }).fail(function(error){
+                    console.log( "error : " + error );
+            });
+         }
+});
+function formatDecimal(num){
+    return numbro(num).format({thousandSeparated: true});
+}
+
 
 // // // Rateting js
 // // $(':radio').change(function() {
@@ -68,3 +117,4 @@ tabs.forEach((tab, index) => {
 //     }
 //     document.querySelector('.input-qty').value = value;
 // }
+

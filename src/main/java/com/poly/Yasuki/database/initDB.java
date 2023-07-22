@@ -53,10 +53,10 @@ public class initDB implements CommandLineRunner {
                 .brand("SHU")
                 .quantitySold(90)
                 .build();
-        Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(999), 20, 20, 1.0);
-        Product product2 = new Product(category1, "Lanegie", BigDecimal.valueOf(333), 3, 32, 7.0);
-        Product product3 = new Product(category1, "Kiehl", BigDecimal.valueOf(777), 440, 0, 8.0);
-        Product product4 = new Product(category2, "MAC", BigDecimal.valueOf(222), 44, 11, 10.0);
+        Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(1998979), 20, 20, 1.0);
+        Product product2 = new Product(category1, "Lanegie", BigDecimal.valueOf(3387983), 3, 32, 7.0);
+        Product product3 = new Product(category1, "Kiehl", BigDecimal.valueOf(899777), 440, 0, 8.0);
+        Product product4 = new Product(category2, "MAC", BigDecimal.valueOf(222676), 44, 11, 10.0);
         productService.create(product0);
         productService.create(product1);
         productService.create(product2);
@@ -82,13 +82,13 @@ public class initDB implements CommandLineRunner {
         userService.create(userApp2);
 
         //init cart
-        CartDto cartDto1 = new CartDto(1,"Cetapil", BigDecimal.valueOf(999) );
-        CartDto cartDto2 = new CartDto(1, "MAC", BigDecimal.valueOf(324));
-        CartDto cartDto3 = new CartDto(1, "Kiehl", BigDecimal.valueOf(324));
-        cartItemService.addToCart(cartDto1, userApp1);
-        cartItemService.addToCart(cartDto2, userApp1);
+        CartDto cartDto1 = new CartDto(1,"Cetapil", BigDecimal.valueOf(1998979) );
+        CartDto cartDto2 = new CartDto(1, "MAC", BigDecimal.valueOf(222676));
+        CartDto cartDto3 = new CartDto(1, "Kiehl", BigDecimal.valueOf(899777));
+        cartItemService.addToCart(cartDto1, userApp2);
+        cartItemService.addToCart(cartDto2, userApp2);
         cartItemService.addToCart(cartDto3, userApp2);
-        cartItemService.addToCart(cartDto3, userApp1);
+        cartItemService.addToCart(cartDto3, userApp2);
         cartItemService.addToCart(cartDto3, userApp1);
     }
 }
