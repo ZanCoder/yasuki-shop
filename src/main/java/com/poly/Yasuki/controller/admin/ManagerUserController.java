@@ -37,6 +37,7 @@ public class ManagerUserController {
         Page<UserApp> listUsers = null;
         if(keyword != null){
             listUsers = userService.findByKeyword(keyword, pageable);
+            model.addAttribute("keyword", keyword);
         }else{
             listUsers = userService.getUsersWithSortAndPagination(pageable);
         }
@@ -79,7 +80,6 @@ public class ManagerUserController {
     @ResponseBody
     public UserApp editUser(@RequestParam(name = "id") Integer id,
             Model model){
-//        model.addAttribute("newUser", userService.findById(id).get());
         model.addAttribute("mode", "edit");
         return userService.findById(id).get();
     }

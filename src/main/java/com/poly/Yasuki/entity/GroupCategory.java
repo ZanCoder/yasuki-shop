@@ -1,5 +1,6 @@
 package com.poly.Yasuki.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +26,9 @@ public class GroupCategory implements Serializable {
 
     @Column(unique = true)
     private String slug;
-    private Boolean isActive;
+    private Boolean isActive = false;
 
-    @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.MERGE)
     Set<MyCategory> categories =  new HashSet<>();
 }

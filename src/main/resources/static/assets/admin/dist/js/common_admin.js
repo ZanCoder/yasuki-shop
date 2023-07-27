@@ -15,31 +15,27 @@ $('#btnAddProd').on('click', () =>{
 });
 
 
-var urlDeleteUser = window.location.pathname + '/delete';
-var urlEditUser = window.location.pathname + '/edit';
-var urlSearchUser = window.location.pathname;
+var urlDelete = window.location.pathname + '/delete';
+var urlEdit = window.location.pathname + '/edit';
+var urlSearch = window.location.pathname;
+var urlChangeStatus = window.location.pathname + '/change-status';
 
 //manager user
-$('#btnAddAccount').on('click', function(){
+$('.btn-modal-app').on('click', function(){
     updateTitle('Thêm mới');
-    let mode = /*[[${mode}]]*/[];
-    if(mode === 'edit'){
-        alert(mode)
-    }
+//    let mode = /*[[${mode}]]*/[];
+//    if(mode === 'edit'){
+//        alert(mode)
+//    }
 });
-//$('#btnSearch').on('click', function(){
-//    let data = {keyword : $('#inputSearch').val()};
-//    callAjaxCart(urlSearchUser, 'GET', data);
-//});
-
-function deleteUser(id){
+function deleteWithAjax(id){
     let data = {id : id}
-    callAjaxCart(urlDeleteUser, 'DELETE', data);
+    callAjaxCart(urlDelete, 'DELETE', data);
 }
-function editUser(id){
+function editWithAjax(id){
     let data = {id : id}
-    callAjaxCart(urlEditUser, 'GET', data);
-    $('#modalAccount').modal('show');
+    callAjaxCart(urlEdit, 'GET', data);
+    $('#myModal').modal('show');
     updateTitle('Cập nhật');
 }
 function updateTitle(mode){
@@ -90,3 +86,12 @@ function updateDataField(data){
       }
     }
 }
+$.fn.changeStatus = function(id){
+    let data = {
+            id : id,
+            statusChanged : $(this).prop("checked")
+        }
+    callAjaxCart(urlChangeStatus, 'GET', data);
+    myToastr('success',  'Cập nhật thành công!');
+}
+

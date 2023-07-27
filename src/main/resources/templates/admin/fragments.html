@@ -5,55 +5,44 @@
     <title>Title</title>
 </head>
 <body>
-<!-- Modal add account-->
-<div th:fragment="modalAccount(data, mode)" class="modal fade"  id="modalAccount">
-    <div class="modal-dialog">
-        <form th:action="@{/admin/manager-user/add}" th:object="${data}" method="post" class="modal-content">
-            <input type="hidden" th:field="*{id}" th:value="${userEdit.id}">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" >Thêm tài khoản</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name_account">Họ và Tên : </label>
-                        <input name="fullName" type="text" class="form-control" id="name_account" placeholder="Enter fullname ..."
-                               th:field="*{fullName}" th:value="${userEdit.fullName}">
-                    </div>
-                    <div class="form-group">
-                        <label for="email_account">Email :</label>
-                        <input name="email" type="email" class="form-control" id="email_account" placeholder="Enter email"
-                               th:field="*{email}" th:value="${userEdit.email}">
-                    </div>
-                    <div class="form-group">
-                        <label for="pass_account">Mật khẩu :</label>
-                        <input name="password" type="text" class="form-control" id="pass_account" placeholder="Password"
-                               th:field="*{password}" th:value="${userEdit.password}">
-                    </div>
-                    <div class="row px-4">
-                        <div class="col">
-                            <input name="role_name" type="radio" class="form-check-input" id="role_user" checked
-                                   value="ROLE_USER">
-                            <label class="form-check-label" for="role_user">ROLE USER</label>
-                        </div>
-                        <div class="col">
-                            <input name="role_name" type="radio" class="form-check-input" id="role_admin"
-                                   value="ROLE_ADMIN">
-                            <label class="form-check-label" for="role_admin" >ROLE ADMIN</label>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="submit" class="btn btn-success"
-                th:text="${mode == 'add' ? 'Thêm mới' : 'Cập nhật'}"></button>
-            </div>
-        </form>
+<!--Pagination-->
+<div th:fragment="pagination" class="row justify-content-between">
+    <div class="col-sm-12 col-md-5">
+        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+            Showing [[${currentPage}]] to [[${totalPages}]] of [[${totalElements}]] entries
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            <ul class="pagination">
+                <li class="paginate_button page-item previous " th:classappend="${currentPage <= 1 ? 'disabled' : ''}">
+                    <a  class="page-link" th:href="@{'/admin/manager-user?page='+${currentPage -1}}">Previous</a>
+                </li>
+                <li th:if="${currentPage == 1}" class="paginate_button page-item active">
+                    <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${currentPage}]]</a>
+                </li>
+                <th:block th:each="item : ${#numbers.sequence(currentPage - 1, currentPage)}">
+                    <li th:if="${currentPage < totalPages - 2 && currentPage > 1}" class="paginate_button page-item"
+                        th:classappend="${item == currentPage ? 'active' : ''}">
+                        <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${item}]]</a>
+                    </li>
+                </th:block>
+                <li th:if="${totalPages &gt; 5}" class="paginate_button page-item">
+                    <a href="#" class="page-link">...</a>
+                </li>
+                <th:block th:each="item : ${#numbers.sequence(totalPages-2, totalPages)}">
+                    <li  class="paginate_button page-item"
+                         th:classappend="${item == currentPage ? 'active' : ''}">
+                        <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${item}]]</a>
+                    </li>
+                </th:block>
+                <li class="paginate_button page-item next" th:classappend="${currentPage >= totalPages ? 'disabled' : ''}">
+                    <a  th:href="@{'/admin/manager-user?page='+${currentPage + 1}}"class="page-link">Next</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-<!-- modal add account-->
+<!--pagination-->
 </body>
 </html>

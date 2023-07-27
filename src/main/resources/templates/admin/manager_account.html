@@ -33,11 +33,11 @@
                                 <div class="row justify-content-between">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="w-50">
-                                            <button id="btnAddAccount" type="button" class="btn btn-block btn-success" data-bs-toggle="modal" data-bs-target="#modalAccount">
+                                            <button  type="button" class="btn btn-block btn-success btn-modal-app" data-bs-toggle="modal" data-bs-target="#myModal">
                                                 Thêm tài khoản
                                             </button>
                                             <!-- Modal add account-->
-                                            <div class="modal fade"  id="modalAccount">
+                                            <div class="modal fade"  id="myModal">
                                                 <div class="modal-dialog">
                                                     <form th:action="@{/admin/manager-user/add}" th:object="${newUser}" method="post" class="modal-content">
                                                         <input type="hidden" th:field="*{id}" th:value="${newUser.id}" data-field="id">
@@ -88,14 +88,14 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <form th:action="@{/admin/manager-user}" method="get" class="input-group" >
-                                            <input name="keyword" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
-                                            <div class="input-group-append">
-                                                <button type="submit" id="btnSearch" class="btn btn-sidebar">
-                                                    <i class="fas fa-search fa-fw"></i>
-                                                </button>
-                                            </div>
-                                        </form>
+                                            <form th:action="@{/admin/group-category}" method="get" class="input-group" >
+                                                <input th:value="${keyword}" name="keyword" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
+                                                <div class="input-group-append">
+                                                    <button type="submit" id="btnSearch" class="btn btn-sidebar">
+                                                        <i class="fas fa-search fa-fw"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
                                     </div>
                                 </div>
                             </div>
@@ -118,10 +118,10 @@
                                         <td th:text="${user.email}">-</td>
                                         <td th:text="${user.roles.iterator().next().name}"></td>
                                         <td>
-                                            <button th:onclick="editUser([[${user.id}]])" class="btn btn-primary me-2 btnEditAccount">
+                                            <button th:onclick="editWithAjax([[${user.id}]])" class="btn btn-primary me-2 btnEditAccount">
                                                 <i class="nav-icon fas fa-edit"></i>
                                             </button>
-                                            <button th:onclick="deleteUser([[${user.id}]])" class="btn btn-danger btnDelAccount">
+                                            <button th:onclick="deleteWithAjax([[${user.id}]])" class="btn btn-danger btnDelAccount">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                         </td>
@@ -130,43 +130,7 @@
                                 </table>
                                 </div>
                                 </div>
-                                    <div class="row justify-content-between">
-                                        <div class="col-sm-12 col-md-5">
-                                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                                                Showing [[${currentPage}]] to [[${totalPages}]] of [[${totalElements}]] entries
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-7">
-                                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                                <ul class="pagination">
-                                                    <li class="paginate_button page-item previous " th:classappend="${currentPage <= 1 ? 'disabled' : ''}">
-                                                        <a  class="page-link" th:href="@{'/admin/manager-user?page='+${currentPage -1}}">Previous</a>
-                                                    </li>
-                                                    <li th:if="${currentPage == 1}" class="paginate_button page-item active">
-                                                        <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${currentPage}]]</a>
-                                                    </li>
-                                                    <th:block th:each="item : ${#numbers.sequence(currentPage - 1, currentPage)}">
-                                                        <li th:if="${currentPage < totalPages - 2 && currentPage > 1}" class="paginate_button page-item"
-                                                            th:classappend="${item == currentPage ? 'active' : ''}">
-                                                            <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${item}]]</a>
-                                                        </li>
-                                                    </th:block>
-                                                    <li th:if="${totalPages &gt; 5}" class="paginate_button page-item">
-                                                        <a href="#" class="page-link">...</a>
-                                                    </li>
-                                                    <th:block th:each="item : ${#numbers.sequence(totalPages-2, totalPages)}">
-                                                        <li  class="paginate_button page-item"
-                                                             th:classappend="${item == currentPage ? 'active' : ''}">
-                                                            <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${item}]]</a>
-                                                        </li>
-                                                    </th:block>
-                                                    <li class="paginate_button page-item next" th:classappend="${currentPage >= totalPages ? 'disabled' : ''}">
-                                                        <a  th:href="@{'/admin/manager-user?page='+${currentPage + 1}}"class="page-link">Next</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <th:block th:replace="admin/fragments :: pagination"></th:block>
                                 </div>
                             </div>
                             <!-- /.card-body -->

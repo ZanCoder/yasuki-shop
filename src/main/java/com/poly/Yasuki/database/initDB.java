@@ -25,7 +25,7 @@ public class initDB implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         //init group category
-        GroupCategory groupCategory1 = new GroupCategory(null, "Mỹ Phẩm", "", true, null);
+        GroupCategory groupCategory1 = new GroupCategory(null, "Mỹ Phẩm", "", false, null);
         groupCategoryService.create(groupCategory1);
 
         GroupCategory groupCategory2 = new GroupCategory(null, "Chăm Sóc Da Mặt", "", true, null);

@@ -33,49 +33,47 @@
                             <div class="row justify-content-between">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="w-50">
-                                        <button id="btnAddAccount" type="button" class="btn btn-block btn-success" data-bs-toggle="modal" data-bs-target="#modalCategory">
+                                        <button  type="button" class="btn btn-block btn-success btn-modal-app" data-bs-toggle="modal" data-bs-target="#myModal">
                                             <i class="fas fa-plus"></i>
                                             Thêm nhóm danh mục
                                         </button>
-                                        <!-- Modal add account-->
-                                        <div class="modal fade"  id="modalCategory">
+                                        <!-- Modal add group category-->
+                                        <div class="modal fade"  id="myModal">
                                             <div class="modal-dialog">
-                                                <form class="modal-content">
+                                                <form th:action="@{/admin/group-category/add}" method="post" th:object="${newGroupCategory}" class="modal-content">
+                                                    <input type="hidden" th:field="*{id}" th:value="${newGroupCategory.id}" data-field="id">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" >Thêm nhóm danh mục SP</h1>
+                                                        <h1 class="modal-title fs-5" ><span class="mode">Thêm mới</span></h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="card-body">
                                                             <div class="form-group">
                                                                 <label for="name_category">Tên nhóm danh mục : </label>
-                                                                <input name="name" type="text" class="form-control" id="name_category" placeholder="Enter category ...">
+                                                                <input name="name" th:field="*{name}" th:value="${newGroupCategory.name}" data-field="name"
+                                                                         type="text" class="form-control" id="name_category" placeholder="Enter category ...">
                                                             </div>
-                                                            <!-- <div class="form-check">
-                                                              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                              <label class="form-check-label" for="exampleCheck1">Active</label>
-                                                            </div> -->
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button type="button" class="btn btn-success">Thêm mới</button>
+                                                        <button type="submit" class="btn btn-success mode">Thêm mới</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
-                                        <!-- modal add account-->
+                                        <!-- modal  group category-->
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="input-group" >
-                                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
+                                    <form th:action="@{/admin/group-category}" method="get" class="input-group" >
+                                        <input name="keyword" th:value="${keyword}" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
                                         <div class="input-group-append">
-                                            <button class="btn btn-sidebar">
+                                            <button type="submit" id="btnSearch" class="btn btn-sidebar">
                                                 <i class="fas fa-search fa-fw"></i>
                                             </button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -91,32 +89,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd">
-                                    <td class="dtr-control" tabindex="0">1</td>
-                                    <td class="">All others</td>
-                                    <td class="sorting_1">
-                                        <small class="badge badge-success"> True</small>
+                                <tr th:each="item, iStat  : ${listGroupCategories}">
+                                    <td th:text="${item.id}"></td>
+                                    <td th:text="${item.name}"></td>
+                                    <td >
+                                        <label th:for="${item.name}" class="switch switch-status">
+                                            <input th:id="${item.name}" type="checkbox"
+                                                   th:checked="${item.isActive}"
+                                                   th:onclick="$(this).changeStatus([[${item.id}]])">
+                                            <span class="slider round"></span>
+                                        </label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-primary me-2 btnEditAccount">
+                                        <button th:onclick="editWithAjax([[${item.id}]])" class="btn btn-primary me-2 btnEditAccount">
                                             <i class="nav-icon fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btnDelAccount">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="even">
-                                    <td class="dtr-control" tabindex="0">1</td>
-                                    <td class="">All others</td>
-                                    <td class="sorting_1">
-                                        <span class="badge badge-danger"> False</span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary me-2 btnEditAccount">
-                                            <i class="nav-icon fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-danger btnDelAccount">
+                                        <button th:onclick="deleteWithAjax([[${item.id}]])" class="btn btn-danger btnDelAccount">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -125,43 +113,7 @@
                             </table>
                             </div>
                             </div>
-                                <div class="row justify-content-between">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                                            Showing 1 to 10 of 57 entries
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item previous disabled" id="example2_previous">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                                                </li>
-                                                <li class="paginate_button page-item active">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                                </li>
-                                                <li class="paginate_button page-item ">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                                </li>
-                                                <li class="paginate_button page-item ">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                                                </li>
-                                                <li class="paginate_button page-item ">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                                                </li>
-                                                <li class="paginate_button page-item ">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                                                </li>
-                                                <li class="paginate_button page-item ">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                                                 </li>
-                                                <li class="paginate_button page-item next" id="example2_next">
-                                                    <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <th:block th:replace="admin/fragments :: pagination"></th:block>
                             </div>
                         </div>
                         <!-- /.card-body -->

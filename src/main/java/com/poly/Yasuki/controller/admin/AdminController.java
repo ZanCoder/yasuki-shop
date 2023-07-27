@@ -16,10 +16,7 @@ public class AdminController {
     public String  viewManagerCategoriesPage(Model model){
         return "admin/manager_category";
     }
-    @GetMapping("/admin/group-category")
-    public String  viewManagerGroupCategoriesPage(Model model){
-        return "admin/manager_group_category";
-    }
+
     @GetMapping("/admin/orders")
     public String  viewManagerOrderPage(Model model){
         return "admin/manager_order";
