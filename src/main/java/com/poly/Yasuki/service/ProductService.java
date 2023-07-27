@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     Product create(Product product);
@@ -24,4 +25,12 @@ public interface ProductService {
     List<Product> getListProductsByCategory(String categorySlug);
 
     Page<Product> getProductsWithSortAndPagination(Pageable pageable);
+
+    void updateStatus(Integer id, Boolean statusChanged);
+
+    Optional<Product> findById(Integer id);
+
+    void deleteById(Integer id);
+
+    Page<Product> findByKeyword(String keyword, Pageable pageable);
 }

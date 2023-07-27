@@ -1,5 +1,6 @@
 package com.poly.Yasuki.service.impl;
 
+import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.entity.Product;
 import com.poly.Yasuki.repo.ProductRepo;
 import com.poly.Yasuki.service.ProductService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +57,32 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getProductsWithSortAndPagination(Pageable pageable) {
         return productRepo.findAll(pageable);
+    }
+
+    @Override
+    public void updateStatus(Integer id, Boolean statusChanged) {
+        Optional<Product> product = productRepo.findById(id);
+        product.get().setIsActive(statusChanged);
+        productRepo.save(product.get());
+    }
+
+    @Override
+    public Optional<Product> findById(Integer id) {
+        Optional<Product> product = productRepo.findById(id);
+        if(product.isEmpty()){
+            throw new RuntimeException("Product doesn't exist!");
+        }
+        return product;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        productRepo.deleteById(id);
+    }
+
+    @Override
+    public Page<Product> findByKeyword(String keyword, Pageable pageable) {
+        return productRepo.findByKeyword(keyword, pageable);
     }
 
 

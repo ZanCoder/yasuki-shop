@@ -65,6 +65,11 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
         groupCategoryRepo.save(groupCategory.get());
     }
 
+    @Override
+    public List<GroupCategory> getAll() {
+        return groupCategoryRepo.findAll();
+    }
+
     private MyCategory findGroupCategoryBySlug(String slug){
         return groupCategoryRepo.findGroupCategoryBySlug(slug);
     }

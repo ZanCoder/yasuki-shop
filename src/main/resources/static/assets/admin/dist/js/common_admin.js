@@ -23,10 +23,6 @@ var urlChangeStatus = window.location.pathname + '/change-status';
 //manager user
 $('.btn-modal-app').on('click', function(){
     updateTitle('Thêm mới');
-//    let mode = /*[[${mode}]]*/[];
-//    if(mode === 'edit'){
-//        alert(mode)
-//    }
 });
 function deleteWithAjax(id){
     let data = {id : id}

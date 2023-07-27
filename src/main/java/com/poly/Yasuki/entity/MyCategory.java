@@ -1,5 +1,6 @@
 package com.poly.Yasuki.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,9 @@ public class MyCategory implements Serializable {
 
     @Column(unique = true)
     private String slug;
+    private Boolean isActive = false;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private GroupCategory groupCategory;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'Quản lí danh mục')">
+      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'Quản lí tin tức')">
 <body>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Quản lí danh mục</h1>
+                        <h1 class="m-0">Quản lí tin tức</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
-                            <li class="breadcrumb-item active">Quản lí danh mục</li>
+                            <li class="breadcrumb-item active">Quản lí tin tức</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -34,30 +34,25 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="w-50">
                                             <button  type="button" class="btn btn-block btn-success btn-modal-app" data-bs-toggle="modal" data-bs-target="#myModal">
-                                                Thêm danh mục
+                                                Thêm tin tức
                                             </button>
-                                            <!-- Modal add account-->
+                                            <!-- Modal add news-->
                                             <div class="modal fade"  id="myModal">
-                                                <div class="modal-dialog">
-                                                    <form th:action="@{/admin/manager-category/add}" method="post" th:object="${newCategory}" class="modal-content">
-                                                        <input type="hidden" th:field="*{id}" th:value="${newCategory.id}" data-field="id">
+                                                <div class="modal-dialog modal-lg">
+                                                    <form th:action="@{/admin/manager-news/add}" method="post" th:object="${addNews}" class="modal-content">
+                                                        <input type="hidden" th:field="*{id}" th:value="${addNews.id}" data-field="id">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 mode" >Thêm danh mục SP</h1>
+                                                            <h1 class="modal-title fs-5 mode" >Thêm tin tức</h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="card-body">
                                                                 <div class="form-group">
-                                                                    <label for="name_category">Tên danh mục : </label>
-                                                                    <input name="name" th:field="*{name}" th:value="${newCategory.name}" data-field="name"
-                                                                           type="text" class="form-control" id="name_category" placeholder="Enter category ...">
+                                                                    <label for="title">Tiêu đề : </label>
+                                                                    <input th:field="*{title}" th:value="${addNews.title}" data-field="title" type="text" class="form-control" id="title" placeholder="Enter title ...">
                                                                 </div>
-                                                                <div class="form-group" data-select2-id="45">
-                                                                    <label for="name_gr_category">Tên nhóm danh mục : </label>
-                                                                    <select th:field="*{groupCategory}" id="name_gr_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                                        <option th:each="item : ${listGroupCategory}" th:value="${item.id}" th:text="${item.name}"></option>
-                                                                    </select>
-                                                                </div>
+                                                                <label for="news_content" >Nội dung : </label>
+                                                                <textarea id="news_content"  th:field="*{content}" th:value="${addNews.content}" data-field="content" rows="3"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -67,11 +62,11 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                            <!-- modal add account-->
+                                            <!-- modal add news-->
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <form th:action="@{/admin/manager-category}" method="get" class="input-group" >
+                                        <form th:action="@{/admin/manager-news}" method="get" class="input-group" >
                                             <input name="keyword" th:value="${keyword}" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
                                             <div class="input-group-append">
                                                 <button type="submit" id="btnSearch" class="btn btn-sidebar">
@@ -91,20 +86,20 @@
                                                 <thead>
                                                 <tr>
                                                     <th class="sorting">#</th>
-                                                    <th class="sorting">Nhóm Danh Mục</th>
-                                                    <th class="sorting">Tên Danh Mục</th>
+                                                    <th class="sorting">Tiêu đề</th>
+                                                    <th class="sorting">Ngày tạo </th>
                                                     <th class="sorting">Active </th>
                                                     <th class="sorting">Action </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr th:each="item, iStat  : ${listCategories}">
+                                                    <tr th:each="item, iStat  : ${listNews}">
                                                         <td th:text="${item.id}"></td>
-                                                        <td th:text="${item.groupCategory.name}"></td>
-                                                        <td th:text="${item.name}"></td>
+                                                        <td th:text="${item.title}"></td>
+                                                        <td th:text="${item.createAt}"></td>
                                                         <td >
-                                                            <label th:for="${item.name}" class="switch switch-status">
-                                                                <input th:id="${item.name}" type="checkbox"
+                                                            <label th:for="${item.title}" class="switch switch-status">
+                                                                <input th:id="${item.title}" type="checkbox"
                                                                        th:checked="${item.isActive}"
                                                                        th:onclick="$(this).changeStatus([[${item.id}]])">
                                                                 <span class="slider round"></span>

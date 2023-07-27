@@ -22,4 +22,6 @@ public interface GroupCategoryService {
     Optional<GroupCategory> findById(Integer id);
 
     void updateStatus(Integer id, Boolean currentStatus);
+
+    List<GroupCategory> getAll();
 }
