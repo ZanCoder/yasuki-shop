@@ -4,7 +4,7 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Chi tiết sản phẩm</title>
     <!-- index -->
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/product.css}">
 </head>
 
 <body>
@@ -376,7 +376,7 @@
     </script>
 
     <!-- Script common -->
-    <script src="./assets/js/commonscript.js ">
+    <script th:src="@{/assets/user/js/commonscript.js} ">
     </script>
     <script>
         function calcRate(r) {

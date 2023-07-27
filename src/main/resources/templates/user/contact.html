@@ -5,7 +5,7 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Thanh Toán</title>
     <!-- index -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/contact.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/contact.css}">
 </head>
 
 <body>
@@ -79,6 +79,14 @@
     <!-- Sccipt for owl caroucel -->
 
     <!-- Script common -->
-    <script src="./assets/js/commonscript.js"></script>
+    <script th:src="@{/assets/user/js/commonscript.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
+        });
+    </script>
 </body>
 </html>

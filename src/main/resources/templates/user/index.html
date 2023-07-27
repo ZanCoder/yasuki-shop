@@ -4,7 +4,7 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Yasuki.com | Mỹ phẩm</title>
     <!-- index -->
-    <link th:href="@{/assets/css/home.css}" rel="stylesheet" />
+    <link th:href="@{/assets/user/css/home.css}" rel="stylesheet" />
 </head>
 <body>
     <div th:replace="fragments :: header"></div>
@@ -87,7 +87,7 @@
                                             <div class="price__old">
                                                 [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
                                             </div>
-                                            <div class="price__new">[[${product.priceDiscount}]] <span class="price__unit">đ</span></div>
+                                            <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
                                         </div>
                                         <div class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.name}]], [[${product.price}]])"  class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])"  class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                         <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                        <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart" >Thêm vào giỏ</a>
+                        <a th:onclick="addToCart([[${product.name}]], [[${product.price}]])"  class="addToCart" >Thêm vào giỏ</a>
                     </div>
                 </div>
             </div>
@@ -363,9 +363,16 @@
         })
     </script>
     <!-- Script common -->
-    <script th:src="@{/assets/js/homeScript.js}"></script>
-    <script th:src="@{/assets/js/commonscript.js}"></script>
+    <script th:src="@{/assets/user/js/homeScript.js}"></script>
+    <script th:src="@{/assets/user/js/commonscript.js}"></script>
     <!--    add to cart-->
-
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
+        });
+    </script>
 </body>
 </html>

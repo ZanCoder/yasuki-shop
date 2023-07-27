@@ -20,17 +20,6 @@ import java.util.List;
 public class OrderApi {
     private final OrderService orderService;
 
-    @PostMapping("/order")
-    public String doOrder(@RequestBody OrderDto orderDtoList
-    ){
-        orderService.create(orderDtoList, getCurrentUser());
-        return "OK";
-    }
 
-    public UserApp getCurrentUser(){
-        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        return userDetails.getUserApp();
-    }
 
 }

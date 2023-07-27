@@ -4,7 +4,7 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Yasuki.com | Mỹ phẩm</title>
     <!-- index -->
-    <link href="./assets/css/home.css" rel="stylesheet" />
+    <link th:href="@{/assets/user/css/home.css}" rel="stylesheet" />
 </head>
 
 <body>
@@ -110,8 +110,8 @@
         })
     </script>
     <!-- Script common -->
-    <script src="./assets/js/homeScript.js"></script>
-    <script src="./assets/js/commonscript.js"></script>
+    <script th:src="@{/assets/user/js/homeScript.js}"></script>
+    <script th:src="@{/assets/user/js/commonscript.js}"></script>
 </body>
 
 </html>

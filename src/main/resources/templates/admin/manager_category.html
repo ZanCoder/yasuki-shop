@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'Quản lí danh mục')">
+<body>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lí danh mục</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
+                            <li class="breadcrumb-item active">Quản lí danh mục</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="w-50">
+                                            <button id="btnAddAccount" type="button" class="btn btn-block btn-success" data-bs-toggle="modal" data-bs-target="#modalCategory">
+                                                Thêm danh mục
+                                            </button>
+                                            <!-- Modal add account-->
+                                            <div class="modal fade"  id="modalCategory">
+                                                <div class="modal-dialog">
+                                                    <form class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" >Thêm danh mục SP</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="card-body">
+                                                                <div class="form-group">
+                                                                    <label for="name_category">Tên danh mục : </label>
+                                                                    <input name="name" type="text" class="form-control" id="name_category" placeholder="Enter category ...">
+                                                                </div>
+                                                                <div class="form-group" data-select2-id="45">
+                                                                    <label for="name_gr_category">Tên nhóm danh mục : </label>
+                                                                    <select id="name_gr_category" name="groupCategory" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                                                        <option selected="selected" data-select2-id="3">Alabama</option>
+                                                                        <option data-select2-id="47">Alaska</option>
+                                                                        <option data-select2-id="48">California</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                            <button type="button" class="btn btn-success">Thêm mới</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- modal add account-->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="input-group" >
+                                            <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-sidebar">
+                                                    <i class="fas fa-search fa-fw"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                                                <thead>
+                                                <tr>
+                                                    <th class="sorting">#</th>
+                                                    <th class="sorting">Tên Danh Mục</th>
+                                                    <th class="sorting">Nhóm Danh Mục</th>
+                                                    <th class="sorting">Action </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="odd">
+                                                    <td class="dtr-control" tabindex="0">1</td>
+                                                    <td class="">All others</td>
+                                                    <td class="sorting_1">All others</td>
+                                                    <td>
+                                                        <button class="btn btn-primary me-2 btnEditAccount">
+                                                            <i class="nav-icon fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btnDelAccount">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even">
+                                                    <td class="dtr-control" tabindex="0">1</td>
+                                                    <td class="">All others</td>
+                                                    <td class="sorting_1">All others</td>
+                                                    <td>
+                                                        <button class="btn btn-primary me-2 btnEditAccount">
+                                                            <i class="nav-icon fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btnDelAccount">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                                Showing [[currentPage + 1]] to 10 of 57 entries
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                                <ul class="pagination">
+                                                    <li class="paginate_button page-item previous disabled" id="example2_previous">
+                                                        <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                                    </li>
+                                                    <li class="paginate_button page-item active">
+                                                        <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                                    </li>
+
+                                                    <li class="paginate_button page-item next" id="example2_next">
+                                                        <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</body>
+</html>

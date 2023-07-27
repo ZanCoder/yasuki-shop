@@ -4,7 +4,7 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Giỏ hàng</title>
     <!-- index -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/cart.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/cart.css}">
 </head>
 
 <body>
@@ -47,12 +47,12 @@
                             </div>
                             <div class="col l-2 m-2 s-0">
                                 <div class="buttons_added">
-                                    <input class="minus is-form" type="button" value="-" th:onclick="$(this).minusProduct([[${cartDto.nameProduct}]],[[${'cartIndex'+itrStat.index}]])">
+                                    <input class="minus is-form" type="button" value="-" th:onclick="minusProduct([[${cartDto.nameProduct}]],[[${'cartIndex'+itrStat.index}]])">
                                     <input
                                            th:value="${cartDto.quantity}"
                                            th:id="${'cartIndex'+ itrStat.index}"
                                            aria-label="quantity" class="input-qty" max="10" min="1" name="quantity" type="number" >
-                                    <input class="plus is-form" type="button" value="+" th:onclick="$(this).plusProduct([[${cartDto.nameProduct}]], [[${'cartIndex'+itrStat.index}]])">
+                                    <input class="plus is-form" type="button" value="+" th:onclick="plusProduct([[${cartDto.nameProduct}]], [[${'cartIndex'+itrStat.index}]])">
                                 </div>
                             </div>
                             <div class="col l-2 m-2 s-4">
@@ -60,7 +60,7 @@
                                     [[${#numbers.formatDecimal((cartDto.priceProduct * cartDto.quantity), 3,'POINT', 0,'COMMA')}]] đ
                                 </div>
                             </div>
-                            <div th:onclick="$(this).deleteCart([[${cartDto.nameProduct}]])" class="col l-1 m-1 s-0">
+                            <div th:onclick="deleteCart([[${cartDto.nameProduct}]])" class="col l-1 m-1 s-0">
                                 <span class="main__cart-icon">
                                 <i class="far fa-times-circle "></i>
                             </span>
@@ -111,18 +111,17 @@
     <!-- Sccipt for owl caroucel -->
 
     <!-- Script common -->
-    <script src="./assets/js/commonscript.js"></script>
+    <script th:src="@{/assets/user/js/commonscript.js}"></script>
+    <!--Script show html cart item-->
     <script>
-    "use strict";
+        "use strict";
         $(document).ready(function(){
             $(window).on('load', function() {
-                updateTotalPrice();
+                updateTotalPriceCart();
             });
-
             $("input[type='checkbox'][name='chkCartItem']").on('click', function(){
-                updateTotalPrice();
+                updateTotalPriceCart();
              });
-
             $('#order').on('click', function(){
                     let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
                     let listCartSelected = getListCartSelected(selectedItems);
@@ -134,7 +133,13 @@
                         alert('ban chua chon sp nao')
                     }
             });
-
+            function updateTotalPriceCart(){
+                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
+                    let totalPrice = getListCartSelected(selectedItems).reduce((total, item) => {
+                       return total + item.totalPrice;
+                    },0);
+                     $('.totalCart').text(formatDecimal(totalPrice));
+            }
             function getListCartSelected(selectedItems){
                     let listCartSelected = [];
                     selectedItems.each(function(index, element){
@@ -145,18 +150,16 @@
                     });
                     return listCartSelected;
             }
-
-            function updateTotalPrice(){
-                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
-                    let totalPrice = getListCartSelected(selectedItems).reduce((total, item) => {
-                       return total + item.totalPrice;
-                    },0);
-                     $('.totalCart').text(formatDecimal(totalPrice));
-            }
+     });
+    </script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
         });
     </script>
-    <!--Script post order cart item-->
-
 </body>
 
 </html>

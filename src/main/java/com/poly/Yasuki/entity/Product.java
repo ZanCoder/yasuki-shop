@@ -47,6 +47,8 @@ public class Product implements Serializable {
     @Column(length = 4096)
     private String mainImage;
 
+    private Boolean isActive = true;
+
     @JsonIgnoreProperties
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", referencedColumnName = "id")

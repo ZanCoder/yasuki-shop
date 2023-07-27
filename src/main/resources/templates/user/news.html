@@ -4,7 +4,7 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Tin Tức</title>
     <!-- index -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/new.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/new.css}">
 </head>
 <body>
     <div th:replace="fragments :: header"></div>
@@ -122,6 +122,14 @@
     <div th:replace="fragments :: footer"></div>
     <div th:replace="fragments :: modal_form"></div>
     <!-- Script common -->
-    <script src="./assets/js/commonscript.js"></script>
+    <script th:src="@{/assets/user/js/commonscript.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
+        });
+    </script>
 </body>
 </html>

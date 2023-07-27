@@ -61,9 +61,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         if (hasUserRole) {
-            redirectStrategy.sendRedirect(request, response, "/cart");
-        } else if (hasAdminRole) { //admin/index
-            redirectStrategy.sendRedirect(request, response, "/cart");
+            redirectStrategy.sendRedirect(request, response, "/admin/manager-user");
+        } else if (hasAdminRole) {
+            redirectStrategy.sendRedirect(request, response, "/");
         } else {
             throw new IllegalStateException();
         }

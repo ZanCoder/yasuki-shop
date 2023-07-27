@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Modal add account-->
+<div th:fragment="modalAccount(data, mode)" class="modal fade"  id="modalAccount">
+    <div class="modal-dialog">
+        <form th:action="@{/admin/manager-user/add}" th:object="${data}" method="post" class="modal-content">
+            <input type="hidden" th:field="*{id}" th:value="${userEdit.id}">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" >Thêm tài khoản</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="name_account">Họ và Tên : </label>
+                        <input name="fullName" type="text" class="form-control" id="name_account" placeholder="Enter fullname ..."
+                               th:field="*{fullName}" th:value="${userEdit.fullName}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email_account">Email :</label>
+                        <input name="email" type="email" class="form-control" id="email_account" placeholder="Enter email"
+                               th:field="*{email}" th:value="${userEdit.email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="pass_account">Mật khẩu :</label>
+                        <input name="password" type="text" class="form-control" id="pass_account" placeholder="Password"
+                               th:field="*{password}" th:value="${userEdit.password}">
+                    </div>
+                    <div class="row px-4">
+                        <div class="col">
+                            <input name="role_name" type="radio" class="form-check-input" id="role_user" checked
+                                   value="ROLE_USER">
+                            <label class="form-check-label" for="role_user">ROLE USER</label>
+                        </div>
+                        <div class="col">
+                            <input name="role_name" type="radio" class="form-check-input" id="role_admin"
+                                   value="ROLE_ADMIN">
+                            <label class="form-check-label" for="role_admin" >ROLE ADMIN</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-success"
+                th:text="${mode == 'add' ? 'Thêm mới' : 'Cập nhật'}"></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- modal add account-->
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="view(content, titlePage)" >
+  <head >
+    <meta charset="UTF-8">
+    <title>[[${titlePage}]]</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" type="text/css">
+    <!-- Icon fontanwesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <!-- Tempusdominus Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/assets/admin/dist/css/adminlte.min.css}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" th:href="@{/assets/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
+
+    <!-- bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <!-- Format number   -->
+    <script src="https://cdn.jsdelivr.net/npm/numbro@2.3.6/dist/numbro.min.js"></script>
+    <!-- toastr -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  </head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" th:src="@{/assets/admin/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+  <!-- preloader -->
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a th:href="@{/admin}" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+          <i class="fas fa-search"></i>
+        </a>
+        <div class="navbar-search-block">
+          <form class="form-inline">
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
+
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-comments"></i>
+          <span class="badge badge-danger navbar-badge">3</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+        </div>
+      </li>
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">15</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a th:href="@{/admin}" class="brand-link">
+      <img th:src="@{/assets/admin/dist/img/AdminLTELogo.png}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">YASUKI</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img th:src="@{/assets/admin/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Luc Tuan Kiet</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a th:href="@{/admin}" class="nav-link">
+              <i class="nav-icon far fa-user"></i>
+              <p>
+                Quản lí tài khoản
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/admin/products}" class="nav-link">
+              <i class="nav-icon fas fa-spray-can"></i>
+              <p>
+                Quản lí sản phẩm
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/admin/categories}" class="nav-link">
+              <i class="nav-icon far fa-list-alt"></i>
+              <p>
+                Quản lí danh mục SP
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/admin/group-category}" class="nav-link">
+              <i class="nav-icon fas fa-sitemap"></i>
+              <p>
+                Quản lí nhóm danh mục
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/admin/orders}" class="nav-link">
+              <i class="nav-icon fas fa-shipping-fast"></i>
+              <p>
+                Quản lí đơn hàng
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/admin/news}" class="nav-link">
+              <i class="nav-icon far fa-newspaper"></i>
+              <p>
+                Quản lí tin tức
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- main Sidebar Container -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <th:block th:replace="${content}"></th:block>
+  <!-- /.content-wrapper -->
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2023 <a href="#">Yasuki.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
+  </footer>
+  <!-- footer -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  </div>
+  <!-- ./wrapper -->
+
+
+  <!-- Bootstrap 5 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous" ></script>
+  <!-- Summernote -->
+<!--  <script th:src="@{/assets/admin/plugins/summernote/summernote-bs5.min.js}"></script>-->
+
+  <!-- overlayScrollbars -->
+  <script th:src="@{/assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/assets/admin/dist/js/adminlte.js}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script th:src="@{/assets/admin/dist/js/demo.js}"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script th:src="@{/assets/admin/dist/js/pages/dashboard.js}"></script>
+  <!-- common -->
+  <script th:src="@{/assets/admin/dist/js/common_admin.js}"></script>
+
+</body>
+</html>

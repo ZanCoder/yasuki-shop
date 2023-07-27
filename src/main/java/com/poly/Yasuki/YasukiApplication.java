@@ -13,8 +13,9 @@ public class YasukiApplication {
 		SpringApplication.run(YasukiApplication.class, args);
 	}
 
+
 	@Bean
-	PasswordEncoder passwordEncoder(){
+	public BCryptPasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 }

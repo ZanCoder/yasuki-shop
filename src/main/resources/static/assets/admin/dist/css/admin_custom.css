@@ -1,0 +1,10 @@
+
+.product_choose input{
+    padding: 0 10px;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+.product_choose .btn-del{
+    padding: 4px 10px;
+    cursor: pointer;
+}

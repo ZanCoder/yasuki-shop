@@ -10,24 +10,25 @@
           content="Yasuki.com, mua mỹ phẩm chính hãng, son môi, chăm sóc da, chăm sóc tóc,trang điểm môi, chăm sóc cơ thể, kem dưỡng da, sữa rửa mặt, xịt khoáng, giá tốt nhất thị trường." />
     <!-- Font roboto -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-            href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <!-- Icon fontanwesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- Reset css & grid sytem -->
-    <link rel="stylesheet" th:href="@{/assets/css/library.css}">
-    <link th:href="@{/assets/owlCarousel/assets/owl.carousel.min.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/assets/user/css/library.css}">
+    <link th:href="@{/assets/user/owlCarousel/assets/owl.carousel.min.css}" rel="stylesheet" />
     <!-- Layout -->
-    <link rel="stylesheet" th:href="@{/assets/css/common.css}">
+    <link rel="stylesheet" th:href="@{/assets/user/css/common.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Owl caroucel Js-->
-    <script th:src="@{/assets/owlCarousel/owl.carousel.min.js}"></script>
+    <script th:src="@{/assets/user/owlCarousel/owl.carousel.min.js}"></script>
     <!-- Format number   -->
     <script src="https://cdn.jsdelivr.net/npm/numbro@2.3.6/dist/numbro.min.js"></script>
-
+    <!-- toastr -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </head>
 <body>
 <!--start header fragment-->
@@ -62,20 +63,8 @@
                 </div>
                 <div class="header__cart-wrap">
                     <ul class="order__list">
-                        <li th:each="cartItem : ${session.listCart}" class="item-order">
-                            <div class="order-wrap">
-                                <a href="product.html" class="order-img">
-                                    <img src="./assets/img/product/product1.jpg" alt="">
-                                </a>
-                                <div class="order-main">
-                                    <a href="product.html" class="order-main-name">[[${cartItem.nameProduct}]]</a>
-                                    <div class="order-main-price">[[${cartItem.quantity}]] x [[${#numbers.formatDecimal(cartItem.priceProduct, 3,'POINT', 0,'COMMA')}]] ₫</div>
-                                </div>
-                                <a th:onclick="$(this).deleteCart([[${cartItem.nameProduct}]])" class="order-close"><i class="far fa-times-circle"></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="total-money">Tổng cộng: 120.000đ</div>
+                     </ul>
+<!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
                     <a th:href="@{/cart}" class="btn btn--default cart-btn">Xem giỏ hàng</a>
                     <a href="pay.html" class="btn btn--default cart-btn orange">Thanh toán</a>
                     <!-- norcart -->

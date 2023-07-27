@@ -3,16 +3,20 @@ package com.poly.Yasuki.security;
 import com.poly.Yasuki.handler.CustomAuthenticationSuccessHandler;
 import com.poly.Yasuki.service.MyUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
     private final MyUserService userService;
     private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
@@ -34,4 +38,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout()
                 .logoutUrl("/logout");
     }
+
 }

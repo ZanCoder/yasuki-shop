@@ -7,6 +7,7 @@ import com.poly.Yasuki.service.CartItemService;
 import com.poly.Yasuki.service.MyUserService;
 import com.poly.Yasuki.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,20 +31,18 @@ public class CartController {
         return "user/cart";
     }
 
-    @PostMapping("/cart/add")
-    public String addToCart(
+    @PostMapping( value = "/cart/add", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<CartDto> addToCart(
             @RequestParam("nameProduct") String nameProduct,
             @RequestParam("priceProduct") BigDecimal priceProduct, HttpSession session, Model model){
         CartDto cartDto = new CartDto(1,nameProduct, priceProduct);
         cartItemService.addToCart(cartDto, getCurrentUser());
-
-        resetListCart(session);
-        return "user/cart";
+        return resetListCart(session);
     }
     @DeleteMapping("/cart/delete")
     public String deleteCart(@RequestParam("nameProduct") String nameProduct, HttpSession session){
         cartItemService.deleteCartItem(nameProduct, getCurrentUser());
-
         resetListCart(session);
         return "user/cart";
     }
@@ -63,8 +62,9 @@ public class CartController {
         return userDetails.getUserApp();
     }
 
-    private void resetListCart(HttpSession session){
+    private List<CartDto> resetListCart(HttpSession session){
         List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
         session.setAttribute("listCart", cartDtoList);
+        return cartDtoList;
     }
 }

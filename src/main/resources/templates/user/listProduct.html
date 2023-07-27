@@ -5,8 +5,8 @@
     <head th:replace="fragments :: main_header('tag')"></head>
     <title>Danh sách sản phẩm</title>
     <!-- index -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/product.css">
-    <link rel="stylesheet" type="text/css" href="./assets/css/productSale.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/productSale.css}">
 </head>
 
 <body>
@@ -49,8 +49,8 @@
                                 <div class="product__info">
                                     <h3 class="product__name">[[${product.name}]]</h3>
                                     <div class="product__price">
-                                        <div class="price__old">[[${product.price}]]<span class="price__unit">đ</span></div>
-                                        <div class="price__new">[[${product.priceDiscount}]]<span class="price__unit">đ</span></div>
+                                        <div class="price__old">[[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                        <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
                                     </div>
                                 </div>
                                 <div class="product__sale">
@@ -58,7 +58,7 @@
                                     <span class="product__sale-text">Giảm</span>
                                 </div>
                                 <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                <a th:href="@{/cart}" class="addToCart">Thêm vào giỏ</a>
+                                <a  th:onclick="addToCart([[${product.name}]], [[${product.price}]])"   class="addToCart">Thêm vào giỏ</a>
                             </div>
                         </div>
                     </div>
@@ -72,13 +72,22 @@
                                 <i class="fas fa-chevron-left"></i>
                             </a>
                         </li>
-                        <th:block th:each="item : ${#numbers.sequence(1, totalPages)}">
-                            <li  class="pagination__item"
+                        <li th:if="${currentPage == 1}" class="pagination__item active">
+                            <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${currentPage}]]</a>
+                        </li>
+                        <th:block th:each="item : ${#numbers.sequence(currentPage - 1, currentPage)}">
+                            <li th:if="${currentPage < totalPages - 2 && currentPage > 1}" class="pagination__item"
                                  th:classappend="${item == currentPage ? 'active' : ''}">
                                 <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${item}]]</a>
                             </li>
-                            <li th:if="${item == totalPages/2}" class="pagination__item">
-                                <a href="#" class="pagination__link">...</a>
+                        </th:block>
+                        <li th:if="${totalPages &gt; 5}" class="pagination__item">
+                            <a href="#" class="pagination__link">...</a>
+                        </li>
+                        <th:block th:each="item : ${#numbers.sequence(totalPages-2, totalPages)}">
+                            <li  class="pagination__item"
+                                th:classappend="${item == currentPage ? 'active' : ''}">
+                                <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${item}]]</a>
                             </li>
                         </th:block>
                         <li class="pagination__item">
@@ -96,7 +105,7 @@
     <div th:replace="fragments :: footer"></div>
     <div th:replace="fragments :: modal_form"></div>
     <!-- Script common -->
-    <script src="./assets/js/commonscript.js"></script>
+    <script th:src="@{/assets/user/js/commonscript.js}"></script>
     <!--  config link pagination  -->
     <script>
         $(document).ready(function(){
@@ -128,6 +137,15 @@
                        console.log('error in server!')
                     });
             }
+        });
+    </script>
+    <!--Script show html cart item-->
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
         });
     </script>
 </body>
