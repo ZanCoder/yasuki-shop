@@ -2,6 +2,8 @@ package com.poly.Yasuki.controller.admin;
 
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.entity.Product;
+import com.poly.Yasuki.service.GroupCategoryService;
+import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ManagerProductController {
     private final ProductService productService;
+    private final GroupCategoryService groupCategoryService;
+    private final MyCategoryService categoryService;
     private static final int PRODUCT_PER_PAGE = 5;
 
     @GetMapping("/admin/manager-product")
@@ -40,15 +44,17 @@ public class ManagerProductController {
         }
         model.addAttribute("listProducts", listProduct.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", listProduct.getTotalPages());
+        model.addAttribute("totalPages", 1);
         model.addAttribute("totalElements", listProduct.getTotalElements());
-        model.addAttribute("newProduct", new Product());
         return "admin/manager_product";
     }
 
     @GetMapping("/admin/manager-product/add")
     public String  viewAddProductPage(Model model){
-        return "forward:/admin/add_product";
+        model.addAttribute("newProduct", new Product());
+        model.addAttribute("groupCategories", groupCategoryService.getAll());
+        model.addAttribute("indexGCSelected", 0);
+        return "admin/add_product";
     }
 
     @PostMapping("/admin/manager-product/add")
@@ -59,6 +65,7 @@ public class ManagerProductController {
             model.addAttribute("success", MessageUtils.ADD_SUCCESS);
         }catch(Exception ex){
             model.addAttribute("error", MessageUtils.ADD_FAILED);
+            return "/admin/add_product";
         }
         return "redirect:/admin/manager-product";
     }
@@ -75,11 +82,15 @@ public class ManagerProductController {
     }
 
     @GetMapping("/admin/manager-product/edit")
-    @ResponseBody
-    public Product editProduct(@RequestParam(name = "id") Integer id,
+    public String editProduct(@RequestParam(name = "id") Integer id,
                                      Model model){
+        Product product = productService.findById(id).get();
         model.addAttribute("mode", "edit");
-        return productService.findById(id).get();
+        model.addAttribute("groupCategories", groupCategoryService.getAll());
+        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
+        model.addAttribute("newProduct", product);
+        model.addAttribute("indexGCSelected",productService.getCurrentIndexForGC(product));
+        return "/admin/add_product";
     }
 
     @GetMapping("/admin/manager-product/change-status")
@@ -89,5 +100,12 @@ public class ManagerProductController {
             @RequestParam(name = "statusChanged") Boolean statusChanged){
         productService.updateStatus(id, statusChanged);
         return ResponseEntity.status(200).body("UPDATED");
+    }
+
+    @GetMapping("/admin/manager-product/change-group-category")
+    @ResponseBody
+    public List<MyCategory> changeStatusProduct(
+            @RequestParam(name = "id") Integer id){
+        return categoryService.findByGroupCategoryId(id);
     }
 }

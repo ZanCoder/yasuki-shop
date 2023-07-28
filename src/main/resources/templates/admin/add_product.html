@@ -27,7 +27,8 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="card card-primary card-outline">
-                <form class="card-body">
+                <form th:action="@{/admin/manager-product/add}" method="post" th:object="${newProduct}" class="card-body">
+                    <input type="hidden" th:field="*{id}" th:value="${newProduct.id}">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Chi tiết</button>
@@ -45,31 +46,33 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="name_product">Tên sản phẩm </label>
-                                        <input type="text" class="form-control" id="name_product" placeholder="Enter name product ...">
+                                        <input th:field="*{name}" th:value="${newProduct.name}" type="text" class="form-control" id="name_product" placeholder="Enter name product ...">
                                     </div>
                                     <div class="col">
                                         <label for="name_brand">Hãng</label>
-                                        <input type="text" class="form-control" id="name_brand" placeholder="Name brand (Cetapil) ...">
+                                        <input th:field="*{brand}" th:value="${newProduct.brand}" type="text" class="form-control" id="name_brand" placeholder="Name brand (Cetapil) ...">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="form-group" data-select2-id="45">
                                             <label for="name_gr_category">Tên nhóm danh mục : </label>
-                                            <select id="name_gr_category" name="groupCategory" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                <option selected="selected" data-select2-id="3">Alabama</option>
-                                                <option data-select2-id="47">Alaska</option>
-                                                <option data-select2-id="48">California</option>
+                                            <select id="name_gr_category" name="groupCategory" class="form-control select2 select2-hidden-accessible" style="width: 100%;">
+                                                <option th:each="item, iStar : ${groupCategories}"
+                                                        th:value="${item.id}"
+                                                        th:text="${item.name}"
+                                                        th:selected="${iStar.index == indexGCSelected}"
+                                                ></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <div class="form-group" data-select2-id="45">
+                                        <div class="form-group" >
                                             <label for="name_category">Tên danh mục : </label>
-                                            <select id="name_category"  name="groupCategory" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                <option selected="selected" data-select2-id="3">Alabama</option>
-                                                <option data-select2-id="47">Alaska</option>
-                                                <option data-select2-id="48">California</option>
+                                            <select  th:field="*{category}"  id="name_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" >
+                                                <option th:each="item, iStar : ${groupCategories[indexGCSelected].categories}"
+                                                        th:value="${item.id}"
+                                                        th:text="${item.name}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -77,21 +80,21 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="q_left">Số lượng trong kho</label>
-                                        <input type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
+                                        <input th:field="*{quantityLeft}" th:value="${newProduct.quantityLeft}" type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
                                     </div>
                                     <div class="col">
                                         <label for="q_sold">Số lượng đã bán</label>
-                                        <input type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
+                                        <input th:field="*{quantitySold}" th:value="${newProduct.quantitySold}" type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="price_prod">Giá sản phẩm</label>
-                                        <input type="number" class="form-control" id="price_prod" placeholder="Price product ...">
+                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number" class="form-control" id="price_prod" placeholder="Price product ...">
                                     </div>
                                     <div class="col">
                                         <label for="percent_discount">Giảm giá (%)</label>
-                                        <input type="number" class="form-control" id="percent_discount" placeholder="Percent discount ...">
+                                        <input th:field="*{percentDiscount}" th:value="${newProduct.percentDiscount}" type="number" class="form-control" id="percent_discount" placeholder="Percent discount ...">
                                     </div>
                                 </div>
 
@@ -107,7 +110,9 @@
                                             </h3>
                                         </div>
                                         <div class="card-body">
-                                            <textarea id="shortDescription">Short description ...</textarea>
+                                            <textarea th:field="*{shortDescription}"
+                                                      th:value="${newProduct.shortDescription}"
+                                                      id="shortDescription">Short description ...</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +126,9 @@
                                             </h3>
                                         </div>
                                         <div class="card-body">
-                                            <textarea id="fullDescription">Full description ...</textarea>
+                                            <textarea  th:field="*{fullDescription}"
+                                                       th:value="${newProduct.fullDescription}"
+                                                       id="fullDescription">Full description ...</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +141,7 @@
                                         <label for="exampleInputFile">Ảnh chính </label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile1" required>
+                                                <input type="file" class="custom-file-input" id="exampleInputFile1" >
                                                 <label class="custom-file-label" for="exampleInputFile1">Choose file</label>
                                             </div>
                                             <div class="input-group-append">
@@ -148,7 +155,7 @@
                                         <label for="exampleInputFile">Ảnh phụ 1</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile" required>
+                                                <input type="file" class="custom-file-input" id="exampleInputFile" >
                                                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                             </div>
                                             <div class="input-group-append">
@@ -161,7 +168,7 @@
                         </div>
                     </div>
                     <div class="tab-custom-content">
-                        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                        <button type="submit" class="btn btn-success" th:text="${mode != 'edit' ? 'Thêm sản phẩm' : 'Cập nhật'}"></button>
                         <button type="reset" class="btn btn-secondary">Nhập lại</button>
                     </div>
                 </form>
@@ -202,6 +209,7 @@
           });
        });
     </script>
+    <script th:src="@{/assets/admin/dist/js/addProduct.js}"></script>
 </div>
 <!-- /.content-wrapper -->
 </body>

@@ -38,7 +38,7 @@ public class ManagerCategoriesController {
             listCategories = categoryService.getWithSortAndPagination(pageable);
         }
         model.addAttribute("listCategories", listCategories.getContent());
-        model.addAttribute("totalPages", 20);
+        model.addAttribute("totalPages", 2);
         model.addAttribute("totalElements", listCategories.getTotalElements());
         model.addAttribute("currentPage", page);
         model.addAttribute("newCategory", new MyCategory());

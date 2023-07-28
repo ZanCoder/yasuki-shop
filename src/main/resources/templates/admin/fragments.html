@@ -6,7 +6,7 @@
 </head>
 <body>
 <!--Pagination-->
-<div th:fragment="pagination" class="row justify-content-between">
+<div th:fragment="pagination(href)" class="row justify-content-between">
     <div class="col-sm-12 col-md-5">
         <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
             Showing [[${currentPage}]] to [[${totalPages}]] of [[${totalElements}]] entries
@@ -16,28 +16,22 @@
         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
             <ul class="pagination">
                 <li class="paginate_button page-item previous " th:classappend="${currentPage <= 1 ? 'disabled' : ''}">
-                    <a  class="page-link" th:href="@{'/admin/manager-user?page='+${currentPage -1}}">Previous</a>
+                    <a  class="page-link" th:href="@{'/admin/'+${href}+'?page='+${currentPage -1}}">Previous</a>
                 </li>
-                <li th:if="${currentPage == 1}" class="paginate_button page-item active">
-                    <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${currentPage}]]</a>
-                </li>
-                <th:block th:each="item : ${#numbers.sequence(currentPage - 1, currentPage)}">
-                    <li th:if="${currentPage < totalPages - 2 && currentPage > 1}" class="paginate_button page-item"
+                <th:block th:each="item : ${#numbers.sequence(1, totalPages)}">
+<!--                    <li th:if="${item ==  totalPages && currentPage == totalPages  && totalPages &gt; 5}" class="paginate_button page-item">-->
+<!--                        <a href="#" class="page-link">...</a>-->
+<!--                    </li>-->
+                    <li th:if="${(item > totalPages - 2) || (item >= currentPage - 2 && item <= currentPage) }" class="paginate_button page-item"
                         th:classappend="${item == currentPage ? 'active' : ''}">
-                        <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${item}]]</a>
+                        <a th:href="@{'/admin/'+${href}+'?page='+${item}}" class="page-link">[[${item}]]</a>
                     </li>
-                </th:block>
-                <li th:if="${totalPages &gt; 5}" class="paginate_button page-item">
-                    <a href="#" class="page-link">...</a>
-                </li>
-                <th:block th:each="item : ${#numbers.sequence(totalPages-2, totalPages)}">
-                    <li  class="paginate_button page-item"
-                         th:classappend="${item == currentPage ? 'active' : ''}">
-                        <a th:href="@{'/admin/manager-user?page='+${item}}" class="page-link">[[${item}]]</a>
+                    <li th:if="${item == currentPage+1 && currentPage < totalPages-1 && totalPages &gt; 5}" class="paginate_button page-item">
+                        <a href="#" class="page-link">...</a>
                     </li>
                 </th:block>
                 <li class="paginate_button page-item next" th:classappend="${currentPage >= totalPages ? 'disabled' : ''}">
-                    <a  th:href="@{'/admin/manager-user?page='+${currentPage + 1}}"class="page-link">Next</a>
+                    <a  th:href="@{'/admin/'+${href}+'?page='+${currentPage + 1}}"class="page-link">Next</a>
                 </li>
             </ul>
         </div>

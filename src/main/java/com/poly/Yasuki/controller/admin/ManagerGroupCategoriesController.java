@@ -43,7 +43,7 @@ public class ManagerGroupCategoriesController {
             liGroupCategories = groupCategoryService.getWithSortAndPagination(pageable);
         }
         model.addAttribute("listGroupCategories", liGroupCategories.getContent());
-        model.addAttribute("totalPages", 20);
+        model.addAttribute("totalPages", 3);
         model.addAttribute("totalElements", liGroupCategories.getTotalElements());
         model.addAttribute("currentPage", page);
         model.addAttribute("newGroupCategory", new GroupCategory());

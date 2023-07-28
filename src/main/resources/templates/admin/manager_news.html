@@ -52,7 +52,7 @@
                                                                     <input th:field="*{title}" th:value="${addNews.title}" data-field="title" type="text" class="form-control" id="title" placeholder="Enter title ...">
                                                                 </div>
                                                                 <label for="news_content" >Nội dung : </label>
-                                                                <textarea id="news_content"  th:field="*{content}" th:value="${addNews.content}" data-field="content" rows="3"></textarea>
+                                                                <textarea id="news_content"  th:field="*{content}" th:value="${addNews.content}" data-field="content" class="form-control"  rows="3"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -118,7 +118,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <th:block th:replace="admin/fragments :: pagination"></th:block>
+                                    <th:block th:replace="admin/fragments :: pagination('manager-news')"></th:block>
                                 </div>
                             </div>
                             <!-- /.card-body -->

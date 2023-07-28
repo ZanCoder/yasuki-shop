@@ -26,11 +26,11 @@ $('.btn-modal-app').on('click', function(){
 });
 function deleteWithAjax(id){
     let data = {id : id}
-    callAjaxCart(urlDelete, 'DELETE', data);
+    callAjax(urlDelete, 'DELETE', data);
 }
 function editWithAjax(id){
     let data = {id : id}
-    callAjaxCart(urlEdit, 'GET', data);
+    callAjax(urlEdit, 'GET', data);
     $('#myModal').modal('show');
     updateTitle('Cập nhật');
 }
@@ -38,7 +38,7 @@ function updateTitle(mode){
     $('.mode').text(mode);
 }
 
-function callAjaxCart(url, method, data) {
+function callAjax(url, method, data) {
     $.ajax({
       url: url,
       method: method,
@@ -87,7 +87,20 @@ $.fn.changeStatus = function(id){
             id : id,
             statusChanged : $(this).prop("checked")
         }
-    callAjaxCart(urlChangeStatus, 'GET', data);
+    callAjax(urlChangeStatus, 'GET', data);
     myToastr('success',  'Cập nhật thành công!');
 }
-
+function callAjaxPromise(url, method, data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: url,
+        method: method,
+        data: data
+      }).then(function(response) {
+        resolve(response);
+      }).fail(function(error) {
+        console.log("error : " + error);
+        reject(error);
+      });
+    });
+}

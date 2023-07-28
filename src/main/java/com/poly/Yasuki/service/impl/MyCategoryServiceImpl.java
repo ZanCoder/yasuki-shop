@@ -2,9 +2,11 @@ package com.poly.Yasuki.service.impl;
 
 import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.MyCategory;
+import com.poly.Yasuki.repo.GroupCategoryRepo;
 import com.poly.Yasuki.repo.MyCategoryRepo;
 import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.utils.SlugGenerator;
+import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MyCategoryServiceImpl implements MyCategoryService {
     private final MyCategoryRepo categoryRepo;
+    private final GroupCategoryRepo groupCategoryRepo;
     @Override
     public List<MyCategory> getAllCategory() {
         return categoryRepo.findAll();
@@ -63,6 +66,12 @@ public class MyCategoryServiceImpl implements MyCategoryService {
         Optional<MyCategory> category = categoryRepo.findById(id);
         category.get().setIsActive(statusChanged);
         categoryRepo.save(category.get());
+    }
+
+    @Override
+    public List<MyCategory> findByGroupCategoryId(Integer id) {
+        GroupCategory groupCategory = groupCategoryRepo.findById(id).get();
+        return categoryRepo.findByGroupCategory(groupCategory);
     }
 
     private MyCategory findCategoryBySlug(String slug){

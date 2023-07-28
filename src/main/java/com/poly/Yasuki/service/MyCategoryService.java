@@ -22,4 +22,6 @@ public interface MyCategoryService {
     Optional<MyCategory> findById(Integer id);
 
     void updateStatus(Integer id, Boolean statusChanged);
+
+    List<MyCategory> findByGroupCategoryId(Integer id);
 }

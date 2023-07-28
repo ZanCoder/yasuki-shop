@@ -1,8 +1,11 @@
 package com.poly.Yasuki.service.impl;
 
+import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.entity.Product;
+import com.poly.Yasuki.repo.MyCategoryRepo;
 import com.poly.Yasuki.repo.ProductRepo;
+import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private static final int PRODUCT_PER_TAB = 10;
     private final ProductRepo productRepo;
+    private final GroupCategoryService groupCategoryService;
 
     @Override
     public List<Product> getAllProducts() {
@@ -83,6 +87,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findByKeyword(String keyword, Pageable pageable) {
         return productRepo.findByKeyword(keyword, pageable);
+    }
+
+    @Override
+    public Integer getCurrentIndexForGC(Product product) {
+        MyCategory category = product.getCategory();
+        GroupCategory groupCategory = category.getGroupCategory();
+        List<GroupCategory> groupCategoryList = groupCategoryService.getAll();
+        return groupCategoryList.indexOf(groupCategory);
     }
 
 
