@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,7 +88,7 @@ public class ManagerProductController {
         Product product = productService.findById(id).get();
         model.addAttribute("mode", "edit");
         model.addAttribute("groupCategories", groupCategoryService.getAll());
-        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
+//        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
         model.addAttribute("newProduct", product);
         model.addAttribute("indexGCSelected",productService.getCurrentIndexForGC(product));
         return "/admin/add_product";
@@ -104,8 +105,10 @@ public class ManagerProductController {
 
     @GetMapping("/admin/manager-product/change-group-category")
     @ResponseBody
-    public List<MyCategory> changeStatusProduct(
+    public List<MyCategory> changeGroupCategoryProduct(
             @RequestParam(name = "id") Integer id){
         return categoryService.findByGroupCategoryId(id);
     }
+
+
 }

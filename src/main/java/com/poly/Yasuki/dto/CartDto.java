@@ -1,5 +1,7 @@
 package com.poly.Yasuki.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +13,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CartDto {
     private Integer quantity;
+
+    @JsonProperty("nameProduct")
+    @JsonAlias({"nameProduct", "name"})
     private String nameProduct;
+
+    @JsonProperty("priceProduct")
+    @JsonAlias({"nameProduct", "price"})
     private BigDecimal priceProduct;
 //    private String mainImageProduct;
 

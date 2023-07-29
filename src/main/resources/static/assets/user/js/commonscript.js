@@ -94,14 +94,14 @@ async  function plusProduct(nameProduct, cartIndex){
     toastSuccess("Đã cập nhật!");
     window.location.reload();
  }
- async  function minusProduct(nameProduct, cartIndex){
-     var currentVal = parseInt($('#'+ cartIndex).val());
-     if(currentVal <= 1) return;
-     let data =  {nameProduct : nameProduct}
-     await  callAjaxCartPromise(urlDecreaseCart, 'POST', data);
-     toastSuccess("Đã cập nhật!");
-     window.location.reload();
- }
+async  function minusProduct(nameProduct, cartIndex){
+    var currentVal = parseInt($('#'+ cartIndex).val());
+    if(currentVal <= 1) return;
+    let data =  {nameProduct : nameProduct}
+    await  callAjaxCartPromise(urlDecreaseCart, 'POST', data);
+    toastSuccess("Đã cập nhật!");
+    window.location.reload();
+}
 
  function callAjaxCart(url, method, data) {
     $.ajax({

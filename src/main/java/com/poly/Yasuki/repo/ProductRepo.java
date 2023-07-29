@@ -30,4 +30,11 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM products  WHERE CONCAT(name, ' ',brand ) LIKE %:keyword%", nativeQuery = true)
     Page<Product> findByKeyword(String keyword, Pageable pageable);
+    @Query(value = "SELECT * FROM products  WHERE CONCAT(name, ' ',brand ) LIKE %:keyword%", nativeQuery = true)
+    List<Product> findByKeyword(String keyword);
+
+    List<Product> findByCategory(MyCategory category);
+
+    @Query(value = "SELECT p FROM Product p WHERE p.category.groupCategory = :groupCategory" )
+    List<Product> findByGroup(GroupCategory groupCategory);
 }

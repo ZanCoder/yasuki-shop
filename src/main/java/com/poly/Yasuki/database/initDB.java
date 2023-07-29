@@ -5,6 +5,7 @@ import com.poly.Yasuki.entity.*;
 import com.poly.Yasuki.enums.RoleName;
 import com.poly.Yasuki.service.*;
 import com.poly.Yasuki.utils.SlugGenerator;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,22 +22,22 @@ public class initDB implements CommandLineRunner {
     private final RoleService roleService;
     private final MyUserService userService;
     private final CartItemService cartItemService;
+    private final OrderService orderService;
     @Override
     public void run(String... args) throws Exception {
 
         //init group category
         GroupCategory groupCategory1 = new GroupCategory(null, "Mỹ Phẩm", "", false, null);
-        groupCategoryService.create(groupCategory1);
-
         GroupCategory groupCategory2 = new GroupCategory(null, "Chăm Sóc Da Mặt", "", true, null);
-        groupCategoryService.create(groupCategory2);
         GroupCategory groupCategory3 = new GroupCategory(null, "Chăm Sóc Cơ thể", "", true, null);
-        groupCategoryService.create(groupCategory3);
         GroupCategory groupCategory4 = new GroupCategory(null, "Chăm Sóc Cá Nhân", "", true, null);
-        groupCategoryService.create(groupCategory4);
         GroupCategory groupCategory5 = new GroupCategory(null, "Nước Hoa", "", true, null);
-        groupCategoryService.create(groupCategory5);
         GroupCategory groupCategory6 = new GroupCategory(null, "Giảm Béo", "", false, null);
+        groupCategoryService.create(groupCategory1);
+        groupCategoryService.create(groupCategory2);
+        groupCategoryService.create(groupCategory3);
+        groupCategoryService.create(groupCategory4);
+        groupCategoryService.create(groupCategory5);
         groupCategoryService.create(groupCategory6);
 
         //init category
@@ -45,13 +46,10 @@ public class initDB implements CommandLineRunner {
         MyCategory category3 = new MyCategory(  "Tẩy Trang",groupCategory2 );
         MyCategory category4 = new MyCategory("Sửa Rửa Mặt", groupCategory2);
         MyCategory category5 = new MyCategory( "Tẩy Tế Bào Chết", groupCategory2);
-
         MyCategory category6 = new MyCategory(  "Khẩu trang",groupCategory3 );
         MyCategory category7 = new MyCategory("Mặt Nạ Xông Hơi", groupCategory3);
         MyCategory category8 = new MyCategory( "Chống Muỗi", groupCategory3);
-
         MyCategory category9 = new MyCategory( "Bàn Chải Đánh Răng", groupCategory4);
-
 
         categoryService.create(category1);
         categoryService.create(category2);
@@ -71,17 +69,17 @@ public class initDB implements CommandLineRunner {
                 .shortDescription("Short des")
                 .fullDescription("FullDes")
                 .brand("SHU")
-                .quantitySold(90)
+                .quantitySold(90).quantityLeft(10)
                 .build();
-        Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(1998979), 20, 20, 1.0);
-        Product product2 = new Product(category1, "Lanegie", BigDecimal.valueOf(3387983), 3, 32, 7.0);
-        Product product3 = new Product(category1, "Kiehl", BigDecimal.valueOf(899777), 440, 0, 8.0);
-        Product product4 = new Product(category2, "MAC", BigDecimal.valueOf(222676), 44, 11, 10.0);
-        Product product5 = new Product(category3, "Nước Tẩy Trang", BigDecimal.valueOf(1998979), 20, 20, 1.0);
-        Product product6 = new Product(category3, "Bông Tẩy Trang", BigDecimal.valueOf(3387983), 3, 32, 7.0);
-        Product product7 = new Product(category4, "Sữa Rửa Mặt Cetaphil Dịu Lành Cho Da Nhạy Cảm 500ml", BigDecimal.valueOf(899777), 440, 0, 8.0);
-        Product product8 = new Product(category5, "Túi Refill Tẩy Tế Bào Chết Toàn Thân", BigDecimal.valueOf(222676), 44, 11, 10.0);
-        Product product9 = new Product(category9, "Ban Chai danh rangg", BigDecimal.valueOf(222676), 44, 11, 10.0);
+        Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(1998979), 20, 20, 1.0, "C");
+        Product product2 = new Product(category1, "Lanegie", BigDecimal.valueOf(3387983), 3, 32, 7.0, "C");
+        Product product3 = new Product(category1, "Kiehl", BigDecimal.valueOf(899777), 440, 0, 8.0, "C");
+        Product product4 = new Product(category2, "MAC", BigDecimal.valueOf(222676), 44, 11, 10.0, "C");
+        Product product5 = new Product(category3, "Nước Tẩy Trang", BigDecimal.valueOf(1998979), 20, 20, 1.0, "C");
+        Product product6 = new Product(category3, "Bông Tẩy Trang", BigDecimal.valueOf(3387983), 3, 32, 7.0, "C");
+        Product product7 = new Product(category4, "Sữa Rửa Mặt Cetaphil Dịu Lành Cho Da Nhạy Cảm 500ml", BigDecimal.valueOf(899777), 440, 0, 8.0, "C");
+        Product product8 = new Product(category5, "Túi Refill Tẩy Tế Bào Chết Toàn Thân", BigDecimal.valueOf(222676), 44, 11, 10.0, "C");
+        Product product9 = new Product(category9, "Ban Chai danh rangg", BigDecimal.valueOf(222676), 44, 11, 10.0, "C");
 
         productService.create(product0);
         productService.create(product1);
@@ -121,5 +119,22 @@ public class initDB implements CommandLineRunner {
         cartItemService.addToCart(cartDto3, userApp2);
         cartItemService.addToCart(cartDto3, userApp2);
         cartItemService.addToCart(cartDto3, userApp1);
+
+        //init order
+        Order order1 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "rtuankier@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
+        Order order2 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "rtuankier@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
+        Order order3 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "rtuankier@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
+//        List<CartDto> cartDtoList1 = new ArrayList<>();
+//        cartDtoList1.add(cartDto1);
+//        cartDtoList1.add(cartDto2);
+//
+//        List<CartDto> cartDtoList2 = new ArrayList<>();
+//        cartDtoList1.add(cartDto3);
+//        order1.setCartDtoList(cartDtoList1);
+//        order2.setCartDtoList(cartDtoList1);
+//        order2.setCartDtoList(cartDtoList2);
+        orderService.insert(order1);
+        orderService.insert(order2);
+        orderService.insert(order3);
     }
 }

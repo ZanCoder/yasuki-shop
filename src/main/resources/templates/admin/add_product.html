@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     <div class="tab-custom-content">
-                        <button type="submit" class="btn btn-success" th:text="${mode != 'edit' ? 'Thêm sản phẩm' : 'Cập nhật'}"></button>
+                        <button type="submit" class="btn btn-success" th:text="${mode == 'edit' ? 'Cập nhật' : 'Thêm sản phẩm'}"></button>
                         <button type="reset" class="btn btn-secondary">Nhập lại</button>
                     </div>
                 </form>

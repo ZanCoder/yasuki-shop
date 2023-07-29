@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
+    private Integer idOrder;
     private String name;
 
     @Column(length = 1024)

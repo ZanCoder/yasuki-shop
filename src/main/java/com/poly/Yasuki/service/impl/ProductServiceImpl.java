@@ -6,8 +6,10 @@ import com.poly.Yasuki.entity.Product;
 import com.poly.Yasuki.repo.MyCategoryRepo;
 import com.poly.Yasuki.repo.ProductRepo;
 import com.poly.Yasuki.service.GroupCategoryService;
+import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.SlugGenerator;
+import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
     private static final int PRODUCT_PER_TAB = 10;
     private final ProductRepo productRepo;
     private final GroupCategoryService groupCategoryService;
+    private final MyCategoryService categoryService;
 
     @Override
     public List<Product> getAllProducts() {
@@ -88,6 +91,10 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findByKeyword(String keyword, Pageable pageable) {
         return productRepo.findByKeyword(keyword, pageable);
     }
+    @Override
+    public List<Product> findByKeyword(String keyword) {
+        return productRepo.findByKeyword(keyword);
+    }
 
     @Override
     public Integer getCurrentIndexForGC(Product product) {
@@ -126,6 +133,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findBySlug(String slug) {
         return productRepo.findBySlug(slug);
+    }
+
+    @Override
+    public List<Product> getListProductsByGroupId(Integer id) {
+        GroupCategory groupCategory = groupCategoryService.findById(id).get();
+        return productRepo.findByGroup(groupCategory);
+    }
+
+    @Override
+    public List<Product> getListProductsByCategoryId(Integer id) {
+        MyCategory category = categoryService.findById(id).get();
+        return productRepo.findByCategory(category);
     }
 
 

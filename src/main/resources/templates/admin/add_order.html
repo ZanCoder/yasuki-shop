@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Thêm đơn hàng</h1>
+                        <h1 class="m-0"  th:text="${mode == 'edit' ? 'Cập nhật đơn hàng' : 'Thêm đơn hàng'}"></h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
-                            <li class="breadcrumb-item active">Thêm đơn hàng</li>
+                            <li class="breadcrumb-item active"  th:text="${mode == 'edit' ? 'Cập nhật đơn hàng' : 'Thêm đơn hàng'}"></li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,7 +27,7 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="card card-primary card-outline">
-                    <form class="card-body">
+                    <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Thông tin khách hàng</button>
@@ -41,22 +41,31 @@
                                 <div class="card-body">
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <label for="name_user">Họ và Tên : </label>
-                                            <input name="name" type="text" class="form-control" id="name_user" placeholder="Enter fullname ...">
+                                            <label for="name_order">Họ và Tên : </label>
+                                            <input  type="text" class="form-control" id="name_order"  data-field="name" placeholder="Enter fullname ...">
                                         </div>
                                         <div class="col">
-                                            <label for="email_account">Email :</label>
-                                            <input name="email" type="email" class="form-control" id="email_account" placeholder="Enter email">
+                                            <label for="email_order">Email :</label>
+                                            <input  type="email" class="form-control" id="email_order"  data-field="email" placeholder="Enter email">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <label for="address">Địa chỉ :</label>
-                                            <input name="password" type="text" class="form-control" id="address" placeholder="Address ...">
+                                            <label for="address_order">Địa chỉ :</label>
+                                            <input  type="text" class="form-control" id="address_order"  data-field="address" placeholder="Address ...">
                                         </div>
                                         <div class="col">
                                             <label for="phone_number">Số điện thoại :</label>
-                                            <input name="password" type="text" class="form-control" id="phone_number" placeholder="Phone number ...">
+                                            <input  type="text" class="form-control" id="phone_number"  data-field="phoneNumber" placeholder="Phone number ...">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label for="note_order">Ghi chú :</label>
+                                            <input  type="text" class="form-control" id="note_order" data-field="note" placeholder="Note ...">
+                                        </div>
+                                        <div class="col">
+
                                         </div>
                                     </div>
                                 </div>
@@ -67,13 +76,14 @@
                                         <div class="card ">
                                             <div class="card-body">
                                                 <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                                    <button type="reset" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalAddProd">
+                                                    <button type="reset" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalAddOrder">
                                                         <i class="fas fa-plus"></i>
                                                         Thêm sản phẩm
                                                     </button>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                                                            <!--  tbl  product selected to order  -->
+                                                            <table  class="table table-bordered table-hover dataTable dtr-inline" >
                                                                 <thead>
                                                                 <tr>
                                                                     <th class="sorting">#</th>
@@ -83,18 +93,8 @@
                                                                     <th class="sorting">Action</th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tbody id="list_prod_order">
-                                                                <!-- <tr class="odd">
-                                                                  <td class="dtr-control" tabindex="0">1</td>
-                                                                  <td class="">All others</td>
-                                                                  <td class="sorting_1">999</td>
-                                                                  <td class="sorting_1">999</td>
-                                                                  <td>
-                                                                    <button class="btn btn-danger btnDelAccount">
-                                                                        <i class="far fa-trash-alt"></i>
-                                                                    </button>
-                                                                  </td>
-                                                                </tr> -->
+                                                                <tbody id="list_prod_selected_to_order">
+
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -108,48 +108,95 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal add product-->
-                        <div class="modal fade" id="modalAddProd" tabindex="-1"  aria-hidden="true">
-                            <div class="modal-dialog">
+                        <!-- Modal add order-->
+                        <div class="modal fade" id="modalAddOrder" tabindex="-1"  aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5">Tìm kiếm sản phẩm </h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="input-group" >
-                                            <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-sidebar">
-                                                    <i class="fas fa-search fa-fw"></i>
-                                                </button>
+                                        <div class="row justify-content-between mb-3">
+                                            <div class="col">
+                                                <div class="form-group" >
+                                                    <select onchange="filterByGroupCategory()" id="name_gr_category" class="form-control select2 select2-hidden-accessible" style="width: 100%;" >
+                                                        <option th:each="item : ${groupCategories}"
+                                                                th:value="${item.id}"
+                                                                th:text="${item.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group" >
+                                                    <select onchange="filterByCategory()" id="name_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" >
+                                                        <option th:each="item, iStar : ${groupCategories[0].categories}"
+                                                                th:value="${item.id}"
+                                                                th:text="${item.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="input-group" >
+                                                    <input name="keyword" id="inputSearchProd" class="form-control form-control-sidebar"  placeholder="Tìm kiếm ss..." >
+                                                    <div class="input-group-append">
+                                                        <button type="button"  onclick="searchProduct()"  class="btn btn-sidebar">
+                                                            <i class="fas fa-search fa-fw"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                         <!--  tbl find product to order  -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="sorting">Tên sản phẩm</th>
+                                                        <th class="sorting">SL trong kho</th>
+                                                        <th class="sorting">Đơn giá</th>
+                                                        <th class="sorting">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="list_prod_order">
+
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                        <div class="product_choose input-group mt-3">
-                                            <input type="text" name="" disabled value="lorem ha s e">
-                                            <div class="btn-del">
-                                                <i class="fas fa-times text-danger"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <button id="btnAddProd" type="button" class="btn btn-primary btnAddProd">Thêm</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- modal add product-->
+                        <!-- modal add order-->
                         <div class="tab-custom-content">
-                            <button type="submit" class="btn btn-success">Thêm đơn hàng</button>
-                            <button type="reset" class="btn btn-secondary">Nhập lại</button>
+                            <input id="id_order_edit" type="hidden" th:value="${mode == 'edit' ? editOrder.id : -1}">
+                            <button id="sendOrder" class="btn btn-success" th:text="${mode == 'edit' ? 'Cập nhật' : 'Thêm đơn hàng'}"></button>
+                            <button onclick="resetInfoOrder()" type="reset" class="btn btn-secondary" >Nhập lại</button>
                         </div>
-                    </form>
+                    </div>
                     <!-- /.card -->
                 </div>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+
+        <script th:inline="javascript">
+        $(document).ready(function(){
+            localStorage.removeItem('listProductSelected');
+            var mode = /*[[${mode}]]*/{};
+            if(mode == 'edit'){
+                let dataEdit = /*[[${editOrder}]]*/{};
+                updateDataField(dataEdit);
+                localStorage.setItem('listProductSelected', JSON.stringify(dataEdit.listOrderItem));
+                updateHtmlListProdSelected(dataEdit.listOrderItem);
+<!--                console.log( JSON.stringify(dataEdit))-->
+            }
+        });
+    </script>
     </div>
     <!-- /.content-wrapper -->
 </body>

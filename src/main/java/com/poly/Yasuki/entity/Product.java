@@ -1,6 +1,8 @@
 package com.poly.Yasuki.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -49,14 +51,14 @@ public class Product implements Serializable {
 
     private Boolean isActive = true;
 
-    @JsonIgnoreProperties
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private MyCategory category;
 
     public Product(MyCategory category, String name,
                    BigDecimal price, Integer quantityLeft, Integer quantitySold,
-                   Double percentDiscount
+                   Double percentDiscount, String brand
     ) {
         this.category = category;
         this.name = name;
@@ -64,6 +66,7 @@ public class Product implements Serializable {
         this.quantityLeft = quantityLeft;
         this.quantitySold = quantitySold;
         this.percentDiscount = percentDiscount;
+        this.brand = brand;
     }
 
     @Transient
@@ -73,4 +76,6 @@ public class Product implements Serializable {
 //        BigDecimal result =  roundedNumber.setScale(3, RoundingMode.CEILING);
         return result;
     }
+
+
 }

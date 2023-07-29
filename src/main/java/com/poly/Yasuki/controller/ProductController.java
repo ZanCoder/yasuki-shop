@@ -27,7 +27,8 @@ public class ProductController {
                     @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
                     @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
                     Model model){
-        Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE).withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
+        Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)
+                .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
 
         Page<Product> listProduct = productService.getProductsWithSortAndPagination(pageable);
         model.addAttribute("listProduct", listProduct.getContent());

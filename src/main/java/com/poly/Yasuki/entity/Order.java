@@ -1,16 +1,19 @@
 package com.poly.Yasuki.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.Yasuki.dto.CartDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,7 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "[order]")
-public class Order {
+@Builder
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,6 +34,7 @@ public class Order {
     private String phoneNumber;
     private String note;
     private BigDecimal totalPayment;
+    private String status = "Đặt hàng";
 
     @CreationTimestamp
     private Timestamp createAt;
@@ -38,11 +43,36 @@ public class Order {
     @ElementCollection
     private List<CartDto> cartDtoList;
 
+    @JsonIgnore //
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserApp userApp;
 
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    private Set<OrderItem> listOrderItem = new HashSet<>();
+
     public Order(String name) {
         this.name = name;
     }
+
+    public Order(String name, String address, String email, String phoneNumber, BigDecimal totalPayment, String status) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.totalPayment = totalPayment;
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{}";
+        }
+    }
+
 }

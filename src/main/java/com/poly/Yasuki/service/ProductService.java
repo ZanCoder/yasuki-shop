@@ -33,6 +33,11 @@ public interface ProductService {
     void deleteById(Integer id);
 
     Page<Product> findByKeyword(String keyword, Pageable pageable);
+    List<Product> findByKeyword(String keyword);
 
     Integer getCurrentIndexForGC(Product product);
+
+    List<Product> getListProductsByGroupId(Integer id);
+
+    List<Product> getListProductsByCategoryId(Integer id);
 }

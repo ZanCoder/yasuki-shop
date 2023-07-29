@@ -26,6 +26,11 @@ public class ManagerUserController {
     private final MyUserService userService;
     private final RoleService roleService;
     private static final int ITEM_PER_PAGE = 5;
+
+    @GetMapping("/admin")
+    public String viewMainPage(){
+        return "redirect:/admin/manager-user";
+    }
     @GetMapping("/admin/manager-user")
     public String  viewManagerAccountPage(@RequestParam(name="page", defaultValue = "1", required = false)  int page,
                                           @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
