@@ -41,12 +41,17 @@
                                                 <div class="modal-dialog modal-lg">
                                                     <form th:action="@{/admin/manager-news/add}" method="post" th:object="${addNews}" class="modal-content">
                                                         <input type="hidden" th:field="*{id}" th:value="${addNews.id}" data-field="id">
+<!--                                                        <input type="hidden" th:field="*{createAt}" th:value="${addNews.createAt}" data-field="createAt">-->
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5 mode" >Thêm tin tức</h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="card-body">
+                                                                <div class="form-group">
+                                                                    <label for="image_news">Ảnh : </label>
+                                                                    <input th:field="*{image}" th:value="${addNews.image}" data-field="image" type="text" class="form-control" id="image_news" placeholder="Enter url ...">
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label for="title">Tiêu đề : </label>
                                                                     <input th:field="*{title}" th:value="${addNews.title}" data-field="title" type="text" class="form-control" id="title" placeholder="Enter title ...">
@@ -94,9 +99,9 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="item, iStat  : ${listNews}">
-                                                        <td th:text="${item.id}"></td>
+                                                        <td th:text="${iStat.index + 1}"></td>
                                                         <td th:text="${item.title}"></td>
-                                                        <td th:text="${item.createAt}"></td>
+                                                        <td th:text="${#dates.format(item.createAt, 'yyyy-MM-dd')}"></td>
                                                         <td >
                                                             <label th:for="${item.title}" class="switch switch-status">
                                                                 <input th:id="${item.title}" type="checkbox"

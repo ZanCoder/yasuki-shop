@@ -17,7 +17,7 @@
                         <div class="caption">
                             <h1>Giảm giá 30%</h1>
                             <p>Giảm giá cực sốc trong tháng 6!</p>
-                            <a href="listProduct.html" class="btn btn--default">Xem ngay</a>
+                            <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
 
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="caption">
                             <h1>Giảm giá 30%</h1>
                             <p>Giảm giá cực sốc trong tháng 6!</p>
-                            <a href="listProduct.html" class="btn btn--default">Xem ngay</a>
+                            <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
 
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                         <div class="caption">
                             <h1>Giảm giá 30%</h1>
                             <p>Giảm giá cực sốc trong tháng 6!</p>
-                            <a href="listProduct.html" class="btn btn--default">Xem ngay</a>
+                            <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
 
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                             <div th:each="product : ${listTopSelling}" class="col l-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
-                                        style="background-image: url(./assets/img/product/product1.jpg);">
+                                         th:style="'background-image: url('+${__product.mainImage__}+');'">
                                     </div>
                                     <div class="product__info">
                                         <h3 class="product__name">[[${product.name}]]</h3>
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="addToCart([[${product.name}]], [[${product.price}]])"  class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <div th:each="product : ${listTopDiscount}" class="col l-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
-                                         style="background-image: url(./assets/img/product/product1.jpg);">
+                                         th:style="'background-image: url('+${__product.mainImage__}+');'">
                                     </div>
                                     <div class="product__info">
                                         <h3 class="product__name">[[${product.name}]]</h3>
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                             <div th:each="product : ${listTopDateRelease}" class="col l-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
-                                         style="background-image: url(./assets/img/product/product1.jpg);">
+                                         th:style="'background-image: url('+${__product.mainImage__}+');'">
                                     </div>
                                     <div class="product__info">
                                         <h3 class="product__name">[[${product.name}]]</h3>
@@ -147,7 +147,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="$(this).addToCart([[${product.name}]], [[${product.price}]])"  class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                 <h3 class="category__heading">SẢN PHẨM NỔI BẬT</h3>
                 <div class="owl-carousel hight owl-theme">
                     <div th:each="product : ${listTopSelling}" class="product">
-                        <div class="product__avt" style="background-image: url(./assets/img/product/product1.jpg);">
+                        <div class="product__avt" th:style="'background-image: url('+${__product.mainImage__}+');'">
                         </div>
                         <div class="product__info">
                             <h3 class="product__name">[[${product.name}]]</h3>
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                         <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                        <a th:onclick="addToCart([[${product.name}]], [[${product.price}]])"  class="addToCart" >Thêm vào giỏ</a>
+                        <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])"  class="addToCart" >Thêm vào giỏ</a>
                     </div>
                 </div>
             </div>
@@ -231,46 +231,14 @@
                 <h3 class="category__title">Yasuki Cometics</h3>
                 <h3 class="category__heading">Tin Tức</h3>
                 <div class="owl-carousel news owl-theme">
-                    <a href="news.html" class="news">
+                    <a th:each="item : ${top5Newest}" th:href="@{/news}" class="news">
                         <div class="news__img">
-                            <img src="./assets/img/news/news1.jpg" alt="">
+                            <img th:src="${item.image}" alt="error">
                         </div>
                         <div class="news__body">
-                            <h3 class="news__body-title">Trang điểm đúng cách</h3>
-                            <div class="new__body-date">13/6/2021</div>
-                            <p class="news__description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. In sit molestiae aperiam modi
-                                cum deserunt, maxime blanditiis voluptate officiis accusantium minima pariatur harum
-                                tenetur quo iste iusto commodi. Modi, culpa?
-                            </p>
-                        </div>
-                    </a>
-                    <a href="news.html" class="news">
-                        <div class="news__img">
-                            <img src="./assets/img/news/news1.jpg" alt="">
-                        </div>
-                        <div class="news__body">
-                            <h3 class="news__body-title">Trang điểm đúng cách</h3>
-                            <div class="new__body-date">13/6/2021</div>
-                            <p class="news__description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. In sit molestiae aperiam modi
-                                cum deserunt, maxime blanditiis voluptate officiis accusantium minima pariatur harum
-                                tenetur quo iste iusto commodi. Modi, culpa?
-                            </p>
-                        </div>
-                    </a>
-                    <a href="news.html" class="news">
-                        <div class="news__img">
-                            <img src="./assets/img/news/news1.jpg" alt="">
-                        </div>
-                        <div class="news__body">
-                            <h3 class="news__body-title">Trang điểm đúng cách</h3>
-                            <div class="new__body-date">13/6/2021</div>
-                            <p class="news__description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. In sit molestiae aperiam modi
-                                cum deserunt, maxime blanditiis voluptate officiis accusantium minima pariatur harum
-                                tenetur quo iste iusto commodi. Modi, culpa?
-                            </p>
+                            <h3 class="news__body-title">[[${item.title}]]</h3>
+                            <div class="new__body-date">[[${#dates.format(item.createAt, 'yyyy-MM-dd')}]]</div>
+                            <p class="news__description">[[${item.content}]]</p>
                         </div>
                     </a>
                 </div>
@@ -279,19 +247,19 @@
         <div class="main__bands">
             <div class="grid wide">
                 <div class="owl-carousel bands">
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band1.png)"></a>
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band2.png)"></a>
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band3.png)"></a>
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band4.png)"></a>
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band5.png)"></a>
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band6.png)"></a>
-                    <a href="listProduct.html" class="band__item"
+                    <a th:href="@{/list-product}" class="band__item"
                         style="background-image: url(./assets/img/band/band7.png)"></a>
                 </div>
             </div>

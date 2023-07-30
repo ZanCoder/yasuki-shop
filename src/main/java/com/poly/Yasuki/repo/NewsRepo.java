@@ -10,8 +10,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface NewsRepo extends JpaRepository<NewsApp, Integer> {
     @Query(value = "SELECT * FROM news_app  WHERE title LIKE %:keyword%", nativeQuery = true)
     Page<NewsApp> findByKeyword(String keyword, Pageable pageable);
+
+    @Query(value = "SELECT * FROM news_app where is_active = 1 ORDER BY create_at DESC ", nativeQuery = true)
+    List<NewsApp> findTop5ByDateActiveTrue();
 }

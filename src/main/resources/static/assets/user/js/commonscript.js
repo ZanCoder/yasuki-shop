@@ -42,39 +42,18 @@ tabs.forEach((tab, index) => {
     };
 });
 
-function toastSuccess(message){
-    Command: toastr["success"](message)
-
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": false,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "3000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
-}
-
 // cart
 var urlInCreaseCart = '/yasuki/cart/update?action=increase';
 var urlDecreaseCart = '/yasuki/cart/update?action=decrease';
 var urlDeleteCart = '/yasuki/cart/delete';
 var urlAddCart = '/yasuki/cart/add';
+var urlListProduct = '/yasuki/list-product';
 
-async function addToCart(name, price){
+async function addToCart(name, price, mainImageProduct){
       try {
-        let data = {nameProduct : name, priceProduct : price}
+        let data = {nameProduct : name, priceProduct : price, mainImageProduct : mainImageProduct}
         let listCartItems = await callAjaxCartPromise(urlAddCart, 'POST', data) || [];
-        toastSuccess("Thêm thành công!");
+        SwalAlertSuccess("Thêm thành công!");
         updateHtmlAfterAddCart(listCartItems);
       } catch (error) {
         console.error("Error:", error);
@@ -84,14 +63,12 @@ async function addToCart(name, price){
 async function deleteCart(nameProduct){
     let data =  {nameProduct : nameProduct}
     await callAjaxCartPromise(urlDeleteCart,'DELETE', data);
-    toastSuccess("Đã xóa!");
     window.location.reload();
 }
 
 async  function plusProduct(nameProduct, cartIndex){
     let data = {nameProduct : nameProduct};
     await  callAjaxCartPromise(urlInCreaseCart, 'POST', data);
-    toastSuccess("Đã cập nhật!");
     window.location.reload();
  }
 async  function minusProduct(nameProduct, cartIndex){
@@ -99,7 +76,6 @@ async  function minusProduct(nameProduct, cartIndex){
     if(currentVal <= 1) return;
     let data =  {nameProduct : nameProduct}
     await  callAjaxCartPromise(urlDecreaseCart, 'POST', data);
-    toastSuccess("Đã cập nhật!");
     window.location.reload();
 }
 
@@ -137,11 +113,11 @@ function updateHtmlAfterAddCart(listCart){
      html +=`
             <li  class="item-order">
                 <div class="order-wrap">
-                    <a href="product.html" class="order-img">
-                        <img src="./assets/img/product/product1.jpg" alt="">
+                    <a href="#" class="order-img">
+                        <img src='${cartItem.mainImageProduct}'alt="error">
                     </a>
                     <div class="order-main">
-                        <a href="product.html" class="order-main-name">${cartItem.nameProduct}</a>
+                        <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
                         <div class="order-main-price">${cartItem.quantity} x ${formatDecimal(cartItem.priceProduct)} ₫</div>
                     </div>
                     <a onclick="deleteCart('${cartItem.nameProduct}')" class="order-close"><i class="far fa-times-circle"></i></a>
@@ -157,7 +133,38 @@ function formatDecimal(num){
     return numbro(num).format({thousandSeparated: true});
 }
 
+// Swal alert
+function SwalAlertSuccess(message){
+    Swal.fire({
+        title: message,
+        icon: "success",
+        showConfirmButton: false,
+        timer : 2000
+    });
 
+}
+
+function SwalAlertWarning(message){
+    Swal.fire({
+        title: message,
+        icon: 'warning',
+        confirmButtonText: 'Đóng',
+        timer: 2000,
+    });
+}
+
+function SwalAlertOrderSuccess(message){
+    Swal.fire({
+        title: message,
+        icon: "success",
+
+        confirmButtonText: "Tiếp tục mua hàng!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+             window.location.href = urlListProduct;
+        }
+    });
+}
 
 
 

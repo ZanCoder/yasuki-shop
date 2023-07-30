@@ -27,9 +27,13 @@
     <!-- Format number   -->
     <script src="https://cdn.jsdelivr.net/npm/numbro@2.3.6/dist/numbro.min.js"></script>
     <!-- toastr -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-</head>
+<!--    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />-->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>-->
+
+    <!--sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
+ </head>
 <body>
 <!--start header fragment-->
     <div th:fragment="header" class="header scrolling" id="myHeader">
@@ -40,8 +44,8 @@
                 <span></span>
                 <span></span>
             </div>
-            <a href="index.html" class="header__logo">
-                <img src="./assets/logo.png" alt="">
+            <a th:href="@{/}" class="header__logo">
+                <img th:src="@{/assets/logo.png}" alt="logo">
             </a>
             <div class="header__search">
                 <div class="header__search-wrap">
@@ -66,7 +70,7 @@
                      </ul>
 <!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
                     <a th:href="@{/cart}" class="btn btn--default cart-btn">Xem giỏ hàng</a>
-                    <a href="pay.html" class="btn btn--default cart-btn orange">Thanh toán</a>
+                    <a th:href="@{/cart}" class="btn btn--default cart-btn orange">Thanh toán</a>
                     <!-- norcart -->
                     <!-- <img class="header__cart-img-nocart" src="http://www.giaybinhduong.com/images/empty-cart.png" alt=""> -->
                 </div>
@@ -106,10 +110,10 @@
                 <div class="sub-nav-wrap grid wide">
                     <ul th:each="grCategory : ${session.dataCategory}" class="sub-nav">
                         <li class="sub-nav__item">
-                            <a href="" class="sub-nav__link heading">[[${grCategory.name}]]</a>
+                            <a href="#" class="sub-nav__link heading">[[${grCategory.name}]]</a>
                         </li>
                         <li th:each="category : ${grCategory.categories}" class="sub-nav__item">
-                            <a href="" class="sub-nav__link">[[${category.name}]]</a>
+                            <a th:href="@{'/list-product?category=' +${category.name}}" class="sub-nav__link">[[${category.name}]]</a>
                         </li>
                     </ul>
                 </div>

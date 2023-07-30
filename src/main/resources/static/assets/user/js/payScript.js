@@ -26,12 +26,12 @@
         $('#sendOrder').on('click', function(){
             var dataOrder = localStorage.getItem('dataOrder');
             var dataToSend = {
-                name:       $('#name').val(),
-                address:    $('#address').val(),
-                city:       $('#city').val(),
-                email:      $('#email').val(),
-                phoneNumber:$('#phoneNumber').val(),
-                note:       $('#note').val(),
+                name:       $('#name_order').val(),
+                address:    $('#address_order').val(),
+                city:       $('#city_order').val(),
+                email:      $('#email_order').val(),
+                phoneNumber:$('#phoneNumber_order').val(),
+                note:       $('#note_order').val(),
                 cartDtoList : JSON.parse(dataOrder)
             }
             if(dataOrder !== null){
@@ -44,7 +44,7 @@
                 }).then(function(data){
                     if(data == 'OK'){
                         localStorage.removeItem('dataOrder');
-                        alert('order success')
+                        SwalAlertOrderSuccess('Đặt hàng thành công!');
                     }
                 }).fail(function(error){
                     alert('error' + error)

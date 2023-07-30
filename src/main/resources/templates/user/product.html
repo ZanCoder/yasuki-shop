@@ -15,38 +15,14 @@
                 <div class="row">
                     <div class="col l-5 m-12 s-12">
                         <div class="owl-carousel owl-theme" id="sync1">
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product1.jpg)">
-                                </div>
-                            </a>
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product1.jpg)">
-                                </div>
-                            </a>
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product2.jpg)">
-                                </div>
-                            </a>
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product3.jpg)">
+                            <a th:each="item : ${product.productImages}" href="#" class="product">
+                                <div class="product__avt" th:style="'background-image: url('+${__item.url}+');'">
                                 </div>
                             </a>
                         </div>
                         <div class="owl-carousel owl-theme" id="sync2">
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product1.jpg)">
-                                </div>
-                            </a>
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product1.jpg)">
-                                </div>
-                            </a>
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product2.jpg)">
-                                </div>
-                            </a>
-                            <a href="#" class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product3.jpg)">
+                            <a th:each="item : ${product.productImages}" href="#" class="product">
+                                <div class="product__avt" th:style="'background-image: url('+${__item.url}+');'">
                                 </div>
                             </a>
                         </div>
@@ -76,11 +52,11 @@
 
                         <div class="productInfo__addToCart">
                             <div class="buttons_added">
-                                <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
-                                <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
-                                <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                                <input class="minus is-form" type="button" value="-" onclick="minusProductToAddCart()">
+                                <input id="quantityAddCart" aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
+                                <input class="plus is-form" type="button" value="+" onclick="plusProductToAddCart()">
                             </div>
-                            <div class=" btn btn--default orange ">Thêm vào giỏ</div>
+                            <div th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])" class=" btn btn--default orange">Thêm vào giỏ</div>
                         </div>
                         <div class="productIndfo__policy ">
                             <div class="policy bg-1 ">
@@ -230,7 +206,7 @@
                     <h3 class="category__heading ">Sản Phẩm Tương tự</h3>
                     <div class="owl-carousel hight owl-theme ">
                         <a th:each="product : ${sameProduct}" th:href="@{'/detail-product/'+${product.slug}}" class="product ">
-                            <div class="product__avt " style="background-image: url(assets/img/product/product1.jpg) ">
+                            <div class="product__avt " th:style="'background-image: url('+${__product.mainImage__}+');'">
                             </div>
                             <div class="product__info ">
                                 <h3 class="product__name ">[[${product.name}]]</h3>
@@ -384,6 +360,18 @@
                 id = 'star' + f + (r % f ? 'half' : '')
             id && (document.getElementById(id).checked = !0)
         }
+    </script>
+<!--    add to cart-->
+    <script>
+        function plusProductToAddCart(){
+                let currentVal = $('#quantityAddCart').val();
+                $('#quantityAddCart').val(parseInt(currentVal)+1);
+            }
+            function minusProductToAddCart(){
+                let currentVal = $('#quantityAddCart').val();
+                if(currentVal == 1 ) return ;
+                $('#quantityAddCart').val(parseInt(currentVal)+1);
+            }
     </script>
 </body>
 

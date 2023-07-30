@@ -23,6 +23,7 @@ public class initDB implements CommandLineRunner {
     private final MyUserService userService;
     private final CartItemService cartItemService;
     private final OrderService orderService;
+    private final NewsAppService newsAppService;
     @Override
     public void run(String... args) throws Exception {
 
@@ -80,6 +81,16 @@ public class initDB implements CommandLineRunner {
         Product product7 = new Product(category4, "Sữa Rửa Mặt Cetaphil Dịu Lành Cho Da Nhạy Cảm 500ml", BigDecimal.valueOf(899777), 440, 0, 8.0, "C");
         Product product8 = new Product(category5, "Túi Refill Tẩy Tế Bào Chết Toàn Thân", BigDecimal.valueOf(222676), 44, 11, 10.0, "C");
         Product product9 = new Product(category9, "Ban Chai danh rangg", BigDecimal.valueOf(222676), 44, 11, 10.0, "C");
+        product1.setMainImage("https://media.hasaki.vn/catalog/product/p/r/promotions-auto-sua-rua-mat-cetaphil-diu-nhe-khong-xa-phong-125ml-moi_A9AYTmiVPjkRo29X_img_358x358_843626_fit_center.png");
+        product2.setMainImage("https://media.hasaki.vn/catalog/product/g/o/google-shopping-mat-na-ngu-moi-laneige-huong-qua-mong-mini-8g-1_img_358x358_843626_fit_center.jpg");
+        product3.setMainImage("https://media.hasaki.vn/catalog/product/g/o/google-shopping-mat-na-kiehl-s-nghe-hat-viet-quat-lam-sang-da-28ml-1686566767_img_358x358_843626_fit_center.jpg");
+        product0.setMainImage("https://media.hasaki.vn/catalog/product/p/h/phan-nuoc-gilaa-kiem-dau-va-duong-da-2-natural-beige-13g-10_img_358x358_843626_fit_center.jpg");
+        product5.setMainImage("https://media.hasaki.vn/catalog/product/p/r/promotions-auto-nuoc-tay-trang-tuoi-mat-l-oreal-3-in-1-danh-cho-da-dau-da-hon-hop-400ml_hT9R6HqHaZS1omAq_img_358x358_843626_fit_center.png");
+        product6.setMainImage("https://media.hasaki.vn/catalog/product/f/a/facebook-dynamic-bo-3-hop-bong-tay-trang-co-ban-silcot-82-mieng-hop-1684396744_img_358x358_843626_fit_center.jpg");
+        product4.setMainImage("https://media.hasaki.vn/catalog/product/t/o/top_fb_ads_100550094_310523-1685529668_img_358x358_843626_fit_center.jpg");
+        product7.setMainImage("");
+        product8.setMainImage("https://media.hasaki.vn/catalog/product/f/a/facebook-dynamic-422208882-1689915355_img_358x358_843626_fit_center.jpg");
+        product9.setMainImage("https://media.hasaki.vn/catalog/product/p/r/promotions-auto-bo-2-ban-chai-danh-rang-colgate-long-chai-khang-khuan_vZEzJ2ih9fWzpgut_img_358x358_843626_fit_center.png");
 
         productService.create(product0);
         productService.create(product1);
@@ -111,9 +122,9 @@ public class initDB implements CommandLineRunner {
         userService.create(userApp2);
 
         //init cart
-        CartDto cartDto1 = new CartDto(1,"Cetapil", BigDecimal.valueOf(1998979) );
-        CartDto cartDto2 = new CartDto(1, "MAC", BigDecimal.valueOf(222676));
-        CartDto cartDto3 = new CartDto(1, "Kiehl", BigDecimal.valueOf(899777));
+        CartDto cartDto1 = new CartDto(1,"Cetapil", BigDecimal.valueOf(1998979), "" );
+        CartDto cartDto2 = new CartDto(1, "MAC", BigDecimal.valueOf(222676),"");
+        CartDto cartDto3 = new CartDto(1, "Kiehl", BigDecimal.valueOf(899777),"");
         cartItemService.addToCart(cartDto1, userApp2);
         cartItemService.addToCart(cartDto2, userApp2);
         cartItemService.addToCart(cartDto3, userApp2);
@@ -124,17 +135,31 @@ public class initDB implements CommandLineRunner {
         Order order1 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "rtuankier@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
         Order order2 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "rtuankier@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
         Order order3 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "rtuankier@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
-//        List<CartDto> cartDtoList1 = new ArrayList<>();
-//        cartDtoList1.add(cartDto1);
-//        cartDtoList1.add(cartDto2);
-//
-//        List<CartDto> cartDtoList2 = new ArrayList<>();
-//        cartDtoList1.add(cartDto3);
-//        order1.setCartDtoList(cartDtoList1);
-//        order2.setCartDtoList(cartDtoList1);
-//        order2.setCartDtoList(cartDtoList2);
         orderService.insert(order1);
         orderService.insert(order2);
         orderService.insert(order3);
+
+        //news init
+        NewsApp newsApp1 = NewsApp.builder()
+                .title("Những Item makeup nhà Etude House giá hạt dẻ")
+                .image("https://www.kosmebox.com/image/cache/data/BLOG/Nhung-item-makeup-nha-etude-house-gia-hat-de/Nhung-item-makeup-nha-etude-house-gia-hat-de-7-9-225x225.jpg")
+                .content("House giá hạt dẻ, chất miễn đùa Không phải là những item makeup mới. Thậm chí nếu không nói là lâu đời. Nhưng ở thời điểm hiện tại")
+                .build();
+
+        NewsApp newsApp2 = NewsApp.builder()
+                .title("Những Item makeup nhà Etude House giá hạt dẻ")
+                .image("https://www.kosmebox.com/image/cache/data/BLOG/Nhung-item-makeup-nha-etude-house-gia-hat-de/Nhung-item-makeup-nha-etude-house-gia-hat-de-7-9-225x225.jpg")
+                .content("House giá hạt dẻ, chất miễn đùa Không phải là những item makeup mới. Thậm chí nếu không nói là lâu đời. Nhưng ở thời điểm hiện tại")
+                .build();
+
+        NewsApp newsApp3 = NewsApp.builder()
+                .title("Những Item makeup nhà Etude House giá hạt dẻ")
+                .image("https://www.kosmebox.com/image/cache/data/BLOG/Nhung-item-makeup-nha-etude-house-gia-hat-de/Nhung-item-makeup-nha-etude-house-gia-hat-de-7-9-225x225.jpg")
+                .content("House giá hạt dẻ, chất miễn đùa Không phải là những item makeup mới. Thậm chí nếu không nói là lâu đời. Nhưng ở thời điểm hiện tại")
+                .build();
+
+        newsAppService.create(newsApp1);
+        newsAppService.create(newsApp2);
+        newsAppService.create(newsApp3);
     }
 }

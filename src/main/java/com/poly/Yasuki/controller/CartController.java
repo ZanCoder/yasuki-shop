@@ -35,8 +35,10 @@ public class CartController {
     @ResponseBody
     public List<CartDto> addToCart(
             @RequestParam("nameProduct") String nameProduct,
-            @RequestParam("priceProduct") BigDecimal priceProduct, HttpSession session, Model model){
-        CartDto cartDto = new CartDto(1,nameProduct, priceProduct);
+            @RequestParam("priceProduct") BigDecimal priceProduct,
+            @RequestParam("priceProduct") String mainImageProduct
+            , HttpSession session, Model model){
+        CartDto cartDto = new CartDto(1,nameProduct, priceProduct, mainImageProduct);
         cartItemService.addToCart(cartDto, getCurrentUser());
         return resetListCart(session);
     }

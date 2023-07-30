@@ -47,7 +47,7 @@ public class ManagerUserController {
             listUsers = userService.getUsersWithSortAndPagination(pageable);
         }
         model.addAttribute("listUsers", listUsers.getContent());
-        model.addAttribute("totalPages", 50);
+        model.addAttribute("totalPages", listUsers.getTotalPages());
         model.addAttribute("totalElements", listUsers.getTotalElements());
         model.addAttribute("currentPage", page);
         model.addAttribute("newUser", new UserApp());

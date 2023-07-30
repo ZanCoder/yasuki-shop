@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +55,10 @@ public class NewsAppServiceImpl implements NewsAppService {
     @Override
     public void updateStatus(Integer id, Boolean statusChanged) {
 
+    }
+
+    @Override
+    public List<NewsApp> getTop5ByDateAndActive() {
+        return newsRepo.findTop5ByDateActiveTrue();
     }
 }

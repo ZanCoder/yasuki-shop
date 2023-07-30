@@ -26,7 +26,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     Page<Product> getTopDateRelease(Pageable pageable);
 
     @Query(value = "SELECT p FROM Product p WHERE p.category.slug = :categorySlug" )
-    List<Product> getSameProductByCategory(String categorySlug, Pageable pageable);
+    Page<Product> getSameProductByCategory(String categorySlug, Pageable pageable);
 
     @Query(value = "SELECT * FROM products  WHERE CONCAT(name, ' ',brand ) LIKE %:keyword%", nativeQuery = true)
     Page<Product> findByKeyword(String keyword, Pageable pageable);

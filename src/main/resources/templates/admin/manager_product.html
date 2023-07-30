@@ -71,7 +71,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="item, iStat  : ${listProducts}">
-                                                        <td th:text="${iStat.index}"></td>
+                                                        <td th:text="${iStat.index + 1}"></td>
                                                         <td th:text="${item.brand}"></td>
                                                         <td th:text="${item.name}"></td>
                                                         <td th:text="${item.price}"></td>

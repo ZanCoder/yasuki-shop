@@ -19,14 +19,13 @@
                     <a  class="page-link" th:href="@{'/admin/'+${href}+'?page='+${currentPage -1}}">Previous</a>
                 </li>
                 <th:block th:each="item : ${#numbers.sequence(1, totalPages)}">
-<!--                    <li th:if="${item ==  totalPages && currentPage == totalPages  && totalPages &gt; 5}" class="paginate_button page-item">-->
-<!--                        <a href="#" class="page-link">...</a>-->
-<!--                    </li>-->
-                    <li th:if="${(item > totalPages - 2) || (item >= currentPage - 2 && item <= currentPage) }" class="paginate_button page-item"
+                    <li th:if="${(item > totalPages - 2 && totalPages > 0)
+                                || (item >= currentPage - 2 && item <= currentPage && totalPages > 0) }" class="paginate_button page-item"
                         th:classappend="${item == currentPage ? 'active' : ''}">
                         <a th:href="@{'/admin/'+${href}+'?page='+${item}}" class="page-link">[[${item}]]</a>
                     </li>
-                    <li th:if="${item == currentPage+1 && currentPage < totalPages-1 && totalPages &gt; 5}" class="paginate_button page-item">
+                    <li th:if="${(item == currentPage+1 && currentPage < totalPages-1
+                    && totalPages &gt; 5) || (item == currentPage - 3 && currentPage >= totalPages-1 )}" class="paginate_button page-item">
                         <a href="#" class="page-link">...</a>
                     </li>
                 </th:block>

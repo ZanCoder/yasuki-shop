@@ -38,14 +38,14 @@ public class ManagerNewsController {
             liNewsApps = newsAppService.getWithSortAndPagination(pageable);
         }
         model.addAttribute("listNews", liNewsApps.getContent());
-        model.addAttribute("totalPages", 20);
+        model.addAttribute("totalPages", liNewsApps.getTotalPages());
         model.addAttribute("totalElements", liNewsApps.getTotalElements());
         model.addAttribute("currentPage", page);
         model.addAttribute("addNews", new NewsApp());
         return "admin/manager_news";
     }
     @PostMapping("/admin/manager-news/add")
-    public String doCreateNews(@ModelAttribute(name = "newCategory") NewsApp newsApp,
+    public String doCreateNews(@ModelAttribute(name = "addNews") NewsApp newsApp,
                                   Model model){
         try{
             newsAppService.create(newsApp);

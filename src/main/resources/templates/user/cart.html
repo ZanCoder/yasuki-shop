@@ -38,7 +38,7 @@
                             </div>
                             <div class="col l-4 m-4 s-8">
                                 <div class="main__cart-product">
-                                    <img src="./assets/img/product/product2.jpg" alt="">
+                                    <img th:src="${cartDto.mainImageProduct}" alt="error">
                                     <div class="name">[[${cartDto.nameProduct}]]</div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                         localStorage.setItem('dataOrder', listCartJSon);
                         window.location = '/yasuki/order';
                     }else{
-                        alert('ban chua chon sp nao')
+                        SwalAlertWarning('Bạn chưa chọn sản phẩm nào!')
                     }
             });
             function updateTotalPriceCart(){

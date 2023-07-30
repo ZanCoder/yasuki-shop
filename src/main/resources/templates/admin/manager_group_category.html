@@ -90,7 +90,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="item, iStat  : ${listGroupCategories}">
-                                    <td th:text="${item.id}"></td>
+                                    <td th:text="${iStat.index + 1}"></td>
                                     <td th:text="${item.name}"></td>
                                     <td >
                                         <label th:for="${item.name}" class="switch switch-status">

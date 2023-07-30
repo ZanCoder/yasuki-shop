@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getListProductsByCategory(String categorySlug) {
+    public Page<Product> getListProductsByCategory(String categorySlug) {
         return productRepo.getSameProductByCategory(categorySlug, PageRequest.of(0,PRODUCT_PER_TAB));
     }
 

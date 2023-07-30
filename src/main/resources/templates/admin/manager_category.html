@@ -99,7 +99,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="item, iStat  : ${listCategories}">
-                                                        <td th:text="${item.id}"></td>
+                                                        <td th:text="${iStat.index + 1}"></td>
                                                         <td th:text="${item.groupCategory.name}"></td>
                                                         <td th:text="${item.name}"></td>
                                                         <td >

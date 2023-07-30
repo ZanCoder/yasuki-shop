@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -56,6 +60,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private MyCategory category;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductImage> productImages = new ArrayList<>();
+
     public Product(MyCategory category, String name,
                    BigDecimal price, Integer quantityLeft, Integer quantitySold,
                    Double percentDiscount, String brand
@@ -68,6 +76,8 @@ public class Product implements Serializable {
         this.percentDiscount = percentDiscount;
         this.brand = brand;
     }
+
+
 
     @Transient
     public BigDecimal getPriceDiscount(){

@@ -21,7 +21,7 @@ public class CartDto {
     @JsonProperty("priceProduct")
     @JsonAlias({"nameProduct", "price"})
     private BigDecimal priceProduct;
-//    private String mainImageProduct;
+    private String mainImageProduct;
 
     public BigDecimal getTotalPrice(){
         BigDecimal result = BigDecimal.valueOf(quantity).multiply(priceProduct);

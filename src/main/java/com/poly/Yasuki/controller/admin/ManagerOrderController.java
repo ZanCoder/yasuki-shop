@@ -51,7 +51,7 @@ public class ManagerOrderController {
         }
         model.addAttribute("listOrders", listOrders.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", 20);
+        model.addAttribute("totalPages", listOrders.getTotalPages());
         model.addAttribute("totalElements", listOrders.getTotalElements());
 
         return "admin/manager_order";

@@ -22,14 +22,14 @@
                         <a href="#" class="breadcrumb__link">Cửa hàng</a>
                     </div>
                     <div class="breadcrumb__item">
-                        <a href="#" class="breadcrumb__link">Hãng DHC</a>
+                        <a href="#" class="breadcrumb__link" th:text="${category}"></a>
                     </div>
                 </div>
                 <div class="main__sort">
                     <h3 class="sort__title">
                         Hiển thị kết quả theo
                     </h3>
-                    <select th:onchange="$(this).submitSort(this.value)"  class="sort__select" aria-label="label for the select" >
+                    <select th:onchange="$(this).submitSort(this.value)"   class="sort__select" aria-label="label for the select" >
                         <option value="id-asc" >Thứ tự mặc định</option>
                         <option value="quantitySold-desc" >Mức độ phổ biến</option>
 <!--                        <option value="3">Điểm đánh giá</option>-->
@@ -44,7 +44,7 @@
                     <div class="row">
                         <div th:each="product : ${listProduct}" class="col l-2 m-4 s-6">
                             <div class="product">
-                                <div class="product__avt" style="background-image: url(assets/img/product/product1.jpg)">
+                                <div class="product__avt" th:style="'background-image: url('+${__product.mainImage__}+');'">
                                 </div>
                                 <div class="product__info">
                                     <h3 class="product__name">[[${product.name}]]</h3>
@@ -72,22 +72,14 @@
                                 <i class="fas fa-chevron-left"></i>
                             </a>
                         </li>
-                        <li th:if="${currentPage == 1}" class="pagination__item active">
-                            <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${currentPage}]]</a>
-                        </li>
-                        <th:block th:each="item : ${#numbers.sequence(currentPage - 1, currentPage)}">
-                            <li th:if="${currentPage < totalPages - 2 && currentPage > 1}" class="pagination__item"
-                                 th:classappend="${item == currentPage ? 'active' : ''}">
-                                <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${item}]]</a>
-                            </li>
-                        </th:block>
-                        <li th:if="${totalPages &gt; 5}" class="pagination__item">
-                            <a href="#" class="pagination__link">...</a>
-                        </li>
-                        <th:block th:each="item : ${#numbers.sequence(totalPages-2, totalPages)}">
-                            <li  class="pagination__item"
+                        <th:block th:each="item : ${#numbers.sequence(1, totalPages)}">
+                            <li th:if="${(item > totalPages - 2 && totalPages > 0) || (item >= currentPage - 2 && item <= currentPage && totalPages > 0) }" class="pagination__item"
                                 th:classappend="${item == currentPage ? 'active' : ''}">
                                 <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${item}]]</a>
+                            </li>
+                            <li th:if="${(item == currentPage+1 && currentPage < totalPages-1 && totalPages &gt; 5)
+                                         || (item == currentPage - 3 && currentPage >= totalPages-1 )}" class="pagination__item">
+                                <a href="#" class="pagination__link">...</a>
                             </li>
                         </th:block>
                         <li class="pagination__item">

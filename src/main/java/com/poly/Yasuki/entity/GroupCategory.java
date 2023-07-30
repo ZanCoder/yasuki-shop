@@ -26,7 +26,7 @@ public class GroupCategory implements Serializable {
     private String slug;
     private Boolean isActive = false;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     Set<MyCategory> categories =  new HashSet<>();
 }

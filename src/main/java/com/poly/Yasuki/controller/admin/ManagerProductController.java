@@ -2,6 +2,7 @@ package com.poly.Yasuki.controller.admin;
 
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.entity.Product;
+import com.poly.Yasuki.entity.ProductImage;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.service.ProductService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,7 @@ public class ManagerProductController {
         }
         model.addAttribute("listProducts", listProduct.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", 1);
+        model.addAttribute("totalPages", listProduct.getTotalPages());
         model.addAttribute("totalElements", listProduct.getTotalElements());
         return "admin/manager_product";
     }
@@ -55,6 +57,7 @@ public class ManagerProductController {
         model.addAttribute("newProduct", new Product());
         model.addAttribute("groupCategories", groupCategoryService.getAll());
         model.addAttribute("indexGCSelected", 0);
+        model.addAttribute("productImages", initListProductImage());
         return "admin/add_product";
     }
 
@@ -88,9 +91,10 @@ public class ManagerProductController {
         Product product = productService.findById(id).get();
         model.addAttribute("mode", "edit");
         model.addAttribute("groupCategories", groupCategoryService.getAll());
-//        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
+        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
         model.addAttribute("newProduct", product);
         model.addAttribute("indexGCSelected",productService.getCurrentIndexForGC(product));
+        model.addAttribute("productImages", initListProductImage());
         return "/admin/add_product";
     }
 
@@ -108,6 +112,15 @@ public class ManagerProductController {
     public List<MyCategory> changeGroupCategoryProduct(
             @RequestParam(name = "id") Integer id){
         return categoryService.findByGroupCategoryId(id);
+    }
+
+
+    private  List<ProductImage> initListProductImage() {
+        List<ProductImage> listProductImages = new ArrayList<>();
+        listProductImages.add(new ProductImage(""));
+        listProductImages.add(new ProductImage(""));
+        listProductImages.add(new ProductImage(""));
+        return listProductImages;
     }
 
 

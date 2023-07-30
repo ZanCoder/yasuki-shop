@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void create(OrderDto orderDtoList, UserApp currentUser) {
         Order newOrder = new Order();
-        if(orderDtoList.getIdOrder() != -1){
+        if(orderDtoList.getIdOrder() != null && orderDtoList.getIdOrder() != -1){
             newOrder = orderRepo.findById(orderDtoList.getIdOrder()).get();
         }
         BeanUtils.copyProperties(orderDtoList, newOrder);

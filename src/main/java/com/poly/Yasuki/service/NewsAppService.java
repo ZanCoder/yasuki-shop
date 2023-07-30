@@ -23,4 +23,7 @@ public interface NewsAppService {
     Optional<NewsApp> findById(Integer id);
 
     void updateStatus(Integer id, Boolean statusChanged);
+
+    List<NewsApp> getTop5ByDateAndActive();
+
 }

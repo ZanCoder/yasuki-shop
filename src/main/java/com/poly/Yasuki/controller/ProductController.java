@@ -2,6 +2,7 @@ package com.poly.Yasuki.controller;
 
 import com.poly.Yasuki.entity.Product;
 import com.poly.Yasuki.service.ProductService;
+import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,21 +20,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-    private static final int PRODUCT_PER_PAGE = 5;
+    private static final int PRODUCT_PER_PAGE = 12;
 
     @GetMapping("/list-product")
     public String viewListProductPage(
                     @RequestParam(name="page", defaultValue = "1", required = false)  int page,
                     @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
                     @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
+                    @RequestParam(name="category", defaultValue = "",  required = false) String categoryShow,
                     Model model){
         Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)
                 .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
 
-        Page<Product> listProduct = productService.getProductsWithSortAndPagination(pageable);
+        Page<Product> listProduct ;
+
+        if(!categoryShow.equals("")){
+            String slug = SlugGenerator.generateSlug(categoryShow);
+            listProduct = productService.getListProductsByCategory(slug);
+        }else{
+            listProduct = productService.getProductsWithSortAndPagination(pageable);
+        }
+
         model.addAttribute("listProduct", listProduct.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listProduct.getTotalPages());
+        model.addAttribute("category", categoryShow);
         return "user/listProduct";
     }
 
@@ -49,7 +60,7 @@ public class ProductController {
     }
 
     // get product have the same category with main product
-    private List<Product> getListProductsByCategory(String categorySlug){
+    private Page<Product> getListProductsByCategory(String categorySlug){
         return productService.getListProductsByCategory(categorySlug);
     }
 }

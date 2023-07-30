@@ -22,7 +22,7 @@ public interface ProductService {
 
     List<Product> getTopDateRelease();
 
-    List<Product> getListProductsByCategory(String categorySlug);
+    Page<Product> getListProductsByCategory(String categorySlug);
 
     Page<Product> getProductsWithSortAndPagination(Pageable pageable);
 
