@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ProductService {
     Product create(Product product);
     Product removeBySlug(String slug);
-    void update(String slug, Product product);
+    void update(Integer id, Product product);
     Product findBySlug(String slug);
     List<Product> getAllProducts();
 

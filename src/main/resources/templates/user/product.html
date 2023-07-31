@@ -15,14 +15,22 @@
                 <div class="row">
                     <div class="col l-5 m-12 s-12">
                         <div class="owl-carousel owl-theme" id="sync1">
-                            <a th:each="item : ${product.productImages}" href="#" class="product">
-                                <div class="product__avt" th:style="'background-image: url('+${__item.url}+');'">
+                            <a  href="#" class="product">
+                                <div class="product__avt" th:style="'background-image: url('+${product.mainImage}+');'">
+                                </div>
+                            </a>
+                            <a  th:each="item : ${product.productImages}" th:if="item.url != null" href="#" class="product">
+                                <div class="product__avt" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
                         </div>
                         <div class="owl-carousel owl-theme" id="sync2">
-                            <a th:each="item : ${product.productImages}" href="#" class="product">
-                                <div class="product__avt" th:style="'background-image: url('+${__item.url}+');'">
+                            <a  href="#" class="product">
+                                <div class="product__avt" th:style="'background-image: url('+${product.mainImage}+');'">
+                                </div>
+                            </a>
+                            <a  th:each="item : ${product.productImages}" th:if="item.url != null" href="#" class="product">
+                                <div class="product__avt" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
                         </div>
@@ -47,7 +55,7 @@
                             [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] <span class="priceInfo__unit">đ</span>
                         </div>
                         <div class="productInfo__description">
-                            <span> [[${product.name}]] </span> [[${product.shortDescription}]]
+                            <span> [[${product.name}]] </span>  <th:block th:utext="${product.shortDescription}"></th:block>
                         </div>
 
                         <div class="productInfo__addToCart">
@@ -116,7 +124,7 @@
                             <div class="tab-pane active ">
                                 <div class="productDes ">
                                     <div class="productDes__title ">[[${product.name}]] là gì?</div>
-                                    <th:block>[[${product.fullDescription}]]</th:block>
+                                    <th:block th:utext="${product.fullDescription}"></th:block>
                                 </div>
                             </div>
                             <div class="tab-pane ">

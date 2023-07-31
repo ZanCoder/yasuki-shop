@@ -35,6 +35,7 @@
                 cartDtoList : JSON.parse(dataOrder)
             }
             if(dataOrder !== null){
+                SwalAlertOrderSuccess('Đặt hàng thành công!');
                 $.ajax({
                     url : '/yasuki/order',
                     method : 'POST',
@@ -42,9 +43,10 @@
                     dataType: "text",
                     data : JSON.stringify(dataToSend)
                 }).then(function(data){
+
                     if(data == 'OK'){
                         localStorage.removeItem('dataOrder');
-                        SwalAlertOrderSuccess('Đặt hàng thành công!');
+
                     }
                 }).fail(function(error){
                     alert('error' + error)

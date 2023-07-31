@@ -34,7 +34,7 @@ public class Product implements Serializable {
     @Column(name="price", precision = 12, scale = 3)
     private BigDecimal price;
 
-    private Double percentDiscount;
+    private Double percentDiscount = 0d;
 
     private Integer quantityLeft;
     private Integer quantitySold;

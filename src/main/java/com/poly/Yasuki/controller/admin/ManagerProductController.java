@@ -55,7 +55,7 @@ public class ManagerProductController {
     @GetMapping("/admin/manager-product/add")
     public String  viewAddProductPage(Model model){
         model.addAttribute("newProduct", new Product());
-        model.addAttribute("groupCategories", groupCategoryService.getAll());
+        model.addAttribute("groupCategoriesShow", groupCategoryService.getAll());
         model.addAttribute("indexGCSelected", 0);
         model.addAttribute("productImages", initListProductImage());
         return "admin/add_product";
@@ -64,6 +64,7 @@ public class ManagerProductController {
     @PostMapping("/admin/manager-product/add")
     public String doCreateNewProduct(@ModelAttribute(name = "newProduct") Product product,
                                         Model model){
+        String mode = (String) model.getAttribute("mode");
         try{
             productService.create(product);
             model.addAttribute("success", MessageUtils.ADD_SUCCESS);
@@ -73,6 +74,7 @@ public class ManagerProductController {
         }
         return "redirect:/admin/manager-product";
     }
+
 
     @DeleteMapping("/admin/manager-product/delete")
     @ResponseBody
@@ -90,13 +92,21 @@ public class ManagerProductController {
                                      Model model){
         Product product = productService.findById(id).get();
         model.addAttribute("mode", "edit");
-        model.addAttribute("groupCategories", groupCategoryService.getAll());
-        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
+        model.addAttribute("groupCategoriesShow", groupCategoryService.getAll());
+//        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
         model.addAttribute("newProduct", product);
-        model.addAttribute("indexGCSelected",productService.getCurrentIndexForGC(product));
         model.addAttribute("productImages", initListProductImage());
+        model.addAttribute("indexGCSelected", productService.getCurrentIndexForGC(product));
         return "/admin/add_product";
     }
+
+    @PostMapping("/admin/manager-product/update")
+    public String updateProduct(@ModelAttribute(name = "newProduct") Product product,
+                                Model model){
+        productService.update(product.getId(), product);
+        return "redirect:/admin/manager-product";
+    }
+
 
     @GetMapping("/admin/manager-product/change-status")
     @ResponseBody

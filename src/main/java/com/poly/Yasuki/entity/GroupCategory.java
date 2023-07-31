@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "[group_categories]")
-public class GroupCategory implements Serializable {
+public class GroupCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,6 +29,6 @@ public class GroupCategory implements Serializable {
     private Boolean isActive = false;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    Set<MyCategory> categories =  new HashSet<>();
+    @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<MyCategory> categories =  new ArrayList<>();
 }

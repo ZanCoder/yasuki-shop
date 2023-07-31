@@ -3,7 +3,9 @@ package com.poly.Yasuki.service.impl;
 import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.entity.Product;
+import com.poly.Yasuki.entity.ProductImage;
 import com.poly.Yasuki.repo.MyCategoryRepo;
+import com.poly.Yasuki.repo.ProductImageRepo;
 import com.poly.Yasuki.repo.ProductRepo;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.MyCategoryService;
@@ -29,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepo;
     private final GroupCategoryService groupCategoryService;
     private final MyCategoryService categoryService;
+    private final ProductImageRepo productImageRepo;
 
     @Override
     public List<Product> getAllProducts() {
@@ -112,7 +115,15 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Product already exist!");
         }
         product.setSlug(slug);
-        return productRepo.save(product);
+        Product productSaved = productRepo.save(product);
+        if(productSaved.getProductImages() != null){
+            productSaved.getProductImages().forEach(productImage -> {
+                productImage.setProduct(productSaved);
+                productImageRepo.save(productImage);
+            });
+        }
+        return productSaved;
+
     }
 
     @Override
@@ -126,8 +137,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(String slug, Product product) {
-
+    public void update(Integer id, Product product) {
+        Product currentProduct = findById(id).get();
+        if(product == null){
+            throw new RuntimeException("Could not found product!");
+        }
+        product.setDateRelease(currentProduct.getDateRelease());
+        String slug = SlugGenerator.generateSlug(product.getName());
+        product.setSlug(slug);
+        productRepo.save(product);
     }
 
     @Override

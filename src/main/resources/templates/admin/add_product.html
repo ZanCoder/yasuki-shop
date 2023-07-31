@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="card card-primary card-outline">
-                <form th:action="@{/admin/manager-product/add}" method="post" th:object="${newProduct}" class="card-body">
+                <form th:action="@{${mode == 'edit' ? '/admin/manager-product/update' : '/admin/manager-product/add'}}" method="post" th:object="${newProduct}" class="card-body">
                     <input type="hidden" th:field="*{id}" th:value="${newProduct.id}">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -46,7 +46,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="name_product">Tên sản phẩm </label>
-                                        <input th:field="*{name}" th:value="${newProduct.name}" type="text" class="form-control" id="name_product" placeholder="Enter name product ...">
+                                        <input th:field="*{name}" th:value="${newProduct.name}" required type="text" class="form-control" id="name_product" placeholder="Enter name product ...">
                                     </div>
                                     <div class="col">
                                         <label for="name_brand">Hãng</label>
@@ -57,8 +57,8 @@
                                     <div class="col">
                                         <div class="form-group" data-select2-id="45">
                                             <label for="name_gr_category">Tên nhóm danh mục : </label>
-                                            <select id="name_gr_category" name="groupCategory" class="form-control select2 select2-hidden-accessible" style="width: 100%;">
-                                                <option th:each="item, iStar : ${groupCategories}"
+                                            <select required id="name_gr_category" name="groupCategory" class="form-control select2 select2-hidden-accessible" style="width: 100%;">
+                                                <option th:each="item, iStar : ${groupCategoriesShow}"
                                                         th:value="${item.id}"
                                                         th:text="${item.name}"
                                                         th:selected="${iStar.index == indexGCSelected}"
@@ -69,8 +69,8 @@
                                     <div class="col">
                                         <div class="form-group" >
                                             <label for="name_category">Tên danh mục : </label>
-                                            <select  th:field="*{category}"  id="name_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" >
-                                                <option th:each="item, iStar : ${groupCategories[indexGCSelected].categories}"
+                                            <select required th:field="*{category}"  id="name_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" >
+                                                <option th:each="item : ${groupCategoriesShow[indexGCSelected].categories}"
                                                         th:value="${item.id}"
                                                         th:text="${item.name}"></option>
                                             </select>
@@ -80,17 +80,17 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="q_left">Số lượng trong kho</label>
-                                        <input th:field="*{quantityLeft}" th:value="${newProduct.quantityLeft}" type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
+                                        <input th:field="*{quantityLeft}" th:value="${newProduct.quantityLeft}" required min="1" max="2147483646" type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
                                     </div>
                                     <div class="col">
                                         <label for="q_sold">Số lượng đã bán</label>
-                                        <input th:field="*{quantitySold}" th:value="${newProduct.quantitySold}" type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
+                                        <input th:field="*{quantitySold}" th:value="${newProduct.quantitySold}" required min="1" max="2147483646" type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="price_prod">Giá sản phẩm</label>
-                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number" class="form-control" id="price_prod" placeholder="Price product ...">
+                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number" required class="form-control" id="price_prod" placeholder="Price product ...">
                                     </div>
                                     <div class="col">
                                         <label for="percent_discount">Giảm giá (%)</label>

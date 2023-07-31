@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Template for HTML email with inline image</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div style="margin: 0 auto; padding: 70px 0; width: 100%; max-width: 600px" width="100%">
+    <table cellpadding="0" cellspacing="0" height="100%" width="100%">
+        <tbody>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" width="100%"
+                       style="background-color: #fff; border: 1px solid #dedede; border-radius: 3px;">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" width="100%"
+                                   style=" background-color: #e0c528; color: #fff;  border-bottom: 0; font-weight: bold;
+                      line-height: 100%; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;border-radius: 3px 3px 0 0;">
+                                <tbody>
+                                <tr>
+                                    <td style="padding: 36px 48px; display: block">
+                                        <h1 style=" font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+                              font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left;
+                              color: #fff; background-color: inherit; ">
+                                            Cảm ơn đã mua hàng của chúng tôi
+                                        </h1>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                <tr>
+                                    <td style="background-color: #fff">
+                                        <table cellpadding="20" cellspacing="0" width="100%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="padding: 48px 48px 32px">
+                                                    <div style="
+                                      color: #636363;
+                                      font-family: 'Helvetica Neue', Helvetica,
+                                        Roboto, Arial, sans-serif;
+                                      font-size: 14px;line-height: 150%; text-align: left;">
+                                                        <p style="margin: 0 0 16px">Xin chào ,[[${orderDto.name}]]</p>
+                                                        <p style="margin: 0 0 16px">
+                                                            Đơn hàng của bạn đã được xác nhận.
+                                                        </p>
+
+                                                        <h2 style="
+                                        color: #e0c528; display: block; font-family: 'Helvetica Neue', Helvetica,
+                                          Roboto, Arial, sans-serif; font-size: 18px; font-weight: bold; line-height: 130%;
+                                        margin: 0 0 18px; text-align: left; ">
+                                                            [Đơn hàng ] ([[${#dates.format(dateOrder, 'dd/MM/yyyy')}]])
+                                                        </h2>
+
+                                                        <div style="margin-bottom: 40px">
+                                                            <table cellspacing="0" cellpadding="6" style="
+                                          color: #636363;
+                                          border: 1px solid #e5e5e5;
+                                          vertical-align: middle;
+                                          width: 100%;
+                                          font-family: 'Helvetica Neue',
+                                            Helvetica, Roboto, Arial, sans-serif; " width="100%"
+                                                            >
+                                                                <thead>
+                                                                <tr>
+                                                                    <th
+                                                                            scope="col"
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 12px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Sản phẩm
+                                                                    </th>
+                                                                    <th
+                                                                            scope="col"
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 12px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Số lượng
+                                                                    </th>
+                                                                    <th
+                                                                            scope="col"
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 12px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Giá
+                                                                    </th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="item : ${orderDto.cartDtoList}">
+                                                                    <td
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                padding: 12px;
+                                                text-align: left;
+                                                vertical-align: middle;
+                                                font-family: 'Helvetica Neue',
+                                                  Helvetica, Roboto, Arial,
+                                                  sans-serif;
+                                                word-wrap: break-word;
+                                              "
+                                                                            th:text="${item.nameProduct}">
+
+                                                                    </td>
+                                                                    <td
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                padding: 12px;
+                                                text-align: left;
+                                                vertical-align: middle;
+                                                font-family: 'Helvetica Neue',
+                                                  Helvetica, Roboto, Arial,
+                                                  sans-serif;
+                                              "
+                                                                            th:text="${item.quantity}">
+
+                                                                    </td>
+                                                                    <td
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                padding: 12px;
+                                                text-align: left;
+                                                vertical-align: middle;
+                                                font-family: 'Helvetica Neue',
+                                                  Helvetica, Roboto, Arial,
+                                                  sans-serif;
+                                              "
+                                                                    >
+                                                                        <span>[[${#numbers.formatDecimal(item.priceProduct, 3,'POINT', 0,'COMMA')}]]<span>₫</span></span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tfoot>
+
+                                                                <tr>
+                                                                    <th
+                                                                            scope="row"
+                                                                            colspan="2"
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 12px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Phương thức thanh toán:
+                                                                    </th>
+                                                                    <td
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 10px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Tiền mặt
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th
+                                                                            scope="row"
+                                                                            colspan="2"
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 12px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Tổng cộng:
+                                                                    </th>
+                                                                    <td
+                                                                            style="
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                                vertical-align: middle;
+                                                padding: 12px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                              <span
+                                              >[[${#numbers.formatDecimal(totalPayment, 3,'POINT', 0,'COMMA')}]]<span
+                                              >₫</span
+                                              ></span
+                                              >
+                                                                    </td>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+
+                                                        <table
+                                                                cellspacing="0"
+                                                                cellpadding="0"
+                                                                style="
+                                        width: 100%;
+                                        vertical-align: top;
+                                        margin-bottom: 40px;
+                                        padding: 0;
+                                      "
+                                                                width="100%"
+                                                        >
+                                                            <tbody>
+                                                            <tr>
+                                                                <td
+                                                                        valign="top"
+                                                                        width="50%"
+                                                                        style="
+                                              text-align: left;
+                                              font-family: 'Helvetica Neue',
+                                                Helvetica, Roboto, Arial,
+                                                sans-serif;
+                                              border: 0;
+                                              padding: 0;
+                                            "
+                                                                >
+                                                                    <h2
+                                                                            style="
+                                                color: #e0c528;
+                                                display: block;
+                                                font-family: 'Helvetica Neue',
+                                                  Helvetica, Roboto, Arial,
+                                                  sans-serif;
+                                                font-size: 18px;
+                                                font-weight: bold;
+                                                line-height: 130%;
+                                                margin: 0 0 18px;
+                                                text-align: left;
+                                              "
+                                                                    >
+                                                                        Địa chỉ thanh toán
+                                                                    </h2>
+
+                                                                    <address
+                                                                            style="
+                                                padding: 12px;
+                                                color: #636363;
+                                                border: 1px solid #e5e5e5;
+                                              "
+                                                                    >
+                                                                        <p>Người nhận : [[${orderDto.name}]]</p>
+                                                                        <p>SDT : [[${orderDto.phoneNumber}]]</p>
+                                                                        <p>Email : [[${orderDto.email}]]</p>
+
+
+                                                                    </address>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p style="margin: 0 0 16px">
+                                                            Cảm ơn đã mua hàng của chúng tôi.
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

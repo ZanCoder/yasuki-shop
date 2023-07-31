@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="main_header(condition)" th:remove="${condition}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,9 +56,13 @@
                     </a>
                 </div>
             </div>
-            <div class="header__account">
+            <div  th:unless="${#authentication.isAuthenticated()}" class="header__account">
                 <a href="#my-Login" class="header__account-login">Đăng Nhập</a>
                 <a href="#my-Register" class="header__account-register">Đăng Kí</a>
+            </div>
+            <div th:if="${#authentication.isAuthenticated()}" class="header__account">
+                <span class="header__account-login">Xin chào, [[${#authentication.principal.fullName}]] !</span>
+                <i class="fas fa-user-alt header__account-register"></i>
             </div>
             <!-- Cart -->
             <div class="header__cart have" href="#">
@@ -243,17 +248,17 @@
             <div class="form-group">
                 <label for="email" class="form-label">Tài khoản Email *</label>
                 <input id="email" name="password" type="text" class="form-control">
-                <span class="form-message"></span>
+<!--                <span class="form-message"></span>-->
             </div>
             <div class="form-group">
                 <label for="password" class="form-label">Mật khẩu *</label>
                 <input id="password" name="password" type="text" class="form-control">
-                <span class="form-message"></span>
+<!--                <span class="form-message"></span>-->
             </div>
             <div class="form-group">
                 <label for="re_password" class="form-label">Nhập lại mật khẩu *</label>
                 <input id="re_password" name="password" type="text" class="form-control">
-                <span class="form-message"></span>
+<!--                <span class="form-message"></span>-->
             </div>
             <div class="authen__btns">
                 <div class="btn btn--default">Đăng Kí</div>
