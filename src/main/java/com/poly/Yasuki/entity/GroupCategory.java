@@ -26,6 +26,8 @@ public class GroupCategory {
 
     @Column(unique = true)
     private String slug;
+
+    @Column(name = "is_active")
     private Boolean isActive = false;
 
 //    @JsonIgnore

@@ -14,6 +14,7 @@ import java.util.List;
 public interface GroupCategoryRepo extends JpaRepository<GroupCategory, Integer> {
     MyCategory findGroupCategoryBySlug(String slug);
 
+    @Query(value = "SELECT * FROM group_categories WHERE is_active = 1 LIMIT 6", nativeQuery = true)
     List<GroupCategory> findTop6ByIsActiveTrue();
     @Query(value = "SELECT * FROM group_categories  WHERE name LIKE %:keyword%", nativeQuery = true)
     Page<GroupCategory> findByKeyword(String keyword, Pageable pageable);

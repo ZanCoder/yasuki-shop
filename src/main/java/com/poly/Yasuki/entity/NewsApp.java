@@ -20,6 +20,7 @@ public class NewsApp {
     private Integer id;
     private String title;
 
+    @Column(name = "create_at")
     @CreationTimestamp
     private Timestamp createAt;
 
@@ -27,6 +28,7 @@ public class NewsApp {
     private String content;
     private String image;
 
+    @Column(name = "is_active")
     @Builder.Default
     private Boolean isActive = true;
 

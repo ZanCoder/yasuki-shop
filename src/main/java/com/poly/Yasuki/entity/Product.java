@@ -34,25 +34,31 @@ public class Product implements Serializable {
     @Column(name="price", precision = 12, scale = 3)
     private BigDecimal price;
 
+    @Column(name="percent_discount")
     private Double percentDiscount = 0d;
 
+    @Column(name="quantity_left")
     private Integer quantityLeft;
+
+    @Column(name="quantity_sold")
     private Integer quantitySold;
 
+    @Column(name="date_release")
     @CreationTimestamp
     private Timestamp dateRelease;
 
     private String slug;
 
-    @Column(length = 1024)
+    @Column(name="short_description", length = 1024)
     private String shortDescription;
 
-    @Column(length = 4096)
+    @Column(name="full_description",length = 4096)
     private String fullDescription;
 
-    @Column(length = 4096)
+    @Column(name="main_image",length = 4096)
     private String mainImage;
 
+    @Column(name = "is_active")
     private Boolean isActive = true;
 
     @JsonIgnore

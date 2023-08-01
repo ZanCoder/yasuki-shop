@@ -1,9 +1,9 @@
 version: '3.0'
 services:
   mysqldb:
-    container_name: mysqldb
+    container_name: yasuki-mysqldb
     image: mysql:8.0
-    restart: on-failure
+
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: demo_db
@@ -19,14 +19,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: spring-boot-tk
+    container_name: yasuki-spring
     ports:
       - "8080:8080"
     restart: on-failure
     environment:
       DATABASE_HOST: mysqldb
       DATABASE_PORT: 3306
-      DATABASE_NAME: TKShop
+      DATABASE_NAME: db_yasuki
       DATABASE_USER: root
       DATABASE_PASSWORD: root
       SPRING_PROFILES_ACTIVE: dev

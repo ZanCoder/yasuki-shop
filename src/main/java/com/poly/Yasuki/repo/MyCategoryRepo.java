@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface MyCategoryRepo extends JpaRepository<MyCategory, Integer> {
     MyCategory findMyCategoryBySlug(String slug);
-    @Query(value = "SELECT * FROM Categories  WHERE name LIKE %:keyword%", nativeQuery = true)
+    @Query(value = "SELECT * FROM my_categories  WHERE name LIKE %:keyword%", nativeQuery = true)
     Page<MyCategory> findByKeyword(String keyword, Pageable pageable);
 
     List<MyCategory> findByGroupCategory(GroupCategory groupCategory);

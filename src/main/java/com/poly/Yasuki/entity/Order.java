@@ -31,11 +31,16 @@ public class Order implements Serializable {
     @Column(length = 1024)
     private String address;
     private String email;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
     private String note;
+
+    @Column(name = "total_payment")
     private BigDecimal totalPayment;
     private String status = "Đặt hàng";
 
+    @Column(name = "create_at")
     @CreationTimestamp
     private Timestamp createAt;
 

@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "[Categories]")
+@Table(name = "my_categories")
 public class MyCategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,8 @@ public class MyCategory implements Serializable {
 
     @Column(unique = true)
     private String slug;
+
+    @Column(name = "is_active")
     private Boolean isActive = false;
 
     @JsonIgnore
