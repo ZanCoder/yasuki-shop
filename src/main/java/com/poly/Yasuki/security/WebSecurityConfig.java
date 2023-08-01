@@ -5,6 +5,7 @@ import com.poly.Yasuki.service.MyUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,15 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
 
         .authorizeRequests()
-                .antMatchers("/assets/**").permitAll()
-                .antMatchers("/login").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-//                .antMatchers("/order/**", "/cart/**")
-                .anyRequest().authenticated()
+//                .antMatchers("/assets/**").permitAll()
+//                .antMatchers("/login", "/").permitAll()
+                .antMatchers("/admin/**").hasAuthority("admin")
+                .antMatchers("/order/**", "/cart/**").hasAnyAuthority("admin", "user")
+                .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login")
                 .successHandler(authenticationSuccessHandler)
                 .and().logout()
-                .logoutUrl("/logout");
+                .logoutUrl("/logout").logoutSuccessUrl("/");
     }
-
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }

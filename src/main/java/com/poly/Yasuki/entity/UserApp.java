@@ -27,7 +27,7 @@ public class UserApp implements Serializable {
     @Column(name = "full_name")
     private String fullName;
 
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
@@ -37,5 +37,9 @@ public class UserApp implements Serializable {
     )
     private Set<RoleApp> roles = new HashSet<>();
 
-
+    public UserApp(String email, String password, String fullName) {
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+    }
 }

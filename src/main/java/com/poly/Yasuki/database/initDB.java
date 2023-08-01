@@ -116,7 +116,7 @@ public class initDB implements CommandLineRunner {
 
         Set<RoleApp> roles2 = new HashSet<>();
         roles2.add(roleApp2);
-        UserApp userApp2 = new UserApp(null,"dc", "123", "Duc Cong", true, roles2);
+        UserApp userApp2 = new UserApp(null,"stellaprimo99@gmail.com", "123", "Duc Cong", true, roles2);
 
         userService.create(userApp1);
         userService.create(userApp2);

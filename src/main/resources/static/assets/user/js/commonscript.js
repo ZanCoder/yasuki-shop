@@ -42,22 +42,94 @@ tabs.forEach((tab, index) => {
     };
 });
 
-// cart
-var urlInCreaseCart = '/yasuki/cart/update?action=increase';
-var urlDecreaseCart = '/yasuki/cart/update?action=decrease';
-var urlDeleteCart = '/yasuki/cart/delete';
-var urlAddCart = '/yasuki/cart/add';
-var urlListProduct = '/yasuki/list-product';
+//url
+var domain = '/yasuki';
+var urlInCreaseCart =   domain + '/cart/update?action=increase';
+var urlDecreaseCart =   domain + '/cart/update?action=decrease';
+var urlDeleteCart   =   domain + '/cart/delete';
+var urlAddCart      =   domain + '/cart/add';
+var urlListProduct  =   domain + '/list-product';
+var urlLogin        =   domain + '/login-with-ajax';
+var urlSignup      =   domain + '/signup-with-ajax';
 
+//login
+$('#submit_modal_login').on('click', ()=>{
+    let username = $('#email_modal_login').val();
+    let password = $('#pass_modal_login').val();
+
+    $(".account_not_found_message").hide();
+    $(".invalid_password_message").hide();
+    $.ajax({
+          url: urlLogin,
+          method: 'POST',
+          data: {username : username, password : password}
+        }).then(function(response) {
+
+             if(response === 'OK'){
+                window.location.href = domain;
+             }else if(response === 'NOT FOUND'){
+                $(".account_not_found_message").show();
+             }else if(response === 'INVALID'){
+                $(".invalid_password_message").show();
+             }
+        }).fail(function(error) {
+          console.log("error : " + error);
+        });
+
+});
+
+
+//sign up
+$('#btn_signup').on('click', ()=>{
+    let fullName = $('#name_signup').val();
+    let email = $('#email_signup').val();
+    let password = $('#password_signup').val();
+    let re_password = $('#re_password_signup').val();
+
+    $(".msg_already_exist").hide();
+    $(".msg_pass_not_match").hide();
+
+    if(password !== re_password){
+        $(".msg_pass_not_match").show();
+        return;
+    }else{
+        let dataToSend =  {
+                              email : email,
+                              password : password,
+                              fullName : fullName
+                          }
+         $.ajax({
+              url: urlSignup,
+              method: 'POST',
+              contentType:"application/json; charset=utf-8",
+              data : JSON.stringify(dataToSend),
+              dataType: "text",
+        }).then(function(response) {
+             if(response === 'OK'){
+                $("#my-Register").hide();
+                $("#my-Login").show();
+             }else if(response === 'ALREADY EXIST'){
+                $(".msg_already_exist").show();
+             }
+        }).fail(function(error) {
+          console.log("error : " + error);
+        });
+    }
+});
+
+
+// cart
 async function addToCart(name, price, mainImageProduct){
       try {
         let data = {nameProduct : name, priceProduct : price, mainImageProduct : mainImageProduct}
         let listCartItems = await callAjaxCartPromise(urlAddCart, 'POST', data) || [];
-        SwalAlertSuccess("Thêm thành công!");
+
         updateHtmlAfterAddCart(listCartItems);
       } catch (error) {
-        console.error("Error:", error);
+        $("#my-Login").show();
+        return;
       }
+      SwalAlertSuccess("Thêm thành công!");
 }
 
 async function deleteCart(nameProduct){
@@ -107,30 +179,36 @@ function callAjaxCartPromise(url, method, data) {
 }
 
 function updateHtmlAfterAddCart(listCart){
-     let html = '';
-     listCart.forEach( cartItem => {
-     let formattedPrice = /*[[${#numbers.formatDecimal(cartItem.priceProduct, 3, 'POINT', 0, 'COMMA')}]]*/ '';
-     html +=`
-            <li  class="item-order">
-                <div class="order-wrap">
-                    <a href="#" class="order-img">
-                        <img src='${cartItem.mainImageProduct}'alt="error">
-                    </a>
-                    <div class="order-main">
-                        <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
-                        <div class="order-main-price">${cartItem.quantity} x ${formatDecimal(cartItem.priceProduct)} ₫</div>
-                    </div>
-                    <a onclick="deleteCart('${cartItem.nameProduct}')" class="order-close"><i class="far fa-times-circle"></i></a>
-                </div>
-            </li>
-        `
-     })
-    $('.order__list').html(html);
-    $('.header__cart-amount').text(listCart.length);
+    if(listCart != null){
+        let html = '';
+             listCart.forEach( cartItem => {
+             let formattedPrice = /*[[${#numbers.formatDecimal(cartItem.priceProduct, 3, 'POINT', 0, 'COMMA')}]]*/ '';
+             html +=`
+                    <li  class="item-order">
+                        <div class="order-wrap">
+                            <a href="#" class="order-img">
+                                <img src='${cartItem.mainImageProduct}'alt="error">
+                            </a>
+                            <div class="order-main">
+                                <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
+                                <div class="order-main-price">${cartItem.quantity} x ${formatDecimal(cartItem.priceProduct)} ₫</div>
+                            </div>
+                            <a onclick="deleteCart('${cartItem.nameProduct}')" class="order-close"><i class="far fa-times-circle"></i></a>
+                        </div>
+                    </li>
+                `
+             })
+            $('.order__list').html(html);
+            $('.header__cart-amount').text(listCart.length);
+    }
 }
-
+//common function
 function formatDecimal(num){
     return numbro(num).format({thousandSeparated: true});
+}
+function isValidEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
 }
 
 // Swal alert

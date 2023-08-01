@@ -46,7 +46,6 @@
 
                     if(data == 'OK'){
                         localStorage.removeItem('dataOrder');
-
                     }
                 }).fail(function(error){
                     alert('error' + error)

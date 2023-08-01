@@ -51,6 +51,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         boolean hasAdminRole = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
+            System.out.println(grantedAuthority.getAuthority());
             if (grantedAuthority.getAuthority().equals("user")) {
                 hasUserRole = true;
                 break;
@@ -61,9 +62,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         if (hasUserRole) {
-            redirectStrategy.sendRedirect(request, response, "/admin/manager-user");
-        } else if (hasAdminRole) {
             redirectStrategy.sendRedirect(request, response, "/");
+        } else if (hasAdminRole) {
+            redirectStrategy.sendRedirect(request, response, "/admin");
         } else {
             throw new IllegalStateException();
         }

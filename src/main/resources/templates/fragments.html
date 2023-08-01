@@ -56,26 +56,32 @@
                     </a>
                 </div>
             </div>
-            <div  th:unless="${#authentication.isAuthenticated()}" class="header__account">
+            <div  th:if="${#authorization.expression('isAnonymous()')}" class="header__account">
                 <a href="#my-Login" class="header__account-login">Đăng Nhập</a>
                 <a href="#my-Register" class="header__account-register">Đăng Kí</a>
             </div>
-            <div th:if="${#authentication.isAuthenticated()}" class="header__account">
-                <span class="header__account-login">Xin chào, [[${#authentication.principal.fullName}]] !</span>
-                <i class="fas fa-user-alt header__account-register"></i>
+            <div th:unless="${#authorization.expression('isAnonymous()')}" class="header__account header__authenticated have">
+                <span class="header__account-login ">Hi, [[${#authentication.principal.fullName}]] !</span>
+                <i class="fas fa-user-alt icon__account"></i>
+                <div class="header__authenticated-wrap">
+                    <a th:href="@{/logout}" class="log_out">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Đổi tài khoản</span>
+                    </a>
+                </div>
             </div>
             <!-- Cart -->
             <div class="header__cart have" href="#">
                 <i class="fas fa-shopping-basket"></i>
                 <div class="header__cart-amount">
-                    3
+                    0
                 </div>
                 <div class="header__cart-wrap">
                     <ul class="order__list">
                      </ul>
 <!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
-                    <a th:href="@{/cart}" class="btn btn--default cart-btn">Xem giỏ hàng</a>
-                    <a th:href="@{/cart}" class="btn btn--default cart-btn orange">Thanh toán</a>
+                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--default cart-btn">Xem giỏ hàng</a>
+                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn--default cart-btn orange">Thanh toán</a>
                     <!-- norcart -->
                     <!-- <img class="header__cart-img-nocart" src="http://www.giaybinhduong.com/images/empty-cart.png" alt=""> -->
                 </div>
@@ -241,27 +247,25 @@
         <div class="authen-modal register">
             <h3 class="authen-modal__title">Đăng Kí</h3>
             <div class="form-group">
-                <label for="name" class="form-label">Họ Tên</label>
-                <input id="name" name="account" type="text" class="form-control">
-                <span class="form-message">Không hợp lệ !</span>
+                <label for="name_signup" class="form-label">Họ Tên</label>
+                <input id="name_signup" name="account" type="text" class="form-control">
             </div>
             <div class="form-group">
-                <label for="email" class="form-label">Tài khoản Email *</label>
-                <input id="email" name="password" type="text" class="form-control">
-<!--                <span class="form-message"></span>-->
+                <label for="email_signup" class="form-label">Tài khoản Email *</label>
+                <input id="email_signup" name="email" type="email" class="form-control">
+                <span class="form-message msg_already_exist" style="display : none;">Tài khoản đã tồn tại!</span>
             </div>
             <div class="form-group">
-                <label for="password" class="form-label">Mật khẩu *</label>
-                <input id="password" name="password" type="text" class="form-control">
-<!--                <span class="form-message"></span>-->
+                <label for="password_signup" class="form-label">Mật khẩu *</label>
+                <input id="password_signup" name="password" type="password" class="form-control">
             </div>
             <div class="form-group">
-                <label for="re_password" class="form-label">Nhập lại mật khẩu *</label>
-                <input id="re_password" name="password" type="text" class="form-control">
-<!--                <span class="form-message"></span>-->
+                <label for="re_password_signup" class="form-label">Nhập lại mật khẩu *</label>
+                <input id="re_password_signup" name="password" type="password" class="form-control">
+                <span class="form-message  msg_pass_not_match" style="display : none;">Mật khẩu không khớp!</span>
             </div>
-            <div class="authen__btns">
-                <div class="btn btn--default">Đăng Kí</div>
+            <div id="btn_signup" class="authen__btns">
+                <div class="btn btn--default w-100">Đăng Kí</div>
             </div>
         </div>
     </div>
@@ -270,23 +274,48 @@
         <div class="authen-modal login">
             <h3 class="authen-modal__title">Đăng Nhập</h3>
             <div class="form-group">
-                <label for="account" class="form-label">Địa chỉ email *</label>
-                <input id="account" name="account" type="text" class="form-control">
-                <span class="form-message">Tài khoản không chính xác !</span>
+                <label for="email_modal_login" class="form-label">Địa chỉ email *</label>
+                <input id="email_modal_login" name="username" type="email" class="form-control">
+                <span class="form-message account_not_found_message" style="display : none;">Tài khoản không chính xác !</span>
             </div>
             <div class="form-group">
-                <label for="pass" class="form-label">Mật khẩu *</label>
-                <input id="pass" name="password" type="text" class="form-control">
-                <span class="form-message"></span>
+                <label for="pass_modal_login" class="form-label">Mật khẩu *</label>
+                <input id="pass_modal_login" name="password" type="password" class="form-control">
+                <span class="form-message invalid_password_message"  style="display : none;">Sai mật khẩu</span>
             </div>
             <div class="authen__btns">
-                <div class="btn btn--default">Đăng Nhập</div>
-                <input type="checkbox" class="authen-checkbox">
-                <label class="form-label">Ghi nhớ mật khẩu</label>
+                <div id="submit_modal_login" class="btn btn--default">Đăng Nhập</div>
+                <input  id="remember_me" type="checkbox" class="authen-checkbox">
+                <label  for="remember_me" class="form-label">Ghi nhớ mật khẩu</label>
             </div>
             <a class="authen__link">Quên mật khẩu ?</a>
         </div>
     </div>
+
+        <div class="modal" id="my-ForgotPass">
+            <a href="#" class="overlay-close"></a>
+            <div class="authen-modal register">
+                <h3 class="authen-modal__title">Quên mật khẩu</h3>
+                <div class="form-group">
+                    <label for="email_forgot" class="form-label">Tài khoản Email *</label>
+                    <input id="email_forgot" name="email" type="email" class="form-control">
+                    <span class="form-message msg_not_exist" style="display : none;">Tài khoản không tồn tại!</span>
+                </div>
+                <div class="form-group">
+                    <label for="password_forgot" class="form-label">Mật khẩu mới *</label>
+                    <input id="password_forgot" name="password" type="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="re_password_forgot" class="form-label">Nhập lại mật khẩu *</label>
+                    <input id="re_password_forgot" name="password" type="password" class="form-control">
+                    <span class="form-message  msg_pass_not_match" style="display : none;">Mật khẩu không khớp!</span>
+                </div>
+                <div id="btn_forgotSubmit" class="authen__btns">
+                    <div class="btn btn--default w-100">Đổi mật khẩu</div>
+                </div>
+            </div>
+        </div>
+
     <div class="up-top" id="upTop" onclick="goToTop()">
         <i class="fas fa-chevron-up"></i>
     </div>

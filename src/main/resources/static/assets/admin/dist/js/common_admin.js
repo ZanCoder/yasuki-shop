@@ -13,6 +13,10 @@
 //        </tr>
 //    `)
 //});
+
+function myOnLoading(){
+    $('.preloader').show();
+}
 var urlDelete = window.location.pathname + '/delete';
 var urlEdit = window.location.pathname + '/edit';
 var urlSearch = window.location.pathname;

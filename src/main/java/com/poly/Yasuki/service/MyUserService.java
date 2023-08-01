@@ -24,4 +24,6 @@ public interface MyUserService extends UserDetailsService {
     UserApp deleteUser(Integer id);
 
     Optional<UserApp> findById(Integer id);
+
+    public Boolean doLogin(String username, String password);
 }
