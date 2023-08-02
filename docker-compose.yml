@@ -3,7 +3,7 @@ services:
   mysqldb:
     container_name: yasuki-mysqldb
     image: mysql:8.0
-
+    restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: demo_db
