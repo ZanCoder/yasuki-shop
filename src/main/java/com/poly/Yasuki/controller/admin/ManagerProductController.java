@@ -97,7 +97,7 @@ public class ManagerProductController {
         model.addAttribute("newProduct", product);
         model.addAttribute("productImages", initListProductImage());
         model.addAttribute("indexGCSelected", productService.getCurrentIndexForGC(product));
-        return "/admin/add_product";
+        return "admin/add_product.html";
     }
 
     @PostMapping("/admin/manager-product/update")
