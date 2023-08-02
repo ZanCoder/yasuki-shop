@@ -76,13 +76,14 @@ public class ManagerOrderController {
     }
 
     @GetMapping("/admin/manager-order/edit")
-    public String editOrder(@RequestParam(name = "id") Integer id,
+    public String editOrder(@RequestParam(name = "id") String id,
                               Model model){
-        Order order = orderService.findById(id).get();
+        Integer idIn = Integer.parseInt(id);
+        Order order = orderService.findById(idIn).get();
         model.addAttribute("mode", "edit");
         model.addAttribute("editOrder", order);
         model.addAttribute("groupCategories", groupCategoryService.getAll());
-        return "/admin/add_order";
+        return "admin/add_order.html";
     }
 
 }

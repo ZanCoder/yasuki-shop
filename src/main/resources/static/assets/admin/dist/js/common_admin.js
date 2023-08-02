@@ -21,11 +21,11 @@ var urlDelete = window.location.pathname + '/delete';
 var urlEdit = window.location.pathname + '/edit';
 var urlSearch = window.location.pathname;
 var urlChangeStatus = window.location.pathname + '/change-status';
-var urlChangeGC = '/yasuki/admin/manager-product/change-group-category';
-var urlSearchProdToOrder = '/yasuki/admin/manager-order/find-by-keyword';
-var urlFindByGroup = '/yasuki/admin/manager-order/find-by-group';
-var urlFindByCategory = '/yasuki/admin/manager-order/find-by-category';
-var urlManagerOrder = '/yasuki/admin/manager-order';
+var urlChangeGC = '/admin/manager-product/change-group-category';
+var urlSearchProdToOrder = '/admin/manager-order/find-by-keyword';
+var urlFindByGroup = '/admin/manager-order/find-by-group';
+var urlFindByCategory = '/admin/manager-order/find-by-category';
+var urlManagerOrder = '/admin/manager-order';
 
 
 //manager user
@@ -186,7 +186,7 @@ $('#sendOrder').on('click', function sendOrder(){
     }
     if(dataOrder !== null){
         $.ajax({
-            url : '/yasuki/order',
+            url : '/order',
             method : 'POST',
             contentType: "application/json",
             dataType: "text",

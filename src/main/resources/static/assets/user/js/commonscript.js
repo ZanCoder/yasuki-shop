@@ -43,14 +43,14 @@ tabs.forEach((tab, index) => {
 });
 
 //url
-var domain = '/yasuki';
-var urlInCreaseCart =   domain + '/cart/update?action=increase';
-var urlDecreaseCart =   domain + '/cart/update?action=decrease';
-var urlDeleteCart   =   domain + '/cart/delete';
-var urlAddCart      =   domain + '/cart/add';
-var urlListProduct  =   domain + '/list-product';
-var urlLogin        =   domain + '/login-with-ajax';
-var urlSignup      =   domain + '/signup-with-ajax';
+
+var urlInCreaseCart =   '/cart/update?action=increase';
+var urlDecreaseCart =   '/cart/update?action=decrease';
+var urlDeleteCart   =   '/cart/delete';
+var urlAddCart      =   '/cart/add';
+var urlListProduct  =   '/list-product';
+var urlLogin        =   '/login-with-ajax';
+var urlSignup      =    '/signup-with-ajax';
 
 //login
 $('#submit_modal_login').on('click', ()=>{

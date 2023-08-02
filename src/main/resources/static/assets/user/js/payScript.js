@@ -37,7 +37,7 @@
             if(dataOrder !== null){
                 SwalAlertOrderSuccess('Đặt hàng thành công!');
                 $.ajax({
-                    url : '/yasuki/order',
+                    url : '/order',
                     method : 'POST',
                     contentType: "application/json",
                     dataType: "text",
