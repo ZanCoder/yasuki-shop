@@ -87,9 +87,10 @@ public class ManagerProductController {
     }
 
     @GetMapping("/admin/manager-product/edit")
-    public String editProduct(@RequestParam(name = "id") Integer id,
+    public String editProduct(@RequestParam(name = "id") String id,
                                      Model model){
-        Product product = productService.findById(id).get();
+        Integer idIn = Integer.parseInt(id);
+        Product product = productService.findById(idIn).get();
         model.addAttribute("mode", "edit");
         model.addAttribute("groupCategoriesShow", groupCategoryService.getAll());
 //        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
