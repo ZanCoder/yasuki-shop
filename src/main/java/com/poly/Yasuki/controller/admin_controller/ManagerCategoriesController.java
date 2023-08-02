@@ -1,8 +1,7 @@
-package com.poly.Yasuki.controller.admin;
+package com.poly.Yasuki.controller.admin_controller;
 
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.service.GroupCategoryService;
-import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;

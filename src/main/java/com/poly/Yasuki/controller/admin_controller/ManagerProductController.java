@@ -1,4 +1,4 @@
-package com.poly.Yasuki.controller.admin;
+package com.poly.Yasuki.controller.admin_controller;
 
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.entity.Product;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

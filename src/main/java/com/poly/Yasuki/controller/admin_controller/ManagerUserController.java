@@ -1,4 +1,4 @@
-package com.poly.Yasuki.controller.admin;
+package com.poly.Yasuki.controller.admin_controller;
 
 import com.poly.Yasuki.entity.RoleApp;
 import com.poly.Yasuki.entity.UserApp;
@@ -17,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller
