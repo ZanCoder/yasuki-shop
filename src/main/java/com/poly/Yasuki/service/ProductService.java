@@ -40,4 +40,6 @@ public interface ProductService {
     List<Product> getListProductsByGroupId(Integer id);
 
     List<Product> getListProductsByCategoryId(Integer id);
+
+    Page<Product> getAllAndActiveTrue(Pageable pageable);
 }

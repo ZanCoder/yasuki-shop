@@ -60,12 +60,12 @@
                 <a href="#my-Login" class="header__account-login">Đăng Nhập</a>
                 <a href="#my-Register" class="header__account-register">Đăng Kí</a>
             </div>
-            <div th:unless="${#authorization.expression('isAnonymous()')}" class="header__account header__authenticated have">
-                <span class="header__account-login ">Hi, [[${#authentication.principal.fullName}]] !</span>
-                <i class="fas fa-user-alt icon__account"></i>
+            <div th:unless="${#authorization.expression('isAnonymous()')}" class="header__account header__authenticated  header__cart have">
+                <span class="header__account-login">Hi, [[${#authentication.principal.fullName}]] !</span>
+                <i class="fas fa-user-alt "></i>
                 <div class="header__authenticated-wrap">
                     <a th:href="@{/logout}" class="log_out">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i class="fas fa-sign-out-alt color-black fz-20"></i>
                         <span>Đổi tài khoản</span>
                     </a>
                 </div>
@@ -196,7 +196,7 @@
                     </li>
                     <li class="footer__item">
                         <a href="#" class="footer__link">
-                            <i class="fas fa-envelope"></i> yasuki.cometics@gmail.com
+                            <i class="fas fa-envelope"></i> yasuki.shop@gmail.com
                         </a>
                     </li>
                     <li class="footer__item">
@@ -253,7 +253,7 @@
             <div class="form-group">
                 <label for="email_signup" class="form-label">Tài khoản Email *</label>
                 <input id="email_signup" name="email" type="email" class="form-control">
-                <span class="form-message msg_already_exist" style="display : none;">Tài khoản đã tồn tại!</span>
+                <span class="form-message error_email_signup" style="display : none;">Tài khoản đã tồn tại!</span>
             </div>
             <div class="form-group">
                 <label for="password_signup" class="form-label">Mật khẩu *</label>

@@ -128,7 +128,7 @@
                     if(listCartSelected.length !== 0){
                         var listCartJSon = JSON.stringify(listCartSelected);
                         localStorage.setItem('dataOrder', listCartJSon);
-                        window.location = '/yasuki/order';
+                        window.location = '/order';
                     }else{
                         SwalAlertWarning('Bạn chưa chọn sản phẩm nào!')
                     }

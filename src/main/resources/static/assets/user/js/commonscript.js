@@ -50,7 +50,7 @@ var urlDeleteCart   =   '/cart/delete';
 var urlAddCart      =   '/cart/add';
 var urlListProduct  =   '/list-product';
 var urlLogin        =   '/login-with-ajax';
-var urlSignup      =    '/signup-with-ajax';
+var urlSignup       =    '/signup-with-ajax';
 
 //login
 $('#submit_modal_login').on('click', ()=>{
@@ -64,9 +64,8 @@ $('#submit_modal_login').on('click', ()=>{
           method: 'POST',
           data: {username : username, password : password}
         }).then(function(response) {
-
              if(response === 'OK'){
-                window.location.href = domain;
+                window.location.href = "/"
              }else if(response === 'NOT FOUND'){
                 $(".account_not_found_message").show();
              }else if(response === 'INVALID'){
@@ -81,15 +80,20 @@ $('#submit_modal_login').on('click', ()=>{
 
 //sign up
 $('#btn_signup').on('click', ()=>{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let fullName = $('#name_signup').val();
     let email = $('#email_signup').val();
     let password = $('#password_signup').val();
     let re_password = $('#re_password_signup').val();
 
-    $(".msg_already_exist").hide();
+    $(".error_email_signup").hide();
     $(".msg_pass_not_match").hide();
 
-    if(password !== re_password){
+    if(!emailPattern.test(email)){
+        $(".error_email_signup").text('Định dạng email không hợp lệ!');
+        $(".error_email_signup").show();
+        return;
+    } else if(password !== re_password){
         $(".msg_pass_not_match").show();
         return;
     }else{
@@ -109,7 +113,8 @@ $('#btn_signup').on('click', ()=>{
                 $("#my-Register").hide();
                 $("#my-Login").show();
              }else if(response === 'ALREADY EXIST'){
-                $(".msg_already_exist").show();
+                $(".error_email_signup").text('Tài khoản đã tồn tại!');
+                $(".error_email_signup").show();
              }
         }).fail(function(error) {
           console.log("error : " + error);
@@ -193,7 +198,7 @@ function updateHtmlAfterAddCart(listCart){
                                 <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
                                 <div class="order-main-price">${cartItem.quantity} x ${formatDecimal(cartItem.priceProduct)} ₫</div>
                             </div>
-                            <a onclick="deleteCart('${cartItem.nameProduct}')" class="order-close"><i class="far fa-times-circle"></i></a>
+                            <a onclick="deleteCart('${cartItem.nameProduct}')" class="order-close pointer"><i class="far fa-times-circle"></i></a>
                         </div>
                     </li>
                 `

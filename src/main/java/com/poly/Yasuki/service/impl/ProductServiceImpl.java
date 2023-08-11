@@ -70,6 +70,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> getAllAndActiveTrue(Pageable pageable) {
+        return productRepo.findByActiveTrue(pageable);
+    }
+
+    @Override
     public void updateStatus(Integer id, Boolean statusChanged) {
         Optional<Product> product = productRepo.findById(id);
         product.get().setIsActive(statusChanged);
@@ -137,15 +142,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(Integer id, Product product) {
+    public void update(Integer id, Product productUpdate) {
         Product currentProduct = findById(id).get();
-        if(product == null){
+        if(productUpdate == null){
             throw new RuntimeException("Could not found product!");
         }
-        product.setDateRelease(currentProduct.getDateRelease());
-        String slug = SlugGenerator.generateSlug(product.getName());
-        product.setSlug(slug);
-        productRepo.save(product);
+        productUpdate.setDateRelease(currentProduct.getDateRelease());
+        String slug = SlugGenerator.generateSlug(productUpdate.getName());
+        productUpdate.setSlug(slug);
+        productRepo.save(productUpdate);
+        if(productUpdate.getProductImages() != null){
+            productUpdate.getProductImages().forEach(productImage -> {
+                productImage.setProduct(productUpdate);
+                productImageRepo.save(productImage);
+            });
+        }
     }
 
     @Override

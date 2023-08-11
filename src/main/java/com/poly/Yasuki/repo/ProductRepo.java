@@ -16,16 +16,16 @@ import java.util.List;
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer> {
     Product findBySlug(String slug);
-    @Query(value = "SELECT * FROM products p ORDER BY quantity_sold DESC", nativeQuery = true )
+    @Query(value = "SELECT * FROM products p WHERE is_active = true ORDER BY quantity_sold DESC", nativeQuery = true )
     Page<Product> getTopSelling(Pageable pageable);
 
-    @Query(value = "SELECT * FROM products p ORDER BY percent_discount DESC", nativeQuery = true )
+    @Query(value = "SELECT * FROM products p WHERE is_active = true ORDER BY percent_discount DESC", nativeQuery = true )
     Page<Product> getTopDiscount(Pageable pageable);
 
-    @Query(value = "SELECT * FROM products p ORDER BY date_release DESC", nativeQuery = true )
+    @Query(value = "SELECT * FROM products p WHERE is_active = true ORDER BY date_release DESC", nativeQuery = true )
     Page<Product> getTopDateRelease(Pageable pageable);
 
-    @Query(value = "SELECT p FROM Product p WHERE p.category.slug = :categorySlug" )
+    @Query(value = "SELECT p FROM Product p WHERE p.category.slug = :categorySlug AND p.isActive = true" )
     Page<Product> getSameProductByCategory(String categorySlug, Pageable pageable);
 
     @Query(value = "SELECT * FROM products  WHERE CONCAT(name, ' ',brand ) LIKE %:keyword%", nativeQuery = true)
@@ -37,4 +37,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT p FROM Product p WHERE p.category.groupCategory = :groupCategory" )
     List<Product> findByGroup(GroupCategory groupCategory);
+
+    @Query(value = "SELECT p FROM Product p WHERE p.isActive = true" )
+    Page<Product> findByActiveTrue(Pageable pageable);
 }

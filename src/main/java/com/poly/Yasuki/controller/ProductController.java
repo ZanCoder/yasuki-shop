@@ -38,7 +38,7 @@ public class ProductController {
             String slug = SlugGenerator.generateSlug(categoryShow);
             listProduct = productService.getListProductsByCategory(slug);
         }else{
-            listProduct = productService.getProductsWithSortAndPagination(pageable);
+            listProduct = productService.getAllAndActiveTrue(pageable);
         }
 
         model.addAttribute("listProduct", listProduct.getContent());

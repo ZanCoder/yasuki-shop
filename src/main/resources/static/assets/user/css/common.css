@@ -8,6 +8,8 @@
     --white-cl-2: rgba(255, 255, 255, 0.7);
     --white-cl-3: #f8f7fd;
     --orange-cl: #d26e4b;
+    --green-cl: #74d977;
+    --gray-cl: #dbd6d1;
     --hight-header-top: 80px;
     --hight-header-nav: 50px;
     --hight-header: calc(var(--hight-header-nav) + var(--hight-header-top))
@@ -26,6 +28,9 @@ a{
     text-decoration: none !important;
 }
 
+.color-black{
+    color : black !important;
+}
 /*input*/
 
 input:-webkit-autofill,
@@ -75,6 +80,9 @@ select:-webkit-autofill:focus {
 
 .btn.orange {
     background-color: var(--orange-cl)
+}
+.btn.green{
+    background-color: var(--green-cl)
 }
 
 
@@ -179,11 +187,11 @@ input[type=checkbox]:checked:after {
 }
 
 .bg-1 {
-    background-color: var(--black-cl-1);
+    background-color: #635d5b;
 }
 
 .bg-2 {
-    background-color: var(--black-cl-2);
+    background-color: #999692;
 }
 
 .bg-3 {
@@ -699,7 +707,7 @@ textarea.form-control {
 
 .header__nav {
     height: var(--hight-header-nav);
-    background-color: var(--black-cl-1);
+    background-color: var(--default-cl);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -722,14 +730,16 @@ textarea.form-control {
     display: block;
     font-size: 1.6rem;
     text-transform: uppercase;
-    color: var(--white-cl-1);
+    color: #000000;
     padding: 0 44px;
     line-height: 5rem;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
 }
 
 .header__nav-link:hover {
-    color: var(--default-cl);
+ /*   color: var(--default-cl);*/
+    opacity: .6;
     transition: all 0.3s;
 }
 
@@ -861,7 +871,7 @@ textarea.form-control {
 /* Footer */
 
 .footer {
-    background-color: var(--black-cl-1);
+    background-color: var(--gray-cl);
     padding-top: 45px;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -878,7 +888,7 @@ textarea.form-control {
 }
 
 .footer__title {
-    color: var(--white-cl-1);
+    color: #000000;
     font-size: 1.8rem;
     text-transform: uppercase;
     margin-bottom: 16px;
@@ -887,7 +897,7 @@ textarea.form-control {
 .footer__link,
 .footer__text {
     display: block;
-    color: var(--white-cl-2);
+    color: rgb(0 0 0 / 90%);
     font-size: 1.6rem;
     line-height: 2.4rem;
     padding: 6px 0;
@@ -960,7 +970,7 @@ textarea.form-control {
 }
 
 .copyright {
-    background-color: var(--black-cl-2);
+    background-color: #918a88;
     text-align: center;
     margin-top: 25px;
 }
@@ -1088,6 +1098,7 @@ textarea.form-control {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    color : black;
 }
 
 .product__price {
@@ -1598,6 +1609,14 @@ textarea.form-control {
    position: absolute;
    z-index: 99;
 }
+
+/*config*/
 .w-100{
     width : 100%;
+}
+.fz-20{
+    font-size: 20px !important;
+}
+.pointer{
+    cursor : pointer !important;
 }
