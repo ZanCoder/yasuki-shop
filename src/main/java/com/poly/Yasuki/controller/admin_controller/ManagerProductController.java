@@ -68,7 +68,10 @@ public class ManagerProductController {
             productService.create(product);
             model.addAttribute("success", MessageUtils.ADD_SUCCESS);
         }catch(Exception ex){
+            model.addAttribute("indexGCSelected", 0);
+            model.addAttribute("groupCategoriesShow", groupCategoryService.getAll());
             model.addAttribute("newProduct", product);
+            model.addAttribute("productImages", initListProductImage());
             model.addAttribute("error", MessageUtils.PROD_ALREADY_EXIST);
             return "admin/add_product.html";
         }
