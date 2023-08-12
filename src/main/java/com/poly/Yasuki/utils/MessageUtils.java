@@ -24,5 +24,6 @@ public class MessageUtils {
     public static final String ADD_SUCCESS = "Thêm thành công!";
     public static final String ADD_FAILED = "Thêm thất bại!";
     public static final String ERROR_FOREIGN_KEY = "Đối tượng chứa dữ liệu, không thể xóa!";
+    public static final String PROD_ALREADY_EXIST = "Tên sản phẩm đã tồn tại!";
 
 }

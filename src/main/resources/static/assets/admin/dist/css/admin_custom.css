@@ -145,3 +145,10 @@ input:checked + .slider:before {
  top: calc(50% - 1.25em);
  left: calc(50% - 1.25em);
 }
+
+.truncate_td{
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

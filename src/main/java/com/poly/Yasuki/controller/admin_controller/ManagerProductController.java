@@ -68,8 +68,8 @@ public class ManagerProductController {
             productService.create(product);
             model.addAttribute("success", MessageUtils.ADD_SUCCESS);
         }catch(Exception ex){
-            model.addAttribute("error", MessageUtils.ADD_FAILED);
-            return "/admin/add_product";
+            model.addAttribute("error", MessageUtils.PROD_ALREADY_EXIST);
+            return "admin/add_product.html";
         }
         return "redirect:/admin/manager-product";
     }

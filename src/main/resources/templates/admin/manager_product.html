@@ -73,7 +73,7 @@
                                                     <tr th:each="item, iStat  : ${listProducts}">
                                                         <td th:text="${iStat.index + 1}"></td>
                                                         <td th:text="${item.brand}"></td>
-                                                        <td th:text="${item.name}"></td>
+                                                        <td class="truncate_td" th:text="${item.name}"></td>
                                                         <td th:text="${item.price}"></td>
                                                         <td th:text="${item.percentDiscount}"></td>
                                                         <td th:text="${item.quantityLeft}"></td>
@@ -86,7 +86,7 @@
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </td>
-                                                        <td>
+                                                        <td class="d-flex">
                                                             <button class="btn btn-primary me-2 ">
                                                                 <a th:href="@{'/admin/manager-product/edit?id='+${item.id}}" class="text-white">
                                                                     <i class="nav-icon fas fa-edit"></i>
