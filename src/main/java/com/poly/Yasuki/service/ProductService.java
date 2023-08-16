@@ -42,4 +42,6 @@ public interface ProductService {
     List<Product> getListProductsByCategoryId(Integer id);
 
     Page<Product> getAllAndActiveTrue(Pageable pageable);
+
+    Page<Product> findByKeywordAndActive(String keyword, Pageable pageable);
 }

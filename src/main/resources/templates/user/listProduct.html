@@ -22,7 +22,7 @@
                         <a href="#" class="breadcrumb__link">Sản phẩm</a>
                     </div>
                     <div class="breadcrumb__item">
-                        <a href="#" class="breadcrumb__link" th:text="${category}"></a>
+                        <a href="#" class="breadcrumb__link" th:text="${keyword}"></a>
                     </div>
                 </div>
                 <div class="main__sort">
@@ -49,11 +49,15 @@
                                 <div class="product__info">
                                     <h3 class="product__name">[[${product.name}]]</h3>
                                     <div class="product__price">
-                                        <div class="price__old">[[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                        <div class="price__old">
+                                            <span th:if="${product.percentDiscount > 0}">
+                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                            </span>
+                                        </div>
                                         <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
                                     </div>
                                 </div>
-                                <div class="product__sale">
+                                <div th:if="${product.percentDiscount > 0}"  class="product__sale">
                                     <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
                                     <span class="product__sale-text">Giảm</span>
                                 </div>

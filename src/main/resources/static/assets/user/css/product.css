@@ -191,7 +191,6 @@
     position: relative;
     font-size: 2rem;
     font-weight: 500;
-    text-transform: uppercase;
     margin-top: 12px;
 }
 
@@ -219,12 +218,12 @@
     font-size: 3rem;
     line-height: 3rem;
     font-weight: 500;
-    color: var(--default-cl);
+    color: var(--text-brown-cl);
     margin-top: 30px;
 }
 
 .priceInfo__unit {
-    color: var(--default-cl);
+    color: var(--text-brown-cl);
     font-size: 2rem;
     text-decoration: underline;
     position: relative;
@@ -327,10 +326,11 @@
 }
 
 .productDes__title {
-    font-size: 2.6rem;
+    font-size: 1.6rem;
     color: var(--black-cl-2);
     margin-bottom: 20px;
     margin-top: 12px;
+    text-align: center;
 }
 
 .productDes__text {

@@ -64,7 +64,10 @@
                                 <input id="quantityAddCart" aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
                                 <input class="plus is-form" type="button" value="+" onclick="plusProductToAddCart()">
                             </div>
-                            <div th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])" class=" btn btn--default green">Thêm vào giỏ</div>
+                            <div th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])" class=" btn btn--brown">
+                                <i class="fas fa-cart-plus"></i>
+                                Thêm vào giỏ
+                            </div>
                         </div>
                         <div class="productIndfo__policy ">
                             <div class="policy bg-1 ">
@@ -123,7 +126,7 @@
                         <div class="tab-content ">
                             <div class="tab-pane active ">
                                 <div class="productDes ">
-                                    <div class="productDes__title ">[[${product.name}]] là gì?</div>
+                                    <div class="productDes__title ">MÔ TẢ SẢN PHẨM – DESCRIPTION</div>
                                     <th:block th:utext="${product.fullDescription}"></th:block>
                                 </div>
                             </div>
@@ -132,7 +135,16 @@
                                     <div class="productDes__ratting-title ">Đánh giá của bạn</div>
                                     <div class="productDes__ratting-wrap">
                                         <div id="rating">
-                                            <input type="radio" id="star5" name="rating" value="5" />
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                           </div>
+                                            <!--<input type="radio" id="star5" name="rating" value="5" />
                                             <label class="full" for="star5" title="Awesome - 5 stars"></label>
 
                                             <input type="radio" id="star4half" name="rating" value="4 and a half" />
@@ -160,7 +172,7 @@
                                             <label class="full" for="star1" title="Sucks big time - 1 star"></label>
 
                                             <input type="radio" id="starhalf" name="rating" value="half" />
-                                            <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                                            <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>-->
                                         </div>
                                         <textarea class="ratecomment" name=" " id=" " cols="30 " rows="1" placeholder="Vui lòng viết đánh giá của bạn "></textarea>
                                     </div>
@@ -219,11 +231,15 @@
                             <div class="product__info ">
                                 <h3 class="product__name ">[[${product.name}]]</h3>
                                 <div class="product__price ">
-                                    <div class="price__old ">[[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] <span class="price__unit ">đ</span></div>
+                                    <div class="price__old">
+                                        <span th:if="${product.percentDiscount > 0}">
+                                            [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                        </span>
+                                    </div>
                                     <div class="price__new ">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit ">đ</span></div>
                                 </div>
                             </div>
-                            <div class="product__sale ">
+                            <div th:if="${product.percentDiscount > 0}"  class="product__sale ">
                                 <span class="product__sale-percent ">[[${product.percentDiscount}]]%</span>
                                 <span class="product__sale-text ">Giảm</span>
                             </div>

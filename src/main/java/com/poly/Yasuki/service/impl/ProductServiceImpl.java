@@ -75,6 +75,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> findByKeywordAndActive(String keyword, Pageable pageable) {
+        return productRepo.findByKeywordAndActive(keyword, pageable);
+    }
+
+    @Override
     public void updateStatus(Integer id, Boolean statusChanged) {
         Optional<Product> product = productRepo.findById(id);
         product.get().setIsActive(statusChanged);

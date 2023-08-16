@@ -12,7 +12,7 @@
 
 .pay__heading {
     font-size: 1.8rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--black-cl-2);
     text-transform: uppercase;
     border-bottom: 3px solid rgba(0, 0, 0, 0.1);
@@ -32,11 +32,12 @@
     font-size: 1.6rem;
     color: var(--black-cl-2);
     line-height: 2.4rem;
+    font-weight: 600;
 }
 
-.main__pay-text.special {
+/*.main__pay-text.special {
     font-weight: 500;
-}
+}*/
 
 .main__pay-amount {
     font-size: 1.4rem;
@@ -52,13 +53,27 @@
 
 .main__pay-price {
     font-size: 1.6rem;
-    color: var(--default-cl);
+    color: var(--text-brown-cl);
     font-weight: 500;
 }
 
 .pay-order .btn {
     margin-top: 20px;
     width: 100%;
+}
+.form__group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.form__group .form-item {
+   width: 48%;
+}
+.form__group .form-item input {
+   margin-top: 10px;
+}
+.mt-20{
+   margin-top: 20px;
 }
 
 @media (max-width: 1023px) {

@@ -30,13 +30,14 @@
 .main__cart .row.title,
 .main__pay-title {
     font-size: 1.6rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     height: 60px;
     line-height: 6rem;
     align-items: center;
     text-align: left;
     border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+
 }
 
 .main__cart .row.cart-item {
@@ -59,7 +60,7 @@
 .main__cart-product .name {
     font-size: 1.5rem;
     color: var(--black-cl-2);
-    line-height: 2rem;
+    line-height: 6rem;
     height: calc(20px * 3);
     overflow: hidden;
     display: block;
@@ -82,7 +83,7 @@
 .main__cart-price {
     font-size: 1.8rem;
     font-weight: 400;
-    color: var(--default-cl);
+    color: var(--text-brown-cl);
 }
 
 .main__cart-icon i {
@@ -120,7 +121,7 @@
 
 .main__pay-price {
     font-size: 1.6rem;
-    color: var(--default-cl)
+    color: var(--text-brown-cl);
 }
 
 

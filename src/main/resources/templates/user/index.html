@@ -17,7 +17,7 @@
                     <div class="container">
                         <div class="caption">
                             <h1>Giảm giá 30%</h1>
-                            <p>Giảm giá cực sốc trong tháng 6!</p>
+                            <p>Giảm giá cực sốc trong tháng 9!</p>
                             <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
 
                         </div>
@@ -27,7 +27,7 @@
                     <div class="container">
                         <div class="caption">
                             <h1>Giảm giá 30%</h1>
-                            <p>Giảm giá cực sốc trong tháng 6!</p>
+                            <p>Giảm giá cực sốc trong tháng 9!</p>
                             <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
 
                         </div>
@@ -37,7 +37,7 @@
                     <div class="container">
                         <div class="caption">
                             <h1>Giảm giá 30%</h1>
-                            <p>Giảm giá cực sốc trong tháng 6!</p>
+                            <p>Giảm giá cực sốc trong tháng 9!</p>
                             <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
 
                         </div>
@@ -57,6 +57,27 @@
             <div class="indicator">
             </div>
         </div>
+        <!--  Top category   -->
+        <div class="main__top__category">
+            <div class="grid wide">
+                <h3 class="category__title">Yasuki Cometics</h3>
+                <h3 class="category__heading">DANH MỤC HOT</h3>
+                <div class="index-categories-list row">
+                    <th:block th:each="grCategory : ${session.dataCategory}">
+                        <div th:each="category : ${grCategory.categories}" class="index-category">
+                            <a th:href="@{'/list-product?category=' +${category.name}}">
+                            <span class="index-category-img">
+                                <img class="img-fluid lazyloaded" alt="category" th:src="${category.image}">
+                            </span>
+                                <span class="index-category-title">[[${category.name}]]</span>
+                            </a>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+
+        </div>
+
         <!--Product Category -->
         <div class="main__tabnine">
             <div class="grid wide">
@@ -76,6 +97,11 @@
                 <!-- Tab content -->
                 <div class="tab-content">
                     <div class="tab-pane active">
+                        <div class="link__more">
+                            <a th:href="@{/list-product?sortBy=quantitySold&orderBy=desc}" >Xem thêm
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
                         <div class="row">
                             <div th:each="product : ${listTopSelling}" class="col l-2 m-4 s-6">
                                 <div class="product">
@@ -86,11 +112,13 @@
                                         <h3 class="product__name">[[${product.name}]]</h3>
                                         <div class="product__price">
                                             <div class="price__old">
-                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                </span>
                                             </div>
                                             <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
                                         </div>
-                                        <div class="product__sale">
+                                        <div th:if="${product.percentDiscount > 0}" class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
                                             <span class="product__sale-text">Giảm</span>
                                         </div>
@@ -102,6 +130,11 @@
                         </div>
                     </div>
                     <div class="tab-pane">
+                        <div class="link__more">
+                            <a th:href="@{/list-product?sortBy=percentDiscount&orderBy=desc}" >Xem thêm
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
                         <div class="row">
                             <div th:each="product : ${listTopDiscount}" class="col l-2 m-4 s-6">
                                 <div class="product">
@@ -112,11 +145,13 @@
                                         <h3 class="product__name">[[${product.name}]]</h3>
                                         <div class="product__price">
                                             <div class="price__old">
-                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                </span>
                                             </div>
                                             <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit">đ</span></div>
                                         </div>
-                                        <div class="product__sale">
+                                        <div th:if="${product.percentDiscount > 0}"  class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
                                             <span class="product__sale-text">Giảm</span>
                                         </div>
@@ -128,6 +163,11 @@
                         </div>
                     </div>
                     <div class="tab-pane">
+                        <div class="link__more">
+                            <a th:href="@{/list-product?sortBy=dateRelease&orderBy=desc}" >Xem thêm
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
                         <div class="row">
                             <div th:each="product : ${listTopDateRelease}" class="col l-2 m-4 s-6">
                                 <div class="product">
@@ -138,11 +178,13 @@
                                         <h3 class="product__name">[[${product.name}]]</h3>
                                         <div class="product__price">
                                             <div class="price__old">
-                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                </span>
                                             </div>
                                             <div class="price__new"> [[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit">đ</span></div>
                                         </div>
-                                        <div class="product__sale">
+                                        <div th:if="${product.percentDiscount > 0}" class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
                                             <span class="product__sale-text">Giảm</span>
                                         </div>
@@ -169,11 +211,13 @@
                             <h3 class="product__name">[[${product.name}]]</h3>
                             <div class="product__price">
                                 <div class="price__old">
-                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                    <span th:if="${product.percentDiscount > 0}">
+                                        [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                    </span>
                                 </div>
                                 <div class="price__new"> [[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
                             </div>
-                            <div class="product__sale">
+                            <div th:if="${product.percentDiscount > 0}" class="product__sale">
                                 <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
                                 <span class="product__sale-text">Giảm</span>
                             </div>
@@ -184,7 +228,7 @@
                 </div>
             </div>
         </div>
-        <!-- Sales Policy -->
+<!--        &lt;!&ndash; Sales Policy &ndash;&gt;
         <div class="main__policy">
             <div class="row">
                 <div class="col l-3 m-6">
@@ -225,7 +269,7 @@
                 </div>
 
             </div>
-        </div>
+        </div>-->
         <!-- News -->
         <div class="main__frame bg-3">
             <div class="grid wide">

@@ -9,10 +9,12 @@
           content="+5000 Sản Phẩm Chính Hãng ✓ Giá Luôn Tốt Mọi Thời Điểm ✓Giao Nhanh Miễn Phí 2H (Trễ Tặng 100k)" />
     <meta name="keywords"
           content="Yasuki.com, mua mỹ phẩm chính hãng, son môi, chăm sóc da, chăm sóc tóc,trang điểm môi, chăm sóc cơ thể, kem dưỡng da, sữa rửa mặt, xịt khoáng, giá tốt nhất thị trường." />
-    <!-- Font roboto -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+
+    <!-- Font Quicksand -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
     <!-- Icon fontanwesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -46,15 +48,15 @@
                 <span></span>
             </div>
             <a th:href="@{/}" class="header__logo">
-                <img th:src="@{/assets/logo.png}" alt="logo">
+                <img th:src="@{/assets/xxxxxxx.png}" alt="logo">
             </a>
             <div class="header__search">
-                <div class="header__search-wrap">
-                    <input type="text" class="header__search-input" placeholder="Tìm kiếm">
-                    <a class="header__search-icon" href="#">
+                <form th:action="@{/list-product}" method="get" class="header__search-wrap">
+                    <input name="keyword" type="text" class="header__search-input" placeholder="Tìm kiếm">
+                    <button type="submit" class="header__search-icon" >
                         <i class="fas fa-search"></i>
-                    </a>
-                </div>
+                    </button>
+                </form>
             </div>
             <div  th:if="${#authorization.expression('isAnonymous()')}" class="header__account">
                 <a href="#my-Login" class="header__account-login">Đăng Nhập</a>
@@ -64,7 +66,7 @@
                 <span class="header__account-login">Hi, [[${#authentication.principal.fullName}]] !</span>
                 <i class="fas fa-user-alt "></i>
                 <div class="header__authenticated-wrap">
-                    <a th:href="@{/logout}" class="log_out">
+                    <a th:href="@{/logout}" class="btn btn--default cart-btn">
                         <i class="fas fa-sign-out-alt color-black fz-20"></i>
                         <span>Đổi tài khoản</span>
                     </a>
@@ -80,8 +82,14 @@
                     <ul class="order__list">
                      </ul>
 <!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
-                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--default cart-btn">Xem giỏ hàng</a>
-                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn--default cart-btn orange">Thanh toán</a>
+                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--default cart-btn">
+                        <i class="fas fa-cart-plus color-black"></i>
+                        <span class="me-10">Xem giỏ hàng</span>
+                    </a>
+                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn--brown cart-btn">
+                        <i class="fab fa-amazon-pay color-black"></i>
+                        <span class="me-10">Thanh toán</span>
+                    </a>
                     <!-- norcart -->
                     <!-- <img class="header__cart-img-nocart" src="http://www.giaybinhduong.com/images/empty-cart.png" alt=""> -->
                 </div>
@@ -118,7 +126,7 @@
             </li>
             <li class="header__nav-item">
                 <a th:href="@{/list-product}" class="header__nav-link">Sản Phẩm</a>
-                <div class="sub-nav-wrap grid wide">
+                <div class="sub-nav-wrap">
                     <ul th:each="grCategory : ${session.dataCategory}" class="sub-nav">
                         <li class="sub-nav__item">
                             <a href="#" class="sub-nav__link heading">[[${grCategory.name}]]</a>
@@ -234,9 +242,9 @@
             </div>
         </div>
     </div>
-    <div class="copyright">
+   <!-- <div class="copyright">
         <span class="footer__text"> &copy Copyright <a class="footer__link" href="#">giangphat.technology</a></span>
-    </div>
+    </div>-->
 </div>
 <!--end footer -->
 
@@ -276,7 +284,7 @@
             <div class="form-group">
                 <label for="email_modal_login" class="form-label">Địa chỉ email *</label>
                 <input id="email_modal_login" name="username" type="email" class="form-control">
-                <span class="form-message account_not_found_message" style="display : none;">Tài khoản không chính xác !</span>
+                <span class="form-message account_not_found_message" style="display : none;">Tài khoản không tồn tại !</span>
             </div>
             <div class="form-group">
                 <label for="pass_modal_login" class="form-label">Mật khẩu *</label>

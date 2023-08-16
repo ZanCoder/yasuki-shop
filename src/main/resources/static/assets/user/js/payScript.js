@@ -28,7 +28,6 @@
             var dataToSend = {
                 name:       $('#name_order').val(),
                 address:    $('#address_order').val(),
-                city:       $('#city_order').val(),
                 email:      $('#email_order').val(),
                 phoneNumber:$('#phoneNumber_order').val(),
                 note:       $('#note_order').val(),

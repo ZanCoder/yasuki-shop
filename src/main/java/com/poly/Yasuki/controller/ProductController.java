@@ -28,6 +28,7 @@ public class ProductController {
                     @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
                     @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
                     @RequestParam(name="category", defaultValue = "",  required = false) String categoryShow,
+                    @RequestParam(name="keyword", defaultValue = "",  required = false) String keyword,
                     Model model){
         Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)
                 .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
@@ -37,14 +38,17 @@ public class ProductController {
         if(!categoryShow.equals("")){
             String slug = SlugGenerator.generateSlug(categoryShow);
             listProduct = productService.getListProductsByCategory(slug);
-        }else{
+        }else if(!keyword.equals("")){
+            listProduct = productService.findByKeywordAndActive(keyword, pageable);
+        }
+        else{
             listProduct = productService.getAllAndActiveTrue(pageable);
         }
 
         model.addAttribute("listProduct", listProduct.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listProduct.getTotalPages());
-        model.addAttribute("category", categoryShow);
+        model.addAttribute("keyword", !keyword.equals("") ? keyword : categoryShow);
         return "user/listProduct";
     }
 

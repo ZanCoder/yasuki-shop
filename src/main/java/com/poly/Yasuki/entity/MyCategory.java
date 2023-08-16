@@ -24,6 +24,8 @@ public class MyCategory implements Serializable {
     private Integer id;
     private String name;
 
+    private String image;
+
     @Column(unique = true)
     private String slug;
 
@@ -39,4 +41,9 @@ public class MyCategory implements Serializable {
         this.groupCategory = groupCategory;
     }
 
+    public MyCategory(String name, String image, GroupCategory groupCategory) {
+        this.name = name;
+        this.image = image;
+        this.groupCategory = groupCategory;
+    }
 }

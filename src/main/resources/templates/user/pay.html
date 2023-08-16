@@ -15,33 +15,32 @@
                 <div class="col l-7 m-12 s-12">
                     <div  class="pay-information">
                         <div class="pay__heading">Thông tin thanh toán</div>
-                        <div class="form-group">
-                            <label for="name_order" class="form-label">Họ Tên *</label>
-                            <input id="name_order" name="account" type="text" class="form-control" required>
+                        <div class="form__group">
+                            <div class="form-item">
+                                <label for="name_order" class="form-label">Họ Tên *</label>
+                                <input id="name_order" name="account" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-item">
+                                <label for="email_order" class="form-label">Email *</label>
+                                <input id="email_order" name="account" type="email" class="form-control" required>
+                                <!--                                <span class="form-message"></span>-->
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email_order" class="form-label">Email *</label>
-                            <input id="email_order" name="account" type="email" class="form-control" required>
-                            <!--                                <span class="form-message"></span>-->
+                        <div class="form__group mt-20">
+                            <div class="form-item">
+                                <label for="address_order" class="form-label">Địa chỉ *</label>
+                                <input id="address_order" name="account" type="text" class="form-control" required>
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="form-item">
+                                <label for="phoneNumber_order" class="form-label">Số điện thoại *</label>
+                                <input id="phoneNumber_order" name="account" type="text" class="form-control" required>
+                                <span class="form-message"></span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="address_order" class="form-label">Địa chỉ *</label>
-                            <input id="address_order" name="account" type="text" class="form-control" required>
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="city_order" class="form-label">Tỉnh / Thành phố *</label>
-                            <input id="city_order" name="account" type="text" class="form-control" required>
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="phoneNumber_order" class="form-label">Số điện thoại *</label>
-                            <input id="phoneNumber_order" name="account" type="text" class="form-control" required>
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
+                        <div>
                             <label for="note_order" class="form-label">Ghi chú cho đơn hàng</label>
-                            <textarea class="form-control" name="" id="note_order" cols="30" rows="20"></textarea>
+                            <textarea class="form-control mt-10" name="" id="note_order" cols="30" rows="20"></textarea>
                         </div>
                     </div>
                 </div>
@@ -56,7 +55,7 @@
                                 <span class="totalOrder"></span> ₫
                             </div>
                         </div>
-                        <div id="sendOrder" class="btn btn--default">Đặt hàng</div>
+                        <div id="sendOrder" class="btn btn--brown">Đặt hàng</div>
                     </div>
 
                 </div>

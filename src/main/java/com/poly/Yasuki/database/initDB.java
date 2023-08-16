@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.*;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class initDB implements CommandLineRunner {
     private final MyCategoryService categoryService;
@@ -42,8 +42,8 @@ public class initDB implements CommandLineRunner {
         groupCategoryService.create(groupCategory6);
 
         //init category
-        MyCategory category1 = new MyCategory(  "Chăm Sóc Da Mặt Cao Cấp",groupCategory1 );
-        MyCategory category2 = new MyCategory(  "Trang Điểm Cao Cấp", groupCategory1);
+        MyCategory category1 = new MyCategory(  "Chăm Sóc Da Mặt Cao Cấp", "//theme.hstatic.net/1000006063/1000748098/14/home_category_3_medium.png?v=13260",groupCategory1 );
+        MyCategory category2 = new MyCategory(  "Trang Điểm Cao Cấp", "//theme.hstatic.net/1000006063/1000748098/14/home_category_3_medium.png?v=13260", groupCategory1);
         MyCategory category3 = new MyCategory(  "Tẩy Trang",groupCategory2 );
         MyCategory category4 = new MyCategory("Sửa Rửa Mặt", groupCategory2);
         MyCategory category5 = new MyCategory( "Tẩy Tế Bào Chết", groupCategory2);
@@ -72,10 +72,10 @@ public class initDB implements CommandLineRunner {
                 .brand("SHU")
                 .quantitySold(90).quantityLeft(10)
                 .build();
-        Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(1998979), 20, 20, 1.0, "C");
+        Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(1998979), 20, 20, 0d, "C");
         Product product2 = new Product(category1, "Lanegie", BigDecimal.valueOf(3387983), 3, 32, 7.0, "C");
         Product product3 = new Product(category1, "Kiehl", BigDecimal.valueOf(899777), 440, 0, 8.0, "C");
-        Product product4 = new Product(category2, "MAC", BigDecimal.valueOf(222676), 44, 11, 10.0, "C");
+        Product product4 = new Product(category2, "MAC", BigDecimal.valueOf(222676), 44, 11, 0d, "C");
         Product product5 = new Product(category3, "Nước Tẩy Trang", BigDecimal.valueOf(1998979), 20, 20, 1.0, "C");
         Product product6 = new Product(category3, "Bông Tẩy Trang", BigDecimal.valueOf(3387983), 3, 32, 7.0, "C");
         Product product7 = new Product(category4, "Sữa Rửa Mặt Cetaphil Dịu Lành Cho Da Nhạy Cảm 500ml", BigDecimal.valueOf(899777), 440, 0, 8.0, "C");
