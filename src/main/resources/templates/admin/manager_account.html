@@ -113,7 +113,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="user, iStat  : ${listUsers}" th:classappend="${iStat}">
-                                        <td th:text="${iStat.index + 1}"></td>
+                                        <td th:text="${1 + iStat.index + (currentPage -1)*5}"></td>
                                         <td th:text="${user.fullName}"></td>
                                         <td th:text="${user.email}">-</td>
                                         <td th:text="${user.roles.iterator().next().name}"></td>

@@ -113,10 +113,16 @@
                                         <div class="product__price">
                                             <div class="price__old">
                                                 <span th:if="${product.percentDiscount > 0}">
-                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
                                                 </span>
                                             </div>
                                             <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                        </div>
+                                        <div class="rate__star">
+                                            <div class="group-star__prod">
+                                                <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                                <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                            </div>
                                         </div>
                                         <div th:if="${product.percentDiscount > 0}" class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -146,10 +152,16 @@
                                         <div class="product__price">
                                             <div class="price__old">
                                                 <span th:if="${product.percentDiscount > 0}">
-                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
                                                 </span>
                                             </div>
                                             <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit">đ</span></div>
+                                        </div>
+                                        <div class="rate__star">
+                                            <div class="group-star__prod">
+                                                <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                                <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                            </div>
                                         </div>
                                         <div th:if="${product.percentDiscount > 0}"  class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -179,10 +191,16 @@
                                         <div class="product__price">
                                             <div class="price__old">
                                                 <span th:if="${product.percentDiscount > 0}">
-                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
                                                 </span>
                                             </div>
                                             <div class="price__new"> [[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]] <span class="price__unit">đ</span></div>
+                                        </div>
+                                        <div class="rate__star">
+                                            <div class="group-star__prod">
+                                                <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                                <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                            </div>
                                         </div>
                                         <div th:if="${product.percentDiscount > 0}" class="product__sale">
                                             <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -198,6 +216,144 @@
                 </div>
             </div>
         </div>
+
+        <!--Face care  -->
+        <div class="main__tabnine">
+            <div class="grid wide">
+                <h3 class="category__title">Yasuki Cometics</h3>
+                <h3 class="category__heading">[[${session.dataCategory[0].name}]]</h3>
+                <div class="link__more">
+                    <a th:href="@{/list-product?category=Chăm%20sóc%20da}" >Xem tất cả
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                    </a>
+                </div>
+                <div class="row">
+                    <div th:each="product : ${listSkincare}" class="col l-2 m-4 s-6">
+                        <div class="product">
+                            <div class="product__avt"
+                                 th:style="'background-image: url('+${__product.mainImage__}+');'">
+                            </div>
+                            <div class="product__info">
+                                <h3 class="product__name">[[${product.name}]]</h3>
+                                <div class="product__price">
+                                    <div class="price__old">
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
+                                                </span>
+                                    </div>
+                                    <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                </div>
+                                <div class="rate__star">
+                                    <div class="group-star__prod">
+                                        <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                        <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                    </div>
+                                </div>
+                                <div th:if="${product.percentDiscount > 0}" class="product__sale">
+                                    <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
+                                    <span class="product__sale-text">Giảm</span>
+                                </div>
+                            </div>
+                            <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
+                            <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--make up  -->
+        <div class="main__tabnine">
+            <div class="grid wide">
+                <h3 class="category__title">Yasuki Cometics</h3>
+                <h3 class="category__heading">[[${session.dataCategory[1].name}]]</h3>
+                <div class="link__more">
+                    <a th:href="@{/list-product?category=Trang%20điểm}" >Xem tất cả
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                    </a>
+                </div>
+                <div class="row">
+                    <div th:each="product : ${listMakeup}" class="col l-2 m-4 s-6">
+                        <div class="product">
+                            <div class="product__avt"
+                                 th:style="'background-image: url('+${__product.mainImage__}+');'">
+                            </div>
+                            <div class="product__info">
+                                <h3 class="product__name">[[${product.name}]]</h3>
+                                <div class="product__price">
+                                    <div class="price__old">
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
+                                                </span>
+                                    </div>
+                                    <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                </div>
+                                <div class="rate__star">
+                                    <div class="group-star__prod">
+                                        <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                        <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                    </div>
+                                </div>
+                                <div th:if="${product.percentDiscount > 0}" class="product__sale">
+                                    <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
+                                    <span class="product__sale-text">Giảm</span>
+                                </div>
+                            </div>
+                            <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
+                            <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--CHĂM SÓC CƠ THỂ -->
+        <div class="main__tabnine">
+            <div class="grid wide">
+                <h3 class="category__title">Yasuki Cometics</h3>
+                <h3 class="category__heading">[[${session.dataCategory[2].name}]]</h3>
+                <div class="link__more">
+                    <a th:href="@{/list-product?category=Chăm%20sóc%20cơ%20thể}" >Xem tất cả
+                        <i class="fas fa-long-arrow-alt-right"></i>
+                    </a>
+                </div>
+                <div class="row">
+                    <div th:each="product : ${listBodyCare}" class="col l-2 m-4 s-6">
+                        <div class="product">
+                            <div class="product__avt"
+                                 th:style="'background-image: url('+${__product.mainImage__}+');'">
+                            </div>
+                            <div class="product__info">
+                                <h3 class="product__name">[[${product.name}]]</h3>
+                                <div class="product__price">
+                                    <div class="price__old">
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
+                                                </span>
+                                    </div>
+                                    <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                </div>
+                                <div class="rate__star">
+                                    <div class="group-star__prod">
+                                        <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                        <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                    </div>
+                                </div>
+                                <div th:if="${product.percentDiscount > 0}" class="product__sale">
+                                    <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
+                                    <span class="product__sale-text">Giảm</span>
+                                </div>
+                            </div>
+                            <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
+                            <a th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <!-- HightLight  -->
         <div class="main__frame">
             <div class="grid wide">
@@ -212,10 +368,16 @@
                             <div class="product__price">
                                 <div class="price__old">
                                     <span th:if="${product.percentDiscount > 0}">
-                                        [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                        [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
                                     </span>
                                 </div>
                                 <div class="price__new"> [[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                            </div>
+                            <div class="rate__star">
+                                <div class="group-star__prod">
+                                    <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                    <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                </div>
                             </div>
                             <div th:if="${product.percentDiscount > 0}" class="product__sale">
                                 <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>

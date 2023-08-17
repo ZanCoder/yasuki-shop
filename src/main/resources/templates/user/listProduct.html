@@ -51,10 +51,16 @@
                                     <div class="product__price">
                                         <div class="price__old">
                                             <span th:if="${product.percentDiscount > 0}">
-                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] đ
+                                                [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
                                             </span>
                                         </div>
                                         <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                    </div>
+                                    <div class="rate__star">
+                                        <div class="group-star__prod">
+                                            <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                            <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div th:if="${product.percentDiscount > 0}"  class="product__sale">

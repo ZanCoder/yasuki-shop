@@ -1,6 +1,7 @@
 package com.poly.Yasuki.controller;
 
 import com.poly.Yasuki.entity.Product;
+import com.poly.Yasuki.service.EvaluateService;
 import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
+    private final EvaluateService evaluateService;
     private static final int PRODUCT_PER_PAGE = 12;
 
     @GetMapping("/list-product")
@@ -57,6 +60,7 @@ public class ProductController {
         Product product = productService.findBySlug(slug);
         model.addAttribute("product", product);
         model.addAttribute("sameProduct", getListProductsByCategory(product.getCategory().getSlug()));
+        model.addAttribute("evaluateList", evaluateService.findByProduct(product));
         return "user/product";
     }
     private List<Product> getAllProducts(){

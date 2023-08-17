@@ -168,12 +168,12 @@ function resetInfoOrder(){
 <!--    send order -->
 $('#sendOrder').on('click', function sendOrder(){
     var dataOrder = localStorage.getItem('listProductSelected');
-    if(dataOrder == null){
+    if(dataOrder == null || dataOrder.length < 2){ // []
         alert('Vui lòng chọn sản phẩm!');
         return;
     }
 
-    const urlParams = new URLSearchParams(window.location.href);
+/*    const urlParams = new URLSearchParams(window.location.href);*/
 
     var dataToSend = {
             name:       $('#name_order').val(),
@@ -184,7 +184,7 @@ $('#sendOrder').on('click', function sendOrder(){
             idOrder :   $('#id_order_edit').val(),
             cartDtoList : JSON.parse(dataOrder)
     }
-    if(dataOrder !== null){
+    if(dataOrder !== null && dataOrder.length > 2){
         $.ajax({
             url : '/order',
             method : 'POST',
@@ -193,14 +193,13 @@ $('#sendOrder').on('click', function sendOrder(){
             data : JSON.stringify(dataToSend)
         }).then(function(data){
             if(data == 'OK'){
-                alert('success')
                 window.location.href = urlManagerOrder;
             }
         }).fail(function(error){
-            alert('error' + error)
+            console.log('error' + error)
         })
     }else{
-        alert('null');
+        console.log('null');
     }
     localStorage.removeItem('listProductSelected');
 });

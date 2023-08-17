@@ -24,6 +24,7 @@ public class MyCategory implements Serializable {
     private Integer id;
     private String name;
 
+    @Column(name="image",length = 1024)
     private String image;
 
     @Column(unique = true)

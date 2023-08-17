@@ -11,10 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Getter
@@ -49,13 +46,13 @@ public class Product implements Serializable {
 
     private String slug;
 
-    @Column(name="short_description", length = 1024)
+    @Column(name="short_description", length = 4096)
     private String shortDescription;
 
     @Column(name="full_description",length = 4096)
     private String fullDescription;
 
-    @Column(name="main_image",length = 4096)
+    @Column(name="main_image",length = 1024)
     private String mainImage;
 
     @Column(name = "is_active")
@@ -69,6 +66,10 @@ public class Product implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Evaluate> evaluates = new ArrayList<>();
 
     public Product(MyCategory category, String name,
                    BigDecimal price, Integer quantityLeft, Integer quantitySold,
@@ -91,6 +92,15 @@ public class Product implements Serializable {
         BigDecimal result = priceDiscount.setScale(0, RoundingMode.CEILING);
 //        BigDecimal result =  roundedNumber.setScale(3, RoundingMode.CEILING);
         return result;
+    }
+
+    @Transient
+    public Integer getAvgStar(){
+        if(evaluates.size() == 0 ){
+            return 5; // 5 star
+        }
+        OptionalDouble avgStar = evaluates.stream().mapToInt(Evaluate::getNumStar).average();
+        return  (int) Math.ceil(avgStar.getAsDouble());
     }
 
 

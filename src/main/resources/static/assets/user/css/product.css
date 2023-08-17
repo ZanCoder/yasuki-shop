@@ -331,6 +331,8 @@
     margin-bottom: 20px;
     margin-top: 12px;
     text-align: center;
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .productDes__text {
@@ -350,22 +352,26 @@
 }
 
 .ratecomment {
-    max-width: 900px;
-    width: 100%;
-    font-size: 1.8rem;
-    padding: 12px;
+   width: 100%;
+   font-size: 1.6rem;
+   padding: 12px;
+   margin-bottom: 10px;
 }
 
 .productDes__ratting-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--black-cl-2);
     font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .productDes__ratting-wrap {
     display: flex;
     margin-bottom: 20px;
-    justify-content: space-between;
+/*    justify-content: space-between;*/
+}
+.productDes__content{
+    overflow: hidden;
 }
 
 
@@ -397,12 +403,19 @@
 }
 
 .rate__star {
-    margin-left: auto;
+    margin-left: 10px;
 }
 
 .rate__comment {
     font-size: 1.6rem;
     padding-left: 54px;
+}
+.rate__submit-btn{
+    display : flex;
+    justify-content : end;
+}
+..rate__submit-btn button{
+    padding: 14px 70px;
 }
 
 
@@ -424,13 +437,13 @@
 
 /*ẩn input radio - vì chúng ta đã có label là GUI*/
 
-#rating>label:before {
+/*#rating>label:before {
     margin: 5px;
     font-size: 1.25em;
     font-family: FontAwesome;
     display: inline-block;
     content: "\f005";
-}
+}*/
 
 
 /*1 ngôi sao*/
@@ -446,6 +459,8 @@
 #rating>label {
     color: #ddd;
     float: right;
+    margin-right: 6px;
+    cursor : pointer;
 }
 
 #rating>input:checked~label,
@@ -469,13 +484,19 @@
     font-size: 2rem;
 }
 
+.msg__rare-warning {
+    font-size: 1.3em;
+    color: red;
+    display: none;
+}
+
 
 /* ===Reponsive */
 
 @media(max-width:1223px) {
-    .ratecomment {
+  /*  .ratecomment {
         max-width: 700px;
-    }
+    }*/
 }
 
 @media(max-width:1023px) {

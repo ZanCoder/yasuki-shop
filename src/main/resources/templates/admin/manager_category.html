@@ -103,7 +103,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="item, iStat  : ${listCategories}">
-                                                        <td th:text="${iStat.index + 1}"></td>
+                                                        <td th:text="${1 + iStat.index + (currentPage -1)*5}"></td>
                                                         <td th:text="${item.groupCategory.name}"></td>
                                                         <td th:text="${item.name}"></td>
                                                    <!--     <td >

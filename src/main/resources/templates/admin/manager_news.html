@@ -99,8 +99,8 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="item, iStat  : ${listNews}">
-                                                        <td th:text="${iStat.index + 1}"></td>
-                                                        <td th:text="${item.title}"></td>
+                                                        <td th:text="${1 + iStat.index + (currentPage -1)*5}"></td>
+                                                        <td class="truncate_td" th:text="${item.title}"></td>
                                                         <td th:text="${#dates.format(item.createAt, 'yyyy-MM-dd')}"></td>
                                                         <td >
                                                             <label th:for="${item.title}" class="switch switch-status">

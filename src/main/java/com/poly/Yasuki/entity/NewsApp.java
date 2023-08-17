@@ -24,7 +24,7 @@ public class NewsApp {
     @CreationTimestamp
     private Timestamp createAt;
 
-    @Column(length = 1024)
+    @Column(length = 4096)
     private String content;
     private String image;
 

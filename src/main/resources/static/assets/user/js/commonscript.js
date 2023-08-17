@@ -51,6 +51,7 @@ var urlAddCart      =   '/cart/add';
 var urlListProduct  =   '/list-product';
 var urlLogin        =   '/login-with-ajax';
 var urlSignup       =    '/signup-with-ajax';
+var urlRare       =    '/rate';
 
 //login
 $('#submit_modal_login').on('click', ()=>{
@@ -183,6 +184,69 @@ function callAjaxCartPromise(url, method, data) {
     });
 }
 
+// Rateting js
+$('#btnSendRate').on('click', ()=>{
+    let rate_content = $('#rate_content').val();
+    let productId = $('#productId').val();
+    let numStar = $("input[name='rating']:checked").val();
+
+    if(rate_content === ""){
+        $('#rate_content').focus();
+        $('.msg__rare-warning').show()
+        return false;
+    }else{
+        let data = {
+             numStar : parseInt(numStar),
+             content : rate_content,
+             productId : parseInt(productId)
+         }
+        $.ajax({
+              url: urlRare,
+              method: 'POST',
+              contentType:"application/json; charset=utf-8",
+              data: JSON.stringify(data),
+        }).then(function(response) {
+              if(response === 'OK'){
+                 $('.msg__rare-warning').hide();
+                 addRateHtml(rate_content, numStar);
+                 $('#rate_content').val('');
+              }else if(response === 'UN_AUTHORIZATION'){
+                  $("#my-Login").show();
+                 return;
+              }
+        }).fail(function(error) {
+              alert("error : " + error);
+        });
+
+    }
+
+})
+
+
+function addRateHtml(content, numStar){
+    let nameUser = $('#nameUser').val();
+    var starHTML = '';
+    for (var i = 0; i < numStar; i++) {
+      starHTML += '<i class="fas fa-star"></i>';
+    }
+    let html = `
+        <li class="rate__item">
+            <div class="rate__info">
+                <img src="/assets/default_user.png" alt="img">
+                <h3 class="rate__user">${nameUser}</h3>
+                <div class="rate__star">
+                    <div class="group-star">
+                         ${starHTML}
+                    </div>
+                </div>
+            </div>
+            <div class="rate__comment">${content}</div>
+        </li>
+    `;
+    $('.rate__list').append(html)
+}
+
+// update html
 function updateHtmlAfterAddCart(listCart){
     if(listCart != null){
         let html = '';
@@ -248,6 +312,7 @@ function SwalAlertOrderSuccess(message){
         }
     });
 }
+
 
 
 

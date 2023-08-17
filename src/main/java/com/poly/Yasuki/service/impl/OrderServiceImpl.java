@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> getWithSortAndPagination(Pageable pageable) {
-        return orderRepo.findAll(pageable);
+        return orderRepo.findAllWithSortByDateCreate(pageable);
     }
 
     @Override

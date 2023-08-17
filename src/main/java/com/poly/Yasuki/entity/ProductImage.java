@@ -16,7 +16,10 @@ public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name="url",length = 1024)
     private String url;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")

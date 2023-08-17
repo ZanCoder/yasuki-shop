@@ -1,12 +1,15 @@
 package com.poly.Yasuki.controller;
 
 
+import com.poly.Yasuki.entity.Evaluate;
 import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.UserApp;
 import com.poly.Yasuki.security.MyUserDetails;
+import com.poly.Yasuki.service.EvaluateService;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.NewsAppService;
 import com.poly.Yasuki.service.ProductService;
+import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +28,13 @@ public class HomeController {
     private final NewsAppService newsAppService;
 
 
+
     @GetMapping("/")
     public String mainPage(Model model, HttpSession httpSession){
+//        String slugSkincare = SlugGenerator.generateSlug("Chăm sóc da");
+//        String slugMakeup = SlugGenerator.generateSlug("Trang điểm");
+//        String slugBodyCare = SlugGenerator.generateSlug("Chăm sóc cơ thể");
+
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
         httpSession.setAttribute("dataCategory", myCategoryList);
 
@@ -34,6 +42,9 @@ public class HomeController {
         model.addAttribute("listTopDiscount", productService.getTopDiscount());
         model.addAttribute("listTopDateRelease", productService.getTopDateRelease());
         model.addAttribute("top5Newest", newsAppService.getTop5ByDateAndActive());
+        model.addAttribute("listSkincare", productService.getListProductsByGroupId(myCategoryList.get(0).getId()));
+        model.addAttribute("listMakeup", productService.getListProductsByGroupId(myCategoryList.get(1).getId()));
+        model.addAttribute("listBodyCare", productService.getListProductsByGroupId(myCategoryList.get(2).getId()));
         return "user/index";
     }
 

@@ -33,6 +33,10 @@
     color: var(--black-cl-2);
     line-height: 2.4rem;
     font-weight: 600;
+    max-width: 146px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /*.main__pay-text.special {
