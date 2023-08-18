@@ -56,6 +56,8 @@ public class MyUserServiceImpl implements MyUserService {
         return false;
     }
 
+
+
     @Transactional
     @Override
     public UserApp create(UserApp user) {
@@ -104,5 +106,11 @@ public class MyUserServiceImpl implements MyUserService {
             throw new RuntimeException("User doesn't exist!");
         }
         return user;
+    }
+
+    @Override
+    public void updatePassword(UserApp userApp, String newPassword) {
+        userApp.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(userApp);
     }
 }

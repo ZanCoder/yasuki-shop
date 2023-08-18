@@ -298,10 +298,10 @@ textarea {
     text-shadow: none;
 }
 
-::selection {
+/*::selection {
     background: transparent;
     text-shadow: none;
-}
+}*/
 
 img {
     vertical-align: middle;

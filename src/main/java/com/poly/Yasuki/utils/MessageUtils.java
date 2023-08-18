@@ -25,5 +25,6 @@ public class MessageUtils {
     public static final String ADD_FAILED = "Thêm thất bại!";
     public static final String ERROR_FOREIGN_KEY = "Đối tượng chứa dữ liệu, không thể xóa!";
     public static final String PROD_ALREADY_EXIST = "Tên sản phẩm đã tồn tại!";
+    public static final String SUBJECT_MAIL_FORGOT_PASSWORD = "Xác nhận đổi mật khẩu!";
 
 }

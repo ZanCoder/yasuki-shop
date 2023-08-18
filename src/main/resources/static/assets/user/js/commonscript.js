@@ -50,8 +50,10 @@ var urlDeleteCart   =   '/cart/delete';
 var urlAddCart      =   '/cart/add';
 var urlListProduct  =   '/list-product';
 var urlLogin        =   '/login-with-ajax';
-var urlSignup       =    '/signup-with-ajax';
-var urlRare       =    '/rate';
+var urlSignup       =   '/signup-with-ajax';
+var urlRare         =   '/rate';
+var urlSendCode     =   '/forgot-password/send-code';
+var urlForgotPass   =   '/forgot-password';
 
 //login
 $('#submit_modal_login').on('click', ()=>{
@@ -111,8 +113,8 @@ $('#btn_signup').on('click', ()=>{
               dataType: "text",
         }).then(function(response) {
              if(response === 'OK'){
-                $("#my-Register").hide();
-                $("#my-Login").show();
+              /*  $("#my-Register").hide();*/
+                window.location.hash = "my-Login";
              }else if(response === 'ALREADY EXIST'){
                 $(".error_email_signup").text('Tài khoản đã tồn tại!');
                 $(".error_email_signup").show();
@@ -124,7 +126,7 @@ $('#btn_signup').on('click', ()=>{
 });
 
 
-// cart
+// cart func
 async function addToCart(name, price, mainImageProduct){
       try {
         let data = {nameProduct : name, priceProduct : price, mainImageProduct : mainImageProduct}
@@ -132,7 +134,7 @@ async function addToCart(name, price, mainImageProduct){
 
         updateHtmlAfterAddCart(listCartItems);
       } catch (error) {
-        $("#my-Login").show();
+        window.location.hash = "my-Login";
         return;
       }
       SwalAlertSuccess("Thêm thành công!");
@@ -157,6 +159,7 @@ async  function minusProduct(nameProduct, cartIndex){
     window.location.reload();
 }
 
+//ajax func
  function callAjaxCart(url, method, data) {
     $.ajax({
       url: url,
@@ -183,6 +186,47 @@ function callAjaxCartPromise(url, method, data) {
       });
     });
 }
+
+/* forgot password*/
+$('#btnSendCode').on('click', async ()=>{
+    let email = $('#email_forgot').val();
+
+    let response = await callAjaxCartPromise(urlSendCode,'POST', {email : email});
+    if(response === 'OK'){
+        $('.msg_not_exist').hide();
+        $('.msg_sent_code').show();
+    }else if(response === 'NOT FOUND'){
+        $('.msg_sent_code').hide();
+        $('.msg_not_exist').show();
+    }
+});
+
+$('#btn_forgotSubmit').on('click', async ()=>{
+    let email                = $('#email_forgot').val();
+    let code_confirm         = $('#code_confirm').val();
+    let new_password         = $('#new_password').val();
+    let re_password_forgot   = $('#re_password_forgot').val();
+
+    if(new_password !== re_password_forgot){
+        $('.msg_pass_not_match').show();
+    }else{
+        $('.msg_pass_not_match').hide();
+    }
+    let data = {
+        email   : email,
+        code    : code_confirm,
+        newPass : new_password
+    }
+    let response = await callAjaxCartPromise(urlForgotPass,'POST', data);
+
+    if(response === 'OK'){
+        window.location.hash = "my-Login";
+    }else if(response === 'NOT MATCH'){
+        $('.msg_sent_code').text('Mã xác nhận không khớp!');
+        $('.msg_sent_code').show();
+    }
+})
+/* end forgot password*/
 
 // Rateting js
 $('#btnSendRate').on('click', ()=>{
@@ -211,7 +255,7 @@ $('#btnSendRate').on('click', ()=>{
                  addRateHtml(rate_content, numStar);
                  $('#rate_content').val('');
               }else if(response === 'UN_AUTHORIZATION'){
-                  $("#my-Login").show();
+                  window.location.hash = "my-Login";
                  return;
               }
         }).fail(function(error) {
@@ -222,7 +266,7 @@ $('#btnSendRate').on('click', ()=>{
 
 })
 
-
+// update html Evaluate
 function addRateHtml(content, numStar){
     let nameUser = $('#nameUser').val();
     var starHTML = '';
@@ -246,7 +290,7 @@ function addRateHtml(content, numStar){
     $('.rate__list').append(html)
 }
 
-// update html
+// update html cart
 function updateHtmlAfterAddCart(listCart){
     if(listCart != null){
         let html = '';

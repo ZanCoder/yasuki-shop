@@ -31,10 +31,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String mainPage(Model model, HttpSession httpSession){
-//        String slugSkincare = SlugGenerator.generateSlug("Chăm sóc da");
-//        String slugMakeup = SlugGenerator.generateSlug("Trang điểm");
-//        String slugBodyCare = SlugGenerator.generateSlug("Chăm sóc cơ thể");
-
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
         httpSession.setAttribute("dataCategory", myCategoryList);
 

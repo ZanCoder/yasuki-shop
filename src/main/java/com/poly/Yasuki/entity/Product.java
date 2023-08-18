@@ -68,7 +68,7 @@ public class Product implements Serializable {
     private List<ProductImage> productImages = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Evaluate> evaluates = new ArrayList<>();
 
     public Product(MyCategory category, String name,

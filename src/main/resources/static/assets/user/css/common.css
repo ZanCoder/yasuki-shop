@@ -23,7 +23,6 @@
 
 html {
     font-family: 'Quicksand', sans-serif;
-
     font-size: 62.5%;
 }
 a{
@@ -328,7 +327,7 @@ input[type=checkbox]:checked:after {
 /* ------Account------ */
 
 .header__account {
-    width: 180px;
+/*    width: 180px;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -445,6 +444,7 @@ input[type=checkbox]:checked:after {
     cursor: default;
 }
 
+#my-ForgotPass:target,
 #my-Login:target,
 #my-Register:target {
     display: block;
@@ -467,6 +467,7 @@ input[type=checkbox]:checked:after {
     font-size: 1.4rem;
     font-weight: 600;
     color: var(--black-cl-2);
+    margin-bottom : 0;
 }
 
 .form-control {
@@ -498,6 +499,10 @@ textarea.form-control {
     display: flex;
     align-items: baseline;
     margin-top: 20px;
+    justify-content: space-between;
+}
+.authen__btns * {
+    width: 45%;
 }
 
 .authen-checkbox {
@@ -518,7 +523,27 @@ textarea.form-control {
     color: var(--default-cl);
     transition: all 0.3s;
 }
-
+/* -------forgot pass modal------- */
+#btn_forgotSubmit {
+    margin-top: 10px;
+}
+.code__forgot-group{
+    display : flex;
+    align-items: flex-end;
+}
+.btn__sendcode{
+        margin-left: 10px;
+        background-color: var(--brown-cl);
+        padding: 10px 0px;
+        color: #37332f;
+        font-size: 1.6rem;
+        font-weight: 600;
+        min-width: 95px;
+        border-radius: 2px;
+        cursor: pointer;
+        text-align: center;
+        height: max-content;
+}
 
 /* -------Search------- */
 
@@ -1026,7 +1051,8 @@ textarea.form-control {
 
 .up-top:hover {
     border-color: var(--default-cl);
-    color: var(--default-cl)
+    color: var(--default-cl);
+    cursor : pointer;
 }
 
 

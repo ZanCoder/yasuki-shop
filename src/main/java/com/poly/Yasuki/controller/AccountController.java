@@ -8,6 +8,9 @@ import com.poly.Yasuki.security.MyUserDetails;
 import com.poly.Yasuki.service.CartItemService;
 import com.poly.Yasuki.service.MyUserService;
 import com.poly.Yasuki.service.RoleService;
+import com.poly.Yasuki.service.SendEmailService;
+import com.poly.Yasuki.utils.MessageUtils;
+import com.poly.Yasuki.utils.RandomStringGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,8 +20,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
@@ -34,6 +39,8 @@ public class AccountController {
     private final MyUserService myUserService;
     private final CartItemService cartItemService;
     private final AuthenticationManager authenticationManager;
+    private final SendEmailService sendEmail;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
     String viewLoginForm() {
@@ -79,6 +86,38 @@ public class AccountController {
         }catch(Exception e) {
             return "ALREADY EXIST";
         }
+        return "OK";
+    }
+
+    @PostMapping(value = "/forgot-password/send-code")
+    @ResponseBody
+    public String sendCodeForgotPassword(@RequestParam String email){
+        String codeGenerate = RandomStringGenerator.generateRandomString(6);
+        String bodySend = "Xin chào, mã xác nhận của bạn là : "+ codeGenerate;
+
+        UserApp userApp =  myUserService.findByEmail(email);
+        if(ObjectUtils.isEmpty(userApp)) return "NOT FOUND";
+        myUserService.updatePassword(userApp, codeGenerate);
+        try{
+            sendEmail.sendMail(MessageUtils.SUBJECT_MAIL_FORGOT_PASSWORD,email, bodySend);
+        }catch(Exception e) {
+            return "ERROR";
+        }
+        return "OK";
+    }
+
+    @PostMapping(value = "/forgot-password")
+    @ResponseBody
+    public String forgotPassword(@RequestParam(name = "email") String email,
+                                 @RequestParam(name = "code") String codeConfirm,
+                                 @RequestParam(name = "newPass") String newPassword){
+
+        UserApp userApp =  myUserService.findByEmail(email);
+        if(ObjectUtils.isEmpty(userApp)) return "NOT FOUND";
+        if(!passwordEncoder.matches(codeConfirm, userApp.getPassword())){
+            return "NOT MATCH";
+        }
+        myUserService.updatePassword(userApp, newPassword);
         return "OK";
     }
 

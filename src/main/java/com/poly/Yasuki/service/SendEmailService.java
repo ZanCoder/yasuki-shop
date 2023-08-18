@@ -48,11 +48,11 @@ public class SendEmailService {
         javaMailSender.send(mimeMessage);
     }
 
-    public void sendMail(String toEmail, String body) throws MessagingException {
+    public void sendMail(String subject, String toEmail, String body) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setTo(toEmail);
-        mimeMessageHelper.setSubject(SUBJECT);
+        mimeMessageHelper.setSubject(subject);
         mimeMessageHelper.setText(body);
         javaMailSender.send(mimeMessage);
     }
