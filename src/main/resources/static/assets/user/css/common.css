@@ -749,7 +749,10 @@ textarea.form-control {
     align-items: center;
     justify-content: center;
 }
-
+.cart_scroll{
+    max-height: 500px;
+    overflow: scroll;
+}
 
 /* ----Menu---- */
 
@@ -1762,5 +1765,11 @@ img.img-fluid.lazyloaded {
     }
     .index-category{
         width: calc(100% / 4);
+    }
+}
+@media(max-width: 470px) {
+    img.img-fluid.lazyloaded  {
+        max-width: 70px;
+        max-height: 70px;
     }
 }

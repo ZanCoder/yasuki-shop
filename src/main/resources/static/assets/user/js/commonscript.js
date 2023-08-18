@@ -295,7 +295,7 @@ function updateHtmlAfterAddCart(listCart){
     if(listCart != null){
         let html = '';
              listCart.forEach( cartItem => {
-             let formattedPrice = /*[[${#numbers.formatDecimal(cartItem.priceProduct, 3, 'POINT', 0, 'COMMA')}]]*/ '';
+             let nameProd = cartItem.nameProduct.replace("'", "\\'");
              html +=`
                     <li  class="item-order">
                         <div class="order-wrap">
@@ -306,7 +306,7 @@ function updateHtmlAfterAddCart(listCart){
                                 <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
                                 <div class="order-main-price">${cartItem.quantity} x ${formatDecimal(cartItem.priceProduct)} ₫</div>
                             </div>
-                            <a onclick="deleteCart('${cartItem.nameProduct}')" class="order-close pointer"><i class="far fa-times-circle"></i></a>
+                            <a onclick="deleteCart('${nameProd}')" class="order-close pointer"><i class="far fa-times-circle"></i></a>
                         </div>
                     </li>
                 `
