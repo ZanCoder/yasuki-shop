@@ -39,6 +39,10 @@ public class OrderController {
     public String viewOrderPage(Model model){
         return "user/pay";
     }
+    @GetMapping("/order/history")
+    public String viewOrderHistoryPage(Model model){
+        return "user/order_history";
+    }
 
     @PostMapping("/order")
     @ResponseBody

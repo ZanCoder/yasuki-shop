@@ -13,7 +13,7 @@
     <!-- Font Quicksand -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Icon fontanwesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -72,26 +72,40 @@
                     </a>
                 </div>
             </div>
-            <!-- Cart -->
-            <div class="header__cart have" >
-                <i class="fas fa-shopping-basket"></i>
-                <div class="header__cart-amount">
-                    0
+            <div class="icon__responsive">
+                <!-- Account icon responsive-->
+                <div th:if="${#authorization.expression('isAnonymous()')}" class="header__cart header__account_icon have" >
+                    <i class="fas fa-user"></i>
+                    <div  class="header__cart-wrap cart_scroll">
+                        <a href="#my-Login" class="btn btn--default cart-btn">
+                            <i class="fas fa-sign-in-alt color-black"></i>
+                            <span class="me-10">Đăng nhập</span>
+                        </a>
+                        <a href="#my-Register" class="btn btn--brown cart-btn">
+                            <i class="fas fa-user-plus color-black"></i>
+                            <span class="me-10">Đăng kí</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="header__cart-wrap cart_scroll">
-                    <ul class="order__list">
-                     </ul>
-<!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
-                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--default cart-btn">
-                        <i class="fas fa-cart-plus color-black"></i>
-                        <span class="me-10">Xem giỏ hàng</span>
-                    </a>
-                    <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn--brown cart-btn">
-                        <i class="fab fa-amazon-pay color-black"></i>
-                        <span class="me-10">Thanh toán</span>
-                    </a>
-                    <!-- norcart -->
-                    <!-- <img class="header__cart-img-nocart" src="http://www.giaybinhduong.com/images/empty-cart.png" alt=""> -->
+                <!-- Cart on nav-->
+                <div class="header__cart have" >
+                    <i class="fas fa-shopping-basket"></i>
+                    <div class="header__cart-amount">
+                        0
+                    </div>
+                    <div class="header__cart-wrap cart_scroll">
+                        <ul class="order__list">
+                        </ul>
+                        <!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
+                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--default cart-btn">
+                            <i class="fas fa-cart-plus color-black"></i>
+                            <span class="me-10">Xem giỏ hàng</span>
+                        </a>
+                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn--brown cart-btn">
+                            <i class="fab fa-amazon-pay color-black"></i>
+                            <span class="me-10">Thanh toán</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,25 +113,14 @@
     <!-- Menu -->
     <div class="header__nav">
         <ul class="header__nav-list">
-            <li class="header__nav-item nav__search">
+            <!--<li class="header__nav-item nav__search">
                 <div class="nav__search-wrap">
                     <input class="nav__search-input" type="text" name="" id="" placeholder="Tìm sản phẩm...">
                 </div>
                 <div class="nav__search-btn">
                     <i class="fas fa-search"></i>
                 </div>
-            </li>
-            <li class="header__nav-item authen-form">
-                <a href="#" class="header__nav-link">Tài Khoản</a>
-                <ul class="sub-nav">
-                    <li class="sub-nav__item">
-                        <a href="#my-Login" class="sub-nav__link">Đăng Nhập</a>
-                    </li>
-                    <li class="sub-nav__item">
-                        <a href="#my-Register" class="sub-nav__link">Đăng Kí</a>
-                    </li>
-                </ul>
-            </li>
+            </li>-->
             <li class="header__nav-item index">
                 <a th:href="@{/}" class="header__nav-link">Trang chủ</a>
             </li>
@@ -126,13 +129,16 @@
             </li>
             <li class="header__nav-item">
                 <a th:href="@{/list-product}" class="header__nav-link">Sản Phẩm</a>
-                <div class="sub-nav-wrap">
+                <div class="sub-nav-wrap sub-nav-wrap-responsive">
                     <ul th:each="grCategory : ${session.dataCategory}" class="sub-nav">
-                        <li class="sub-nav__item">
-                            <a href="#" class="sub-nav__link heading">[[${grCategory.name}]]</a>
+                        <li class="sub-nav__item sub-1">
+                            <a th:href="@{'/list-product?group-category=' +${grCategory.name}}" class="sub-nav__link heading">[[${grCategory.name}]]</a>
+                            <i class="fas fa-angle-down"></i>
                         </li>
-                        <li th:each="category : ${grCategory.categories}" class="sub-nav__item">
-                            <a th:href="@{'/list-product?category=' +${category.name}}" class="sub-nav__link">[[${category.name}]]</a>
+                        <li class="wrapper__sub-2">
+                            <div th:each="category : ${grCategory.categories}" class="sub-nav__item sub-2">
+                                <a th:href="@{'/list-product?category=' +${category.name}}" class="sub-nav__link">[[${category.name}]]</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -142,6 +148,9 @@
             </li>
             <li class="header__nav-item">
                 <a th:href="@{/contact}" class="header__nav-link">Liên Hệ</a>
+            </li>
+            <li th:unless="${#authorization.expression('isAnonymous()')}"  class="header__nav-item">
+                <a th:href="@{/order/history}" class="header__nav-link">Đơn hàng</a>
             </li>
         </ul>
     </div>
@@ -155,20 +164,8 @@
             <div class="col l-3 m-6 s-12">
                 <h3 class="footer__title">Menu</h3>
                 <ul class="footer__list">
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Trang điểm</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Chăm sóc da</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Chăm sóc tóc</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Nước hoa</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Chăm sóc toàn thân </a>
+                    <li th:each="grCategory : ${session.dataCategory}" class="footer__item">
+                        <a th:href="@{'/list-product?group-category=' +${grCategory.name}}" class="footer__link">[[${grCategory.name}]]</a>
                     </li>
                 </ul>
             </div>

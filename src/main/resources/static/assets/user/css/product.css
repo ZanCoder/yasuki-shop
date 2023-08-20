@@ -160,7 +160,7 @@
 
 .pagination__item.active .pagination__link {
     background-color: var(--default-cl);
-    color: var(--white-cl-1);
+    color: #000;
 }
 
 .pagination__link i {
@@ -235,6 +235,10 @@
     line-height: 2rem;
     margin-top: 12px;
 }
+.productInfo__description > * {
+    width: 100%!important;
+}
+
 
 .productInfo__description span {
     font-weight: 500;

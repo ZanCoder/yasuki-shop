@@ -60,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getListProductsByCategory(String categorySlug) {
-        return productRepo.getSameProductByCategory(categorySlug, PageRequest.of(0,PRODUCT_PER_TAB));
+    public Page<Product> getListProductsByCategory(String categorySlug, Pageable pageable) {
+        return productRepo.getSameProductByCategory(categorySlug, pageable);
     }
 
     @Override
@@ -78,6 +78,8 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findByKeywordAndActive(String keyword, Pageable pageable) {
         return productRepo.findByKeywordAndActive(keyword, pageable);
     }
+
+
 
     @Override
     public void updateStatus(Integer id, Boolean statusChanged) {
@@ -173,6 +175,11 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getListProductsByGroupId(Integer id) {
         GroupCategory groupCategory = groupCategoryService.findById(id).get();
         return productRepo.findByGroup(groupCategory);
+    }
+    @Override
+    public Page<Product> getListProductsByNameGroupCategory(String groupCategory, Pageable pageable) {
+        String slug = SlugGenerator.generateSlug(groupCategory);
+        return productRepo.findBySlugGroupCategoryAndPagination(slug, pageable);
     }
 
     @Override

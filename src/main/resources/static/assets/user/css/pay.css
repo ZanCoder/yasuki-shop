@@ -60,6 +60,9 @@
     color: var(--text-brown-cl);
     font-weight: 500;
 }
+.totalOrder{
+    font-weight: 700;
+}
 
 .pay-order .btn {
     margin-top: 20px;

@@ -22,7 +22,7 @@ public interface ProductService {
 
     List<Product> getTopDateRelease();
 
-    Page<Product> getListProductsByCategory(String categorySlug);
+    Page<Product> getListProductsByCategory(String categorySlug, Pageable pageable);
 
     Page<Product> getProductsWithSortAndPagination(Pageable pageable);
 
@@ -44,4 +44,6 @@ public interface ProductService {
     Page<Product> getAllAndActiveTrue(Pageable pageable);
 
     Page<Product> findByKeywordAndActive(String keyword, Pageable pageable);
+
+    Page<Product> getListProductsByNameGroupCategory(String groupCategory, Pageable pageable);
 }

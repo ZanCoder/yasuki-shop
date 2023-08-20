@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,12 +30,13 @@ public class ProductController {
 
     @GetMapping("/list-product")
     public String viewListProductPage(
-                    @RequestParam(name="page", defaultValue = "1", required = false)  int page,
-                    @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
-                    @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
-                    @RequestParam(name="category", defaultValue = "",  required = false) String categoryShow,
-                    @RequestParam(name="keyword", defaultValue = "",  required = false) String keyword,
-                    Model model){
+            @RequestParam(name="page", defaultValue = "1", required = false)  int page,
+            @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
+            @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
+            @RequestParam(name="category", defaultValue = "",  required = false) String categoryShow,
+            @RequestParam(name="group-category", defaultValue = "",  required = false) String groupCategory,
+            @RequestParam(name="keyword", defaultValue = "",  required = false) String keyword,
+            Model model, HttpServletRequest request){
         Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)
                 .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
 
@@ -40,18 +44,22 @@ public class ProductController {
 
         if(!categoryShow.equals("")){
             String slug = SlugGenerator.generateSlug(categoryShow);
-            listProduct = productService.getListProductsByCategory(slug);
+            listProduct = productService.getListProductsByCategory(slug, pageable);
         }else if(!keyword.equals("")){
             listProduct = productService.findByKeywordAndActive(keyword, pageable);
+        }else if(!groupCategory.equals("")){
+            listProduct = productService.getListProductsByNameGroupCategory(groupCategory, pageable);
         }
         else{
             listProduct = productService.getAllAndActiveTrue(pageable);
         }
-
+        Optional<String> breadcrumb = Arrays.asList(keyword,categoryShow, groupCategory)
+                .stream().filter(item -> !item.equals("")).findFirst();
         model.addAttribute("listProduct", listProduct.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listProduct.getTotalPages());
-        model.addAttribute("keyword", !keyword.equals("") ? keyword : categoryShow);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("breadcrumb", breadcrumb.orElse(""));
         return "user/listProduct";
     }
 
@@ -69,6 +77,6 @@ public class ProductController {
 
     // get product have the same category with main product
     private Page<Product> getListProductsByCategory(String categorySlug){
-        return productService.getListProductsByCategory(categorySlug);
+        return productService.getListProductsByCategory(categorySlug, PageRequest.of(0, 12));
     }
 }

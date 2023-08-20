@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <head th:replace="fragments :: main_header('tag')"></head>
+  <title>Đơn hàng của tôi</title>
+  <!-- index -->
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/cart.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/order_history.css}">
+</head>
+
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="main">
+  <div class="grid wide">
+    <div class="row">
+      <div class="col l-12">
+        <div class="main__order_history">
+     <!--     <div class="row title">
+            <div class="col l-4 m-4 s-8">Sản phẩm</div>
+            <div class="col l-2 m-2 s-0">Giá</div>
+            <div class="col l-2 m-2 s-0">Số lượng</div>
+            <div class="col l-2 m-2 s-4">Tổng</div>
+          </div>-->
+          <div th:each="cartDto, itrStat : ${session.listCart}" class="row cart-item" >
+            <div class="col l-4 m-4 s-8">
+              <div class="main__cart-product">
+                <img th:src="${cartDto.mainImageProduct}" alt="error">
+                <div class="info_product">
+                  <div class="name">[[${cartDto.nameProduct}]]</div>
+                  <div class="main__product-amount"> x 1 </div>
+                </div>
+              </div>
+            </div>
+            <div class="col l-2 m-2 s-0">
+              <div class="main__cart-price">[[${#numbers.formatDecimal(cartDto.priceProduct, 3,'POINT', 0,'COMMA')}]] đ</div>
+            </div>
+            <div class="col l-2 m-2 s-0">
+
+            </div>
+            <div class="col l-2 m-2 s-4">
+              <div class="main__cart-price">
+                [[${#numbers.formatDecimal((cartDto.priceProduct * cartDto.quantity), 3,'POINT', 0,'COMMA')}]] đ
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: modal_form"></div>
+<!-- Sccipt for owl caroucel -->
+
+<!-- Script common -->
+<script th:src="@{/assets/user/js/commonscript.js}"></script>
+<!--Script show html cart item-->
+<script>
+        "use strict";
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                updateTotalPriceCart();
+            });
+            $("input[type='checkbox'][name='chkCartItem']").on('click', function(){
+                updateTotalPriceCart();
+             });
+            $('#order').on('click', function(){
+                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
+                    let listCartSelected = getListCartSelected(selectedItems);
+                    if(listCartSelected.length !== 0){
+                        var listCartJSon = JSON.stringify(listCartSelected);
+                        localStorage.setItem('dataOrder', listCartJSon);
+                        window.location = '/order';
+                    }else{
+                        SwalAlertWarning('Bạn chưa chọn sản phẩm nào!')
+                    }
+            });
+            function updateTotalPriceCart(){
+                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
+                    let totalPrice = getListCartSelected(selectedItems).reduce((total, item) => {
+                       return total + item.totalPrice;
+                    },0);
+                     $('.totalCart').text(formatDecimal(totalPrice));
+            }
+            function getListCartSelected(selectedItems){
+                    let listCartSelected = [];
+                    selectedItems.each(function(index, element){
+                        let item = $(this).val();
+                        let itemObject = JSON.parse(item);
+                        let quantityValue = parseInt(itemObject.quantity)
+                        listCartSelected.push(itemObject);
+                    });
+                    return listCartSelected;
+            }
+     });
+    </script>
+<script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
+        });
+    </script>
+</body>
+
+</html>

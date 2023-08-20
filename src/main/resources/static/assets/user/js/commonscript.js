@@ -41,9 +41,40 @@ tabs.forEach((tab, index) => {
         pane.classList.add("active");
     };
 });
+//resize and load to responsive header__nav
+window.addEventListener("load", function() {
+  var widthWindow = window.innerWidth;
+    if (widthWindow <= 1024) {
+     $('.sub-nav-wrap-responsive').removeClass('sub-nav-wrap');
+     $('.sub-nav__item.sub-1').on('click', (event) => {
+         event.preventDefault();
+         $(event.currentTarget).toggleClass("active");
+         $(event.currentTarget).next('.wrapper__sub-2').toggleClass("show");
+         $(event.currentTarget).find('i').toggleClass("show");
+         $(event.currentTarget).find('i').toggleClass("fa-angle-up");
+     });
+    }else{
+      $('.sub-nav-wrap-responsive').addClass('sub-nav-wrap');
+    }
+});
+window.addEventListener("resize", function() {
+  var widthWindow = window.innerWidth;
+  if (widthWindow <= 1024) {
+   $('.sub-nav-wrap-responsive').removeClass('sub-nav-wrap');
+   $('.sub-nav__item.sub-1').on('click', (event) => {
+       event.preventDefault();
+       $(event.currentTarget).toggleClass("active");
+       $(event.currentTarget).next('.wrapper__sub-2').toggleClass("show");
+       $(event.currentTarget).find('i').toggleClass("fa-angle-down");
+       $(event.currentTarget).find('i').toggleClass("fa-angle-up");
+   });
+  }else{
+    $('.sub-nav-wrap-responsive').addClass('sub-nav-wrap');
+  }
+});
+
 
 //url
-
 var urlInCreaseCart =   '/cart/update?action=increase';
 var urlDecreaseCart =   '/cart/update?action=decrease';
 var urlDeleteCart   =   '/cart/delete';

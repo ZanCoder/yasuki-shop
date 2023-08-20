@@ -22,7 +22,7 @@
                         <a href="#" class="breadcrumb__link">Sản phẩm</a>
                     </div>
                     <div class="breadcrumb__item">
-                        <a href="#" class="breadcrumb__link" th:text="${keyword}"></a>
+                        <a href="#" class="breadcrumb__link" th:text="${breadcrumb}"></a>
                     </div>
                 </div>
                 <div class="main__sort">
@@ -35,7 +35,7 @@
 <!--                        <option value="3">Điểm đánh giá</option>-->
                         <option value="dateRelease-asc">Mới cập nhật</option>
                         <option value="price-desc">Giá : Cao đến thấp</option>
-                        <option value="price-asc">Giá Thấp đến cao</option>
+                        <option value="price-asc">Giá : Thấp đến cao</option>
                     </select>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         <th:block th:each="item : ${#numbers.sequence(1, totalPages)}">
                             <li th:if="${(item > totalPages - 2 && totalPages > 0) || (item >= currentPage - 2 && item <= currentPage && totalPages > 0) }" class="pagination__item"
                                 th:classappend="${item == currentPage ? 'active' : ''}">
-                                <a th:href="@{'/list-product?page='+${item}}" class="pagination__link">[[${item}]]</a>
+                                <a th:href="${'?page='+item}" class="pagination__link">[[${item}]]</a>
                             </li>
                             <li th:if="${(item == currentPage+1 && currentPage < totalPages-1 && totalPages &gt; 5)
                                          || (item == currentPage - 3 && currentPage >= totalPages-1 )}" class="pagination__item">
@@ -127,17 +127,36 @@
                     var sep = value.indexOf('-');
                     var sortBy = value.substring(0, sep);
                     var orderBy = value.substring(sep+1);
-                    var url = "[[@{/list-product?sortBy=}]]" +  sortBy + "&orderBy=" + orderBy;
-                    $.ajax({
-                        url : url,
-                        method: 'GET'
-                    })
-                    .done(function(data){
-                        window.location.href = url;
-                    })
-                    .fail(function(error){
-                       console.log('error in server!')
-                    });
+                    var urlDefault = "[[@{/list-product}]]";
+                    var queryString = window.location.search === '' ?
+                                      window.location.search + '?'  : window.location.search + '&';
+                    if(updateQueryStringParameter('sortBy', sortBy) === null){
+                       var url = urlDefault  + queryString + 'sortBy=' + sortBy + '&orderBy=' + orderBy
+                       window.location.href = url
+                       return;
+                    }
+
+                    updateQueryStringParameter('sortBy', sortBy);
+                    updateQueryStringParameter('orderBy', orderBy);
+
+                    var url = urlDefault + queryString ;
+                    window.location.reload()
+                    updateQueryStringParameter('sortBy', sortBy);
+                    updateQueryStringParameter('orderBy', orderBy);
+
+
+
+            }
+
+            function updateQueryStringParameter(key, value) {
+                var currentUrl = window.location.href;
+                var url = new URL(currentUrl);
+                var searchParams = url.searchParams;
+                if (!searchParams.has(key)) {
+                    return null;
+                }
+                searchParams.set(key, value);
+                window.history.replaceState({}, '', url.toString());
             }
         });
     </script>

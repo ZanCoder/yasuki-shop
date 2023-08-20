@@ -103,3 +103,12 @@ window.onscroll = function() {
 
     }
 }
+
+// Config color title
+const listTitle = $('.category__heading');
+
+listTitle.each((index, item) => {
+  const parentColor = $(item).css('color');
+
+  $(item).css('--before-background-color', parentColor);
+});

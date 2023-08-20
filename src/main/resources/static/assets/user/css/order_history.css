@@ -1,0 +1,14 @@
+.main__order_history{
+     margin: 20px 0;
+}
+.main__product-amount{
+    font-size: 1.4rem;
+    font-weight: 500;
+    position: relative;
+}
+/*
+.main__product-amount::before {
+    content: "x";
+    position: absolute;
+    right: 10px;
+}*/
