@@ -21,5 +21,7 @@ public interface OrderService {
     void deleteById(Integer id);
 
     Optional<Order> findById(Integer id);
+    List<Order> findByUser(UserApp currentUser);
 
+    List<Order> findByUserAndStatus(UserApp currentUser, String status);
 }

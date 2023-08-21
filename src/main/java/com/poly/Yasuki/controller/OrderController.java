@@ -2,6 +2,7 @@ package com.poly.Yasuki.controller;
 
 import com.poly.Yasuki.dto.CartDto;
 import com.poly.Yasuki.dto.OrderDto;
+import com.poly.Yasuki.entity.Order;
 import com.poly.Yasuki.entity.UserApp;
 import com.poly.Yasuki.security.MyUserDetails;
 import com.poly.Yasuki.service.CartItemService;
@@ -13,10 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -40,7 +38,17 @@ public class OrderController {
         return "user/pay";
     }
     @GetMapping("/order/history")
-    public String viewOrderHistoryPage(Model model){
+    public String viewOrderHistoryPage(
+            @RequestParam(name = "status", required = false, defaultValue = "")String status,
+            Model model){
+        List<Order> listOrder ;
+        if(!status.equals("")){
+            listOrder = orderService.findByUserAndStatus(getCurrentUser(), status);
+        }else{
+            listOrder = orderService.findByUser(getCurrentUser());
+        }
+        model.addAttribute("listOrder", listOrder);
+        model.addAttribute("status", status);
         return "user/order_history";
     }
 
@@ -72,18 +80,6 @@ public class OrderController {
     private void resetListCart(HttpSession session){
         List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
         session.setAttribute("listCart", cartDtoList);
-    }
-
-
-    private void testSendMail(){
-        final Context ctx = new Context();
-        ctx.setVariable("name", "luctuankietkg@gmail.com");
-        ctx.setVariable("subscriptionDate", new Date());
-        ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
-       // ctx.setVariable("imageResourceName", imageResourceName); // so that we can reference it from HTML
-
-        final String htmlContent = this.templateEngine.process("mail_order.html", ctx);
-
     }
 
 }

@@ -21,13 +21,15 @@ public class OrderItem {
     private Integer id;
     private Integer quantity;
 
-    private String name;
+    private String name; // name product
     private BigDecimal price;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
+    private String productSlug;
+    private String imageProduct;
 
     public OrderItem(Integer quantity, String name, BigDecimal price) {
         this.quantity = quantity;

@@ -60,6 +60,7 @@ public class ProductController {
         model.addAttribute("totalPages", listProduct.getTotalPages());
         model.addAttribute("keyword", keyword);
         model.addAttribute("breadcrumb", breadcrumb.orElse(""));
+        model.addAttribute("dataSort", sortBy + "-" + orderBy);
         return "user/listProduct";
     }
 

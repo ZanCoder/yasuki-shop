@@ -29,13 +29,13 @@
                     <h3 class="sort__title">
                         Hiển thị kết quả theo
                     </h3>
-                    <select th:onchange="$(this).submitSort(this.value)"   class="sort__select" aria-label="label for the select" >
-                        <option value="id-asc" >Thứ tự mặc định</option>
-                        <option value="quantitySold-desc" >Mức độ phổ biến</option>
+                    <select th:onchange="$(this).submitSort(this.value)" class="sort__select" aria-label="label for the select" >
+                        <option value="id-asc" th:selected="${dataSort == 'id-asc'}">Thứ tự mặc định</option>
+                        <option value="quantitySold-desc" th:selected="${dataSort == 'quantitySold-desc'}">Mức độ phổ biến</option>
 <!--                        <option value="3">Điểm đánh giá</option>-->
-                        <option value="dateRelease-asc">Mới cập nhật</option>
-                        <option value="price-desc">Giá : Cao đến thấp</option>
-                        <option value="price-asc">Giá : Thấp đến cao</option>
+                        <option value="dateRelease-asc" th:selected="${dataSort == 'dateRelease-asc'}">Mới cập nhật</option>
+                        <option value="price-desc" th:selected="${dataSort == 'price-desc'}">Giá : Cao đến thấp</option>
+                        <option value="price-asc" th:selected="${dataSort == 'price-asc'}">Giá : Thấp đến cao</option>
                     </select>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 <div class="pagination">
                     <ul class="pagination__list">
                         <li class="pagination__item">
-                            <a id="prevPage" th:href="@{'/list-product?page='+${currentPage -1}}"
+                            <a id="prevPage" href="#" th:onclick="$(this).changePage('[[${currentPage -1}]]')"
                                th:classappend="${currentPage <= 1 ? 'disable' : ''}"
                                class="pagination__link">
                                 <i class="fas fa-chevron-left"></i>
@@ -85,7 +85,7 @@
                         <th:block th:each="item : ${#numbers.sequence(1, totalPages)}">
                             <li th:if="${(item > totalPages - 2 && totalPages > 0) || (item >= currentPage - 2 && item <= currentPage && totalPages > 0) }" class="pagination__item"
                                 th:classappend="${item == currentPage ? 'active' : ''}">
-                                <a th:href="${'?page='+item}" class="pagination__link">[[${item}]]</a>
+                                <a href="#" th:onclick="$(this).changePage('[[${item}]]')" class="pagination__link">[[${item}]]</a>
                             </li>
                             <li th:if="${(item == currentPage+1 && currentPage < totalPages-1 && totalPages &gt; 5)
                                          || (item == currentPage - 3 && currentPage >= totalPages-1 )}" class="pagination__item">
@@ -93,7 +93,7 @@
                             </li>
                         </th:block>
                         <li class="pagination__item">
-                            <a id="nextPage" th:href="@{'/list-product?page='+${currentPage + 1}}"
+                            <a id="nextPage" href="#" th:onclick="$(this).changePage('[[${currentPage + 1}]]')"
                                th:classappend="${currentPage >= totalPages ? 'disable' : ''}"
                                class="pagination__link">
                                 <i class="fas fa-chevron-right"></i>
@@ -143,9 +143,19 @@
                     window.location.reload()
                     updateQueryStringParameter('sortBy', sortBy);
                     updateQueryStringParameter('orderBy', orderBy);
+            }
 
+            $.fn.changePage = function(item) {
+                var currentUrl = window.location.href;
+                var separator = currentUrl.indexOf('?') !== -1 ? '&' : '?';
 
-
+                var queryStringPage = updateQueryStringParameter('page', item);
+                if(queryStringPage === null){
+                     var newUrl = currentUrl + separator + 'page=' + item;
+                     window.location.href = newUrl;
+                }else{
+                     window.location.reload();
+                }
             }
 
             function updateQueryStringParameter(key, value) {

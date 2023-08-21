@@ -282,16 +282,6 @@ input[type=checkbox]:checked:after {
         opacity: 1;
     }
 }
-@keyframes fadeInTop {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0%);
-        opacity: 1;
-    }
-}
 
 @keyframes fadeInLeft {
     from {
@@ -813,9 +803,8 @@ textarea.form-control {
     font-size: 1.6rem;
     text-transform: uppercase;
     color: #000000;
-    padding: 0 44px;
+    padding: 0px 38px;
     line-height: 5rem;
-/*    text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);*/
     letter-spacing: 1px;
     font-weight: 600;
 }
@@ -1733,6 +1722,7 @@ img.img-fluid.lazyloaded {
         font-size: 1.6rem;
         padding: 4px 12px;
         font-weight: 600;
+        line-height: 3rem;
     }
     .header__nav-link:hover {
         color: var(--white-cl-1);

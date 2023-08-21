@@ -32,7 +32,7 @@ public class ManagerProductController {
     public String viewListProductPage(
             @RequestParam(name="page", defaultValue = "1", required = false)  int page,
             @RequestParam(name="sortBy",defaultValue = "id", required = false) String sortBy,
-            @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
+            @RequestParam(name="orderBy", defaultValue = "desc",  required = false) String orderBy,
             @RequestParam(name="keyword",  required = false) String keyword,
             Model model){
         Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)

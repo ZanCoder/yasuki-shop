@@ -52,6 +52,10 @@ public class OrderServiceImpl implements OrderService {
         for (CartDto item : orderDtoList.getCartDtoList() ) {
             OrderItem orderItem = new OrderItem(item.getQuantity(),
                     item.getNameProduct(), item.getPriceProduct());
+            String productSlug = SlugGenerator.generateSlug(item.getNameProduct());
+            Product product = productService.findBySlug(productSlug);
+            orderItem.setImageProduct(product.getMainImage());
+            orderItem.setProductSlug(productSlug);
             listOrderItem.add(orderItem);
             orderItem.setOrder(newOrder);
             orderItemRepo.save(orderItem);
@@ -88,6 +92,15 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+    @Override
+    public List<Order> findByUser(UserApp currentUser) {
+        return orderRepo.findAllByUserApp(currentUser);
+    }
+
+    @Override
+    public List<Order> findByUserAndStatus(UserApp currentUser, String status) {
+        return orderRepo.findByUserAndStatus(currentUser, status);
+    }
 
     private void updateAfterOrder(List<CartDto> cartDtoList, UserApp currentUser) {
         cartDtoList.stream().forEach(item -> {

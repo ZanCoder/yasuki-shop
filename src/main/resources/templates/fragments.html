@@ -143,14 +143,14 @@
                     </ul>
                 </div>
             </li>
+            <li th:unless="${#authorization.expression('isAnonymous()')}"  class="header__nav-item">
+                <a th:href="@{/order/history}" class="header__nav-link">Đơn hàng</a>
+            </li>
             <li class="header__nav-item">
                 <a th:href="@{/news}" class="header__nav-link">Tin Tức</a>
             </li>
             <li class="header__nav-item">
                 <a th:href="@{/contact}" class="header__nav-link">Liên Hệ</a>
-            </li>
-            <li th:unless="${#authorization.expression('isAnonymous()')}"  class="header__nav-item">
-                <a th:href="@{/order/history}" class="header__nav-link">Đơn hàng</a>
             </li>
         </ul>
     </div>

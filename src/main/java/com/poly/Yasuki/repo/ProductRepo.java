@@ -41,7 +41,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT p FROM Product p WHERE p.isActive = true" )
     Page<Product> findByActiveTrue(Pageable pageable);
 
-    @Query(value = "SELECT * FROM products  WHERE CONCAT(name, ' ',brand ) LIKE %:keyword% AND is_active = 1" , nativeQuery = true)
+    @Query(value = "SELECT p FROM Product p  WHERE CONCAT(name, ' ', brand ) LIKE %:keyword% AND p.isActive = true" )
     Page<Product> findByKeywordAndActive(String keyword, Pageable pageable);
 
     @Query(value = "SELECT p FROM Product p WHERE p.category.groupCategory.slug = :slug" )

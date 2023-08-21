@@ -46,10 +46,10 @@ public class Product implements Serializable {
 
     private String slug;
 
-    @Column(name="short_description", length = 4096)
+    @Column(name="short_description", columnDefinition = "TEXT")
     private String shortDescription;
 
-    @Column(name="full_description",length = 4096)
+    @Column(name="full_description", columnDefinition = "TEXT")
     private String fullDescription;
 
     @Column(name="main_image",length = 1024)

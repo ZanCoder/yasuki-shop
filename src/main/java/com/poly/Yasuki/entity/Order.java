@@ -39,7 +39,7 @@ public class Order implements Serializable {
     @Column(name = "total_payment")
     private BigDecimal totalPayment;
 
-    private String status = "Đặt hàng";
+    private String status = "Đang xử lí";
 
     @Column(name = "create_at")
     @CreationTimestamp

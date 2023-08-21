@@ -74,7 +74,7 @@
                                             <td th:text="${item.phoneNumber}"></td>
                                             <td th:text="${#numbers.formatDecimal(item.totalPayment, 3,'POINT', 0,'COMMA')}"></td>
                                             <td th:text="${item.status}"></td>
-                                            <td>
+                                            <td class="d-flex">
                                                 <button class="btn btn-primary me-2 ">
                                                     <a th:href="@{'/admin/manager-order/edit?id='+${item.id}}" class="text-white">
                                                         <i class="nav-icon fas fa-edit"></i>

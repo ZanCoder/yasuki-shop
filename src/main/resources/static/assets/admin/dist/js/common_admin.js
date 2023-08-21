@@ -173,7 +173,7 @@ $('#sendOrder').on('click', function sendOrder(){
         return;
     }
 
-/*    const urlParams = new URLSearchParams(window.location.href);*/
+    const urlParams = new URLSearchParams(window.location.href);
 
     var dataToSend = {
             name:       $('#name_order').val(),
@@ -210,6 +210,7 @@ $('#sendOrder').on('click', function sendOrder(){
 function updateHtmlListProdSearch(listProds){
     $('#list_prod_order').html('')
     listProds.forEach( item =>{
+        let nameProd = item.name.replace("'", "\\'");
         $('#list_prod_order').append(
         `
             <tr>
@@ -217,7 +218,7 @@ function updateHtmlListProdSearch(listProds){
                 <td>${item.quantityLeft}</td>
                 <td>${formatDecimal(item.price)}</td>
                 <td>
-                    <button onclick="addProductToOrder('${item.name}', '${item.price}')"
+                    <button onclick="addProductToOrder('${nameProd}', '${item.price}')"
                     class="btn btn-primary btnSelectProd" type="button">Thêm</button>
                 </td>
             </tr>
@@ -233,6 +234,7 @@ function updateHtmlListProdSelected(listProds){
     if(listProds != null){
         $('#list_prod_selected_to_order').html('');
             listProds.forEach( (item, index) =>{
+                let nameProd = item.name.replace("'", "\\'");
                 $('#list_prod_selected_to_order').append(
                 `
                     <tr>
@@ -243,7 +245,7 @@ function updateHtmlListProdSelected(listProds){
                         </td>
                         <td>${formatDecimal(item.price)}</td>
                         <td>
-                            <button onclick="deleteProdInListSelected('${item.name}')"
+                            <button onclick="deleteProdInListSelected('${nameProd}')"
                             class="btn btn-danger" type="button">Xóa</button>
                         </td>
                     </tr>

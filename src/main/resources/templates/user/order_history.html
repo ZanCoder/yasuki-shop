@@ -4,50 +4,104 @@
   <head th:replace="fragments :: main_header('tag')"></head>
   <title>Đơn hàng của tôi</title>
   <!-- index -->
-  <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/cart.css}">
+ <!-- <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/cart.css}">-->
   <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/order_history.css}">
 </head>
 
 <body>
 <div th:replace="fragments :: header"></div>
-<div class="main">
+
+<div class="main__order-history">
   <div class="grid wide">
-    <div class="row">
-      <div class="col l-12">
-        <div class="main__order_history">
-     <!--     <div class="row title">
-            <div class="col l-4 m-4 s-8">Sản phẩm</div>
-            <div class="col l-2 m-2 s-0">Giá</div>
-            <div class="col l-2 m-2 s-0">Số lượng</div>
-            <div class="col l-2 m-2 s-4">Tổng</div>
-          </div>-->
-          <div th:each="cartDto, itrStat : ${session.listCart}" class="row cart-item" >
-            <div class="col l-4 m-4 s-8">
-              <div class="main__cart-product">
-                <img th:src="${cartDto.mainImageProduct}" alt="error">
-                <div class="info_product">
-                  <div class="name">[[${cartDto.nameProduct}]]</div>
-                  <div class="main__product-amount"> x 1 </div>
+    <div class="tab-pane active">
+      <div class="tab__filter-order">
+        <a th:href="@{/order/history}"
+           class="btn item__filter-order"
+           th:classappend="${status == '' ? 'active' : ''}">
+           Tất cả
+        </a>
+        <a th:href="@{/order/history?status=Đang%20xử%20lí}"
+           class="btn item__filter-order"
+           th:classappend="${status == 'Đang xử lí' ? 'active' : ''}">
+          Đang xử lí
+        </a>
+        <a th:href="@{/order/history?status=Hoàn%20thành}"
+           class="btn item__filter-order"
+           th:classappend="${status == 'Hoàn thành' ? 'active' : ''}">
+          Hoàn thành
+        </a>
+        <a th:href="@{/order/history?status=Đã hủy}"
+           class="btn item__filter-order"
+           th:classappend="${status == 'Đã hủy' ? 'active' : ''}">
+           Đã hủy
+        </a>
+      </div>
+      <div th:if="${listOrder.size() > 0}" class="grid wide">
+        <div class="row">
+          <div th:each="order : ${listOrder}" class="col l-12">
+            <div class="main__order_history">
+              <div class="main__order-title">
+                <div class="col l-8 ">
+                  <div class="info__customer">
+                    <div class="date__order">[[${#dates.format(order.createAt, 'yyyy-MM-dd')}]]</div>
+                    <span>|</span>
+                    <div class="name__customer">[[${order.name}]] - [[${order.phoneNumber}]]</div>
+                  </div>
+                </div>
+                <div class="status__order">
+                  [[${order.status}]]
                 </div>
               </div>
-            </div>
-            <div class="col l-2 m-2 s-0">
-              <div class="main__cart-price">[[${#numbers.formatDecimal(cartDto.priceProduct, 3,'POINT', 0,'COMMA')}]] đ</div>
-            </div>
-            <div class="col l-2 m-2 s-0">
 
-            </div>
-            <div class="col l-2 m-2 s-4">
-              <div class="main__cart-price">
-                [[${#numbers.formatDecimal((cartDto.priceProduct * cartDto.quantity), 3,'POINT', 0,'COMMA')}]] đ
+              <div th:each="orderItem, itrStat : ${order.listOrderItem}" class="order__item" >
+                <div class="col l-8 ">
+                  <div class="wrapper__info-product">
+                    <img th:src="${orderItem.imageProduct}" alt="error">
+                    <div class="info_product">
+                      <a th:href="@{'/detail-product/'+${orderItem.productSlug}}" class="main__product-name">[[${orderItem.name}]]</a>
+                      <div class="main__product-amount">
+                        <div class="main__product-price">
+                          [[${#numbers.formatDecimal(orderItem.price, 3,'POINT', 0,'COMMA')}]] đ
+                        </div>
+                        <span>x</span>
+                        <div>[[${orderItem.quantity}]]</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col l-2 s-3">
+                  <div class="main__product-price">
+                    [[${#numbers.formatDecimal((orderItem.price * orderItem.quantity), 3,'POINT', 0,'COMMA')}]] đ
+                  </div>
+                </div>
+              </div>
+
+              <div class="wrapper__total-order">
+                <span>Tổng thanh toán : </span>
+                <div class="total-order">[[${#numbers.formatDecimal(order.totalPayment, 3,'POINT', 0,'COMMA')}]] đ </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div th:if="${listOrder.size() == 0}">
+        <div class="wrapper__empty-order">
+          <div >
+            <i class="fas fa-cart-plus icon__empty-cart"></i>
+          </div>
+          <div class="info">Bạn chưa có đơn đặt hàng nào !</div>
+          <a th:href="@{/list-product}" class="btn btn--brown">
+            Tiếp tục mua sắm
+            <i class="fas fa-angle-double-right"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
 <div th:replace="fragments :: footer"></div>
 <div th:replace="fragments :: modal_form"></div>
 <!-- Sccipt for owl caroucel -->
