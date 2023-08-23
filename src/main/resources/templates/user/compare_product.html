@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments :: main_header('tag')"></head>
+    <title>So sánh sản phẩm</title>
+    <!-- index -->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/product.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/compare_product.css}">
+</head>
+
+<body>
+<div th:replace="fragments :: header"></div>
+
+<div class="main">
+    <div class="grid wide">
+        <div class="main__taskbar">
+            <div class="main__breadcrumb">
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">Trang chủ</a>
+                </div>
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">So sánh sản phẩm</a>
+                </div>
+            </div>
+        </div>
+        <div class="main__compare-product">
+            <div class="row">
+                <div class="list-compare">
+                    <div class="col wrapper__item-compare" th:classappend="${session.dataCompare.size() == 2 ? 'col-4': 'col-3'}">
+                        <ul class="title__part-compare">
+                            <li th:each="item : ${session.dataCompare}">- [[${item.name}]]</li>
+                        </ul>
+                    </div>
+                    <div th:each="item : ${session.dataCompare}" class="col wrapper__item-compare" th:classappend="${session.dataCompare.size() == 2 ? 'col-4': 'col-3'}">
+                        <div class="item__data-compare">
+                            <img class="img__item-compare" th:src="${item.mainImage}" alt="img">
+                            <div class="name__item-compare">[[${item.name}]]</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div th:each="indexCompare, iStar : ${#numbers.sequence(0, 5)}" class="row">
+                <div class="list-compare" th:classappend="${iStar.index % 2 == 0 ? 'odd' : ''}">
+                    <div class="col  wrapper__item-compare" th:classappend="${session.dataCompare.size() == 2 ? 'col-4': 'col-3'}">
+                        <div class="title__part-compare">
+                            [[${session.titleCompare[indexCompare]}]]
+                        </div>
+                    </div>
+                    <div th:each="item : ${session.dataCompare}" class="col  wrapper__item-compare" th:classappend="${session.dataCompare.size() == 2 ? 'col-4': 'col-3'}">
+                        <div th:if="${indexCompare < item.expressionCompare.size()}" class="part__item-compare">
+                            [[${item.expressionCompare[indexCompare]}]]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper__btn-list-product">
+            <a th:href="@{/list-product}" class="btn btn--brown">
+                Tiếp tục mua sắm
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: modal_form"></div>
+<!-- Sccipt for owl caroucel -->
+
+<!-- Script common -->
+<script th:src="@{/assets/user/js/commonscript.js}"></script>
+<!--Script show html cart item-->
+<script th:inline="javascript">
+        $(document).ready(function(){
+            $(window).on('load', function() {
+                var listCart = /*[[${session.listCart}]]*/ [];
+                updateHtmlAfterAddCart(listCart);
+            });
+        });
+    </script>
+</body>
+
+</html>

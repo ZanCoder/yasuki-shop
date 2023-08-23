@@ -39,6 +39,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Hình ảnh</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="false">Dữ liệu so sánh</button>
+                        </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -149,6 +152,21 @@
                                        class="form-control"  placeholder="Image ..."/>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="detail-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="card-body">
+
+                                <div th:if="${newProduct.expressionCompare != null}" class="col mb-3" th:each="expression, expressionStat : ${newProduct.expressionCompare}">
+                                    <label for="expression3">[[${titleCompare[expressionStat.index]}]]</label>
+                                    <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}" required type="text" class="form-control" id="expression3" >
+                                </div>
+                                <th:block th:if="${newProduct.expressionCompare.size() == 0}" >
+                                    <div th:each="expression, expressionStat : ${#numbers.sequence(1, 6)}" class="col mb-3" >
+                                        <label>[[${titleCompare[expressionStat.index]}]]</label>
+                                        <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}" required type="text" class="form-control"  >
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-custom-content">
                         <button type="submit" class="btn btn-success" th:text="${mode == 'edit' ? 'Cập nhật' : 'Thêm sản phẩm'}"></button>
@@ -192,7 +210,6 @@
           });
        });
     </script>
-    <script th:src="@{/assets/admin/dist/js/addProduct.js}"></script>
 </div>
 <!-- /.content-wrapper -->
 </body>

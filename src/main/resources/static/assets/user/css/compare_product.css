@@ -1,0 +1,53 @@
+.row .list-compare > .col-4 {
+    width: calc(100%/3);
+}
+
+.row .list-compare > .col-3 {
+    width: calc(100%/4);
+}
+
+.list-compare{
+    width : 100% ;
+    padding: 0px;
+}
+.list-compare .item__data-compare{
+    border : none;
+}
+.main__compare-product{
+    border: 1px solid gray;
+    margin-bottom: 30px;
+}
+.wrapper__item-compare {
+    padding: 10px;
+    border: 1px solid gray;
+}
+.title__part-compare{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.title__part-compare li{
+    margin-bottom: 10px;
+}
+.part__item-compare{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+.list-compare.odd {
+    background: #e2f1fd;
+}
+.wrapper__btn-list-product{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+@media(max-width:1023px) {
+    .list-compare {
+         margin: 0;
+    }
+    .part__item-compare {
+        font-size: 1.2rem;
+    }
+}

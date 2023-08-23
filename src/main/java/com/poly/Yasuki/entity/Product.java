@@ -58,6 +58,10 @@ public class Product implements Serializable {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
+    //data compare
+    @ElementCollection
+    private List<String> expressionCompare = new ArrayList<>();
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -66,6 +70,7 @@ public class Product implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages = new ArrayList<>();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

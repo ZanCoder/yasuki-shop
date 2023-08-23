@@ -62,6 +62,14 @@
                                             <span>([[${product.evaluates.size()}]] đánh giá)</span>
                                         </div>
                                     </div>
+                                    <button th:onclick="'toggleCompareItem(this, __${product.id}__, event);'" th:data-product-id="${product.id}"  class="btn compare__item">
+                                        <div class="compare__icon">
+                                            <i class="fas fa-check-circle checked__icon"></i>
+                                            <i class="fas fa-plus-circle add__icon"></i>
+                                        </div>
+                                        <span class="title__compare">So sánh</span>
+                                        <input type="hidden" class="productId" th:value="${product.id}">
+                                    </button>
                                 </div>
                                 <div th:if="${product.percentDiscount > 0}"  class="product__sale">
                                     <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
@@ -104,10 +112,54 @@
             </div>
         </div>
     </div>
+    <div class="stick-compare">
+        <div class="list-compare">
+            <div class="col l-3 wrapper__item-compare">
+                <div class="item__plus-compare">
+                    <div class="icon__plus-compare">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="title__add-compare">Thêm sản phẩm</div>
+                </div>
+            </div>
+            <div class="col l-3 wrapper__item-compare">
+                <div class="item__plus-compare">
+                    <div class="icon__plus-compare">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="title__add-compare">Thêm sản phẩm</div>
+                </div>
+            </div>
+            <div class="col l-3 wrapper__item-compare">
+                <div class="item__plus-compare">
+                    <div class="icon__plus-compare">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="title__add-compare">Thêm sản phẩm</div>
+                </div>
+            </div>
+            <div class="col l-3">
+                <div class="wrapper__btn_compare">
+                    <button id="compareProduct" class="btn btn-compare">So sánh ngay</button>
+                    <div class="txtremoveall">Xóa tất cả sản phẩm</div>
+                </div>
+            </div>
+        </div>
+        <div class="collapse__list-compare">
+            <span>Thu gọn</span>
+            <i class="fas fa-angle-down"></i>
+        </div>
+    </div>
+    <div class="popup__compare">
+        <i class="fas fa-exchange-alt"></i>
+        <div class="popup__compare-title">So sánh</div>
+        <div>(<span class="total__item-compare">0</span>)</div>
+    </div>
     <div th:replace="fragments :: footer"></div>
     <div th:replace="fragments :: modal_form"></div>
     <!-- Script common -->
     <script th:src="@{/assets/user/js/commonscript.js}"></script>
+    <script th:src="@{/assets/user/js/list_product.js}"></script>
     <!--  config link pagination  -->
     <script>
         $(document).ready(function(){

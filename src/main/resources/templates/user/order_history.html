@@ -38,7 +38,7 @@
       </div>
       <div th:if="${listOrder.size() > 0}" class="grid wide">
         <div class="row">
-          <div th:each="order : ${listOrder}" class="col l-12">
+          <div th:each="order : ${listOrder}" class="col l-12 m-12 s-12">
             <div class="main__order_history">
               <div class="main__order-title">
                 <div class="col l-8 ">
@@ -48,9 +48,9 @@
                     <div class="name__customer">[[${order.name}]] - [[${order.phoneNumber}]]</div>
                   </div>
                 </div>
-                <div class="status__order">
-                  [[${order.status}]]
-                </div>
+                <div th:if="${order.status == 'Đang xử lí'}" class="status__order processing">[[${order.status}]]</div>
+                <div th:if="${order.status == 'Hoàn thành'}" class="status__order success">[[${order.status}]]</div>
+                <div th:if="${order.status == 'Đã hủy'}" class="status__order">[[${order.status}]]</div>
               </div>
 
               <div th:each="orderItem, itrStat : ${order.listOrderItem}" class="order__item" >

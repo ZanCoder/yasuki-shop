@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal totalPrice = orderDtoList.getCartDtoList().stream()
                         .map(CartDto::getTotalPrice)
                         .reduce(BigDecimal.ZERO,BigDecimal::add);
+        newOrder.setStatus(orderDtoList.getStatus());
         newOrder.setUserApp(currentUser);
         newOrder.setTotalPayment(totalPrice);
         orderRepo.save(newOrder);

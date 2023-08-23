@@ -181,6 +181,7 @@ $('#sendOrder').on('click', function sendOrder(){
             email:      $('#email_order').val(),
             phoneNumber:$('#phone_number').val(),
             note:       $('#note_order').val(),
+            status:     $('#status_order').val(),
             idOrder :   $('#id_order_edit').val(),
             cartDtoList : JSON.parse(dataOrder)
     }

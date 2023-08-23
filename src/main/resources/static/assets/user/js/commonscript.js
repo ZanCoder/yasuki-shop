@@ -191,7 +191,7 @@ async  function minusProduct(nameProduct, cartIndex){
 }
 
 //ajax func
- function callAjaxCart(url, method, data) {
+function callAjaxCart(url, method, data) {
     $.ajax({
       url: url,
       method: method,

@@ -1157,7 +1157,6 @@ textarea.form-control {
 .product:hover {
     box-shadow: 0 1px 7px rgba(0, 0, 0, 0.4);
     border: solid 1px #f1a03e;
-    cursor: pointer;
 }
 
 .product__avt {

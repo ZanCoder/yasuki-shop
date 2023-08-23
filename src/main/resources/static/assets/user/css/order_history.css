@@ -1,3 +1,6 @@
+.row > .col{
+    width : 100%;
+}
 .main__order-history{
    margin-top: 145px;
 }
@@ -37,7 +40,7 @@
     display: flex;
     border-bottom: 1px solid;
     padding-bottom: 4px;
-    width: fix-content;
+    width: max-content;
 }
 .info__customer{
     position : relative;
@@ -71,6 +74,12 @@
     padding: 6px;
     color: #3c3b3b;
     min-width: 100px;
+}
+.main__order-title .status__order.processing{
+    background-color: #f3ce7c;
+}
+.main__order-title .status__order.success{
+    background-color: #7ff1a7;
 }
 .order__item{
     display: flex;
@@ -153,6 +162,9 @@
 @media(max-width: 1023px) {
     .main__order-history{
        margin-top: 90px;
+    }
+    .main__order-title .info__customer{
+        width: auto;
     }
 }
 @media(max-width: 739px) {

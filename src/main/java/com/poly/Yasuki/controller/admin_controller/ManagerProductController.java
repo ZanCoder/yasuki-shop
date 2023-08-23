@@ -6,6 +6,7 @@ import com.poly.Yasuki.entity.ProductImage;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.service.ProductService;
+import com.poly.Yasuki.utils.GlobalDataUtils;
 import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -57,6 +58,7 @@ public class ManagerProductController {
         model.addAttribute("groupCategoriesShow", groupCategoryService.getAll());
         model.addAttribute("indexGCSelected", 0);
         model.addAttribute("productImages", initListProductImage());
+        model.addAttribute("titleCompare", GlobalDataUtils.getTitleCompare());
         return "admin/add_product";
     }
 
@@ -72,6 +74,7 @@ public class ManagerProductController {
             model.addAttribute("groupCategoriesShow", groupCategoryService.getAll());
             model.addAttribute("newProduct", product);
             model.addAttribute("productImages", initListProductImage());
+            model.addAttribute("titleCompare", GlobalDataUtils.getTitleCompare());
             model.addAttribute("error", MessageUtils.PROD_ALREADY_EXIST);
             return "admin/add_product.html";
         }
@@ -100,6 +103,7 @@ public class ManagerProductController {
 //        model.addAttribute("categoriesSelected", groupCategoryService.getAll());
         model.addAttribute("newProduct", product);
         model.addAttribute("productImages", initListProductImage());
+        model.addAttribute("titleCompare", GlobalDataUtils.getTitleCompare());
         model.addAttribute("indexGCSelected", productService.getCurrentIndexForGC(product));
         return "admin/add_product.html";
     }

@@ -67,6 +67,11 @@ public class HomeController {
         return "user/profile";
     }
 
+    @GetMapping("/product/compare")
+    public String compareProductPage(Model model){
+        return "user/compare_product";
+    }
+
     public UserApp getCurrentUser(){
         Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
