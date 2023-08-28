@@ -1,18 +1,3 @@
-//$('#btnAddProd').on('click', () =>{
-//    $('#list_prod_order').append(`
-//        <tr class="even">
-//            <td class="dtr-control" tabindex="0">1</td>
-//            <td class="">All others</td>
-//            <td class="sorting_1">999</td>
-//            <td class="sorting_1">999</td>
-//            <td>
-//            <button class="btn btn-danger btnDelAccount">
-//                <i class="far fa-trash-alt"></i>
-//            </button>
-//            </td>
-//        </tr>
-//    `)
-//});
 
 function myOnLoading(){
     $('.preloader').show();
@@ -26,6 +11,7 @@ var urlSearchProdToOrder = '/admin/manager-order/find-by-keyword';
 var urlFindByGroup = '/admin/manager-order/find-by-group';
 var urlFindByCategory = '/admin/manager-order/find-by-category';
 var urlManagerOrder = '/admin/manager-order';
+var urlAddOrder = '/admin/manager-order/add';
 
 
 //manager user
@@ -187,7 +173,7 @@ $('#sendOrder').on('click', function sendOrder(){
     }
     if(dataOrder !== null && dataOrder.length > 2){
         $.ajax({
-            url : '/order',
+            url : urlAddOrder,
             method : 'POST',
             contentType: "application/json",
             dataType: "text",

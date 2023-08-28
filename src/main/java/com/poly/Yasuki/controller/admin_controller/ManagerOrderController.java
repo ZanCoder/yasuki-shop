@@ -1,6 +1,11 @@
 package com.poly.Yasuki.controller.admin_controller;
 
+import com.poly.Yasuki.dto.CartDto;
+import com.poly.Yasuki.dto.OrderDto;
 import com.poly.Yasuki.entity.Order;
+import com.poly.Yasuki.entity.UserApp;
+import com.poly.Yasuki.security.MyUserDetails;
+import com.poly.Yasuki.service.CartItemService;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.OrderService;
 import com.poly.Yasuki.utils.MessageUtils;
@@ -10,15 +15,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ManagerOrderController {
     private final OrderService orderService;
     private final GroupCategoryService groupCategoryService;
+    private final CartItemService cartItemService;
     private static final int PRODUCT_PER_PAGE = 5;
 
     @GetMapping("/admin/manager-order")
@@ -51,8 +63,17 @@ public class ManagerOrderController {
         return "admin/add_order";
     }
 
+    @PostMapping("/admin/manager-order/add")
+    @ResponseBody
+    public String doCreateNewOrder(@RequestBody OrderDto orderDtoList, HttpSession session
+    ){
+        orderService.create(orderDtoList, getCurrentUser());
+        resetListCart(session);
+        return "OK";
+    }
+
     @PostMapping("/admin/manager-order/update")
-    public String doCreateNewOrder(@ModelAttribute(name = "newOrder") Order order,
+    public String doUpdateOrder(@ModelAttribute(name = "newOrder") Order order,
                                      Model model){
         try{
             orderService.insert(order);
@@ -84,6 +105,17 @@ public class ManagerOrderController {
         model.addAttribute("editOrder", order);
         model.addAttribute("groupCategories", groupCategoryService.getAll());
         return "admin/add_order.html";
+    }
+
+    public UserApp getCurrentUser(){
+        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        return userDetails.getUserApp();
+    }
+
+    private void resetListCart(HttpSession session){
+        List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
+        session.setAttribute("listCart", cartDtoList);
     }
 
 }

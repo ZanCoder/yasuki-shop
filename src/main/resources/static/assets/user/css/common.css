@@ -1286,7 +1286,9 @@ textarea.form-control {
 .product:hover .addToCart {
     display: block;
 }
-
+.product__brand:hover{
+    color : var(--text-brown-cl);
+}
 
 /* Owl  */
 

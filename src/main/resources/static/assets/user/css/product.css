@@ -512,9 +512,20 @@
 .compare__item .compare__icon{
     margin-right: 6px;
 }
-.compare__icon .checked__icon{
+
+.compare__item .checked__status{
     display : none;
 }
+.compare__item .add__status{
+    display : block;
+}
+.compare__item.active .checked__status{
+    display : block;
+}
+.compare__item.active .add__status{
+    display : none;
+}
+
 /* list compare*/
 .stick-compare{
     position: fixed;

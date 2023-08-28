@@ -101,17 +101,10 @@ $('.txtremoveall').on('click', ()=>{
 });
 
 function updateTitleCompare(type, buttonElement){
-    let addIcon = $(buttonElement).find('.compare__icon .add__icon');
-    let checkedIcon = $(buttonElement).find('.compare__icon .checked__icon');
-    let titleCompare = $(buttonElement).find('.title__compare');
     if(type === 'delete'){
-        addIcon.show();
-        titleCompare.text('So sánh');
-        checkedIcon.hide();
+        $(buttonElement).removeClass('active')
     }else if(type === 'add'){
-        titleCompare.text('Đã thêm so sánh');
-        addIcon.hide();
-        checkedIcon.show();
+        $(buttonElement).addClass('active')
     }
 }
 function triggerBtnCompare(productId) {
@@ -140,17 +133,17 @@ $('#compareProduct').on('click', ()=>{
 
 window.addEventListener("load", (event) => {
     let dataList = JSON.parse(localStorage.getItem('listCompare')) || [];
-    localStorage.removeItem('listCompare');
+    let listBtnCompare = $('.compare__item');
     for (const item of dataList) {
-         triggerBtnCompare(item.id);
+         listBtnCompare.each(function(index, element){
+            if($(element).data('product-id') === item.id){
+                $(element).addClass('active')
+            }
+         })
     }
-    localStorage.removeItem('listCompare');
-    try {
-        localStorage.setItem('listCompare', JSON.stringify(dataList));
-        updateHtmlCompare(dataList)
-    } catch (error) {
-        console.error("Error while setting data in localStorage:", error);
-    }
+
+    updateHtmlCompare(dataList);
+
     if ($('.stick-compare').is(':hidden') && dataList.length != 0) {
         $('.popup__compare').show();
     }

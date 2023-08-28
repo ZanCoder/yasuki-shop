@@ -48,7 +48,7 @@
                                 <a href="#" class="breadcrumb__link">Sản phẩm</a>
                             </div>
                             <div class="breadcrumb__item">
-                                <a href="#" class="breadcrumb__link">[[${product.brand}]]</a>
+                                <a th:href="@{'/list-product?keyword='+${product.brand}}" class="product__brand breadcrumb__link">[[${product.brand}]]</a>
                             </div>
                         </div>
                         <h3 class="productInfo__name">

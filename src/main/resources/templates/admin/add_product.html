@@ -84,11 +84,11 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="q_left">Số lượng trong kho</label>
-                                        <input th:field="*{quantityLeft}" th:value="${newProduct.quantityLeft}" required min="1" max="2147483646" type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
+                                        <input th:field="*{quantityLeft}" th:value="${newProduct.quantityLeft}" required  max="2147483646" type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
                                     </div>
                                     <div class="col">
                                         <label for="q_sold">Số lượng đã bán</label>
-                                        <input th:field="*{quantitySold}" th:value="${newProduct.quantitySold}" required min="1" max="2147483646" type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
+                                        <input th:field="*{quantitySold}" th:value="${newProduct.quantitySold}" required  max="2147483646" type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -162,7 +162,7 @@
                                 <th:block th:if="${newProduct.expressionCompare.size() == 0}" >
                                     <div th:each="expression, expressionStat : ${#numbers.sequence(1, 6)}" class="col mb-3" >
                                         <label>[[${titleCompare[expressionStat.index]}]]</label>
-                                        <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}" required type="text" class="form-control"  >
+                                        <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}"  type="text" class="form-control"  >
                                     </div>
                                 </th:block>
                             </div>

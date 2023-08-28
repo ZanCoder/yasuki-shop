@@ -52,7 +52,7 @@
             </a>
             <div class="header__search">
                 <form th:action="@{/list-product}" method="get" class="header__search-wrap">
-                    <input name="keyword" type="text" class="header__search-input" placeholder="Tìm kiếm">
+                    <input name="keyword" th:value="${keyword}" type="text" class="header__search-input" placeholder="Tìm kiếm">
                     <button type="submit" class="header__search-icon" >
                         <i class="fas fa-search"></i>
                     </button>

@@ -63,12 +63,15 @@
                                         </div>
                                     </div>
                                     <button th:onclick="'toggleCompareItem(this, __${product.id}__, event);'" th:data-product-id="${product.id}"  class="btn compare__item">
-                                        <div class="compare__icon">
+                                        <div class="compare__icon checked__status">
                                             <i class="fas fa-check-circle checked__icon"></i>
-                                            <i class="fas fa-plus-circle add__icon"></i>
+                                            <span class="title__compare">Đã thêm so sánh</span>
                                         </div>
-                                        <span class="title__compare">So sánh</span>
-                                        <input type="hidden" class="productId" th:value="${product.id}">
+                                        <div class="compare__icon add__status">
+                                            <i class="fas fa-plus-circle add__icon"></i>
+                                            <span class="title__compare">So sánh</span>
+                                        </div>
+
                                     </button>
                                 </div>
                                 <div th:if="${product.percentDiscount > 0}"  class="product__sale">
