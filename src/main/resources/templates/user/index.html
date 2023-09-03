@@ -57,11 +57,33 @@
             <div class="indicator">
             </div>
         </div>
+
+
+        <div class="main__bands">
+            <div class="grid wide">
+                <div class="owl-carousel bands">
+                    <a  th:href="@{/list-product?keyword=Neutrogena}" class="band__item"
+                        style="background-image: url(./assets/img/band/band1.png)"></a>
+                    <a  th:href="@{/list-product?keyword=Revlon}" class="band__item"
+                        style="background-image: url(./assets/img/band/band2.png)"></a>
+                    <a  th:href="@{/list-product?keyword=L%27OREAL}" class="band__item"
+                        style="background-image: url(./assets/img/band/band3.png)"></a>
+                    <a  th:href="@{/list-product?keyword=Vichy}" class="band__item"
+                        style="background-image: url(./assets/img/band/band4.png)"></a>
+                    <a  th:href="@{/list-product?keyword=Avène}" class="band__item"
+                        style="background-image: url(./assets/img/band/band5.png)"></a>
+                    <a  th:href="@{/list-product?keyword=SHISEIDO}" class="band__item"
+                        style="background-image: url(./assets/img/band/band6.png)"></a>
+                    <a  th:href="@{/list-product?keyword=DHC}" class="band__item"
+                        style="background-image: url(./assets/img/band/band7.png)"></a>
+                </div>
+            </div>
+        </div>
         <!--  Top category   -->
         <div class="main__top__category">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading text-brown">DANH MỤC HOT</h3>
+                <h3 class="category__heading pink">DANH MỤC HOT</h3>
                 <div class="index-categories-list row">
                     <th:block th:each="grCategory : ${session.dataCategory}">
                         <div th:each="category : ${grCategory.categories}" class="index-category">
@@ -221,7 +243,7 @@
         <div class="main__tabnine">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading green">[[${session.dataCategory[0].name}]]</h3>
+                <h3 class="category__heading pink">[[${session.dataCategory[0].name}]]</h3>
                 <div class="link__more">
                     <a th:href="@{'/list-product?group-category='+${session.dataCategory[0].name}}" >Xem tất cả
                         <i class="fas fa-long-arrow-alt-right"></i>
@@ -266,7 +288,7 @@
         <div class="main__tabnine">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading blue-pacific">[[${session.dataCategory[1].name}]]</h3>
+                <h3 class="category__heading pink">[[${session.dataCategory[1].name}]]</h3>
                 <div class="link__more">
                     <a th:href="@{'/list-product?group-category='+${session.dataCategory[1].name}}" >Xem tất cả
                         <i class="fas fa-long-arrow-alt-right"></i>
@@ -311,7 +333,7 @@
         <div class="main__tabnine">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading purple">[[${session.dataCategory[2].name}]]</h3>
+                <h3 class="category__heading pink">[[${session.dataCategory[2].name}]]</h3>
                 <div class="link__more">
                     <a th:href="@{'/list-product?group-category='+${session.dataCategory[2].name}}" >Xem tất cả
                         <i class="fas fa-long-arrow-alt-right"></i>
@@ -451,26 +473,7 @@
                 </div>
             </div>
         </div>
-        <div class="main__bands">
-            <div class="grid wide">
-                <div class="owl-carousel bands">
-                    <a  th:href="@{/list-product?keyword=Neutrogena}" class="band__item"
-                        style="background-image: url(./assets/img/band/band1.png)"></a>
-                    <a  th:href="@{/list-product?keyword=Revlon}" class="band__item"
-                        style="background-image: url(./assets/img/band/band2.png)"></a>
-                    <a  th:href="@{/list-product?keyword=L%27OREAL}" class="band__item"
-                        style="background-image: url(./assets/img/band/band3.png)"></a>
-                    <a  th:href="@{/list-product?keyword=Vichy}" class="band__item"
-                        style="background-image: url(./assets/img/band/band4.png)"></a>
-                    <a  th:href="@{/list-product?keyword=Avène}" class="band__item"
-                        style="background-image: url(./assets/img/band/band5.png)"></a>
-                    <a  th:href="@{/list-product?keyword=SHISEIDO}" class="band__item"
-                        style="background-image: url(./assets/img/band/band6.png)"></a>
-                    <a  th:href="@{/list-product?keyword=DHC}" class="band__item"
-                        style="background-image: url(./assets/img/band/band7.png)"></a>
-                </div>
-            </div>
-        </div>
+
 
     </div>
     <div th:replace="fragments :: footer"></div>

@@ -6,6 +6,7 @@ import com.poly.Yasuki.entity.UserApp;
 import com.poly.Yasuki.security.MyUserDetails;
 import com.poly.Yasuki.service.CartItemService;
 import com.poly.Yasuki.service.GroupCategoryService;
+import com.poly.Yasuki.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,6 +29,7 @@ import java.util.List;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private final CartItemService cartItemService;
     private final GroupCategoryService groupCategoryService;
+    private final ProductService productService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         this.setGlobalData(request);
@@ -43,6 +45,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // set global category in session
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
         request.getSession().setAttribute("dataCategory", myCategoryList);
+
+        // set global category in session
+        List<String> listBrand = productService.getAllBrand();
+        request.getSession().setAttribute("dataBrand", listBrand);
     }
 
     public void redirectAfterLogin(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException{

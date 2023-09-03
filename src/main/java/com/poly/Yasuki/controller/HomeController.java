@@ -34,6 +34,10 @@ public class HomeController {
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
         httpSession.setAttribute("dataCategory", myCategoryList);
 
+        // set global category in session
+        List<String> listBrand = productService.getAllBrand();
+        httpSession.setAttribute("dataBrand", listBrand);
+
         model.addAttribute("listTopSelling", productService.getTopSelling());
         model.addAttribute("listTopDiscount", productService.getTopDiscount());
         model.addAttribute("listTopDateRelease", productService.getTopDateRelease());

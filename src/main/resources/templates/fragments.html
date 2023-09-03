@@ -39,7 +39,7 @@
  </head>
 <body>
 <!--start header fragment-->
-    <div th:fragment="header" class="header scrolling" id="myHeader">
+    <div th:fragment="header" class="header" id="myHeader">
     <div class="grid wide">
         <div class="header__top">
             <div class="navbar-icon">
@@ -66,6 +66,10 @@
                 <span class="header__account-login">Hi, [[${#authentication.principal.fullName}]] !</span>
                 <i class="fas fa-user-alt "></i>
                 <div class="header__authenticated-wrap">
+                    <a sec:authorize="hasAuthority('admin')" th:href="@{/admin}" class="btn btn--brown cart-btn mb-10">
+                        <i class="fas fa-tachometer-alt color-black fz-20"></i>
+                        <span>Quản lí Admin</span>
+                    </a>
                     <a th:href="@{/logout}" class="btn btn--default cart-btn">
                         <i class="fas fa-sign-out-alt color-black fz-20"></i>
                         <span>Đổi tài khoản</span>
@@ -121,11 +125,8 @@
                     <i class="fas fa-search"></i>
                 </div>
             </li>-->
-            <li class="header__nav-item index">
-                <a th:href="@{/}" class="header__nav-link">Trang chủ</a>
-            </li>
             <li class="header__nav-item">
-                <a th:href="@{/}" class="header__nav-link">Giới Thiệu</a>
+                <a th:href="@{/}" class="header__nav-link">Trang chủ</a>
             </li>
             <li class="header__nav-item">
                 <a th:href="@{/list-product}" class="header__nav-link">Sản Phẩm</a>
@@ -139,6 +140,16 @@
                             <div th:each="category : ${grCategory.categories}" class="sub-nav__item sub-2">
                                 <a th:href="@{'/list-product?category=' +${category.name}}" class="sub-nav__link">[[${category.name}]]</a>
                             </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="header__nav-item">
+                <a th:href="@{/list-product}" class="header__nav-link">Thương hiệu</a>
+                <div class="sub-nav-wrap list-brand sub-nav-wrap-responsive">
+                    <ul th:each="item : ${session.dataBrand}" class="sub-nav">
+                        <li  class="sub-nav__item ">
+                            <a th:href="@{'/list-product?keyword=' +${item}}" class="sub-nav__link">[[${item}]]</a>
                         </li>
                     </ul>
                 </div>

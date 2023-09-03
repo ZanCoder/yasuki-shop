@@ -46,4 +46,6 @@ public interface ProductService {
     Page<Product> findByKeywordAndActive(String keyword, Pageable pageable);
 
     Page<Product> getListProductsByNameGroupCategory(String groupCategory, Pageable pageable);
+
+    List<String> getAllBrand();
 }

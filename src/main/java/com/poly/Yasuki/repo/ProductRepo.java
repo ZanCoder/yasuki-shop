@@ -46,4 +46,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT p FROM Product p WHERE p.category.groupCategory.slug = :slug" )
     Page<Product> findBySlugGroupCategoryAndPagination(String slug, Pageable pageable);
+
+    @Query(value = "SELECT distinct p.brand FROM Product p" )
+    List<String> getListBrand();
 }

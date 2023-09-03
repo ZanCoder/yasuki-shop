@@ -183,6 +183,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<String> getAllBrand() {
+        return productRepo.getListBrand();
+    }
+
+    @Override
     public List<Product> getListProductsByCategoryId(Integer id) {
         MyCategory category = categoryService.findById(id).get();
         return productRepo.findByCategory(category);

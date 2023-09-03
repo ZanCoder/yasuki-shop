@@ -98,8 +98,8 @@ window.onscroll = function() {
         if (headerScroll) headerScroll.classList.remove('scrolling')
         upTop.style.display = 'block'
     } else {
-        myHeader.classList.add('scrolling');
-        upTop.style.display = 'none'
+        /*myHeader.classList.add('scrolling');
+        upTop.style.display = 'none'*/
 
     }
 }
