@@ -750,10 +750,17 @@
         width: 50%;
         flex: none;
     }
+    .policy:nth-child(3),
+    .policy:nth-child(4){
+        border-top: 1px solid;
+    }
     .item__data-compare .img__item-compare{
         width: 100%;
     }
     .item__data-compare .name__item-compare {
         font-size: 1.3rem;
+    }
+    .productInfo__addToCart .buttons_added{
+        margin-bottom: 10px;
     }
 }

@@ -18,6 +18,7 @@
     --blue-pacific-cl: #515cb7;
     --purple-cl: #a568c3;
     --pink-cl: #ff0c7a;
+    --dark-blue-cl: #00033b;
 }
 
 * {
@@ -427,7 +428,7 @@ input[type=checkbox]:checked:after {
 
 .header__account-login:hover,
 .header__account-register:hover {
-    color: var(--default-cl);
+    opacity: .7;
     transition: all 0.3s;
 }
 
@@ -898,7 +899,7 @@ textarea.form-control {
     position: absolute;
     height: 3px;
     width: 100%;
-    background: #be9023;
+    background: #000000;
     border-radius: 9px;
     opacity: 1;
     left: 0;
@@ -1099,8 +1100,9 @@ textarea.form-control {
     width: 0;
     height: 3px;
     border-radius: 15px;
-    background-color: var(--text-brown-cl);
+    background-color: var(--dark-blue-cl);
     transition: all 0.2s ease;
+    width: 100% !important;
 }
 
 .tab-item {
@@ -1111,26 +1113,37 @@ textarea.form-control {
     text-align: center;
     color: var(--black-cl-2);
     background-color: var(--white-cl-1);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top: 3px solid var(--dark-blue-cl);
+    border-right: 3px solid var(--dark-blue-cl);
     border-bottom: 3px solid transparent;
     cursor: pointer;
     transition: all 0.5s ease;
     text-transform: uppercase;
 }
 
+.tab-item:nth-child(1){
+    border-left: 3px solid var(--dark-blue-cl);
+    border-top-left-radius: 5px;
+}
+
+.tab-item:nth-child(3){
+    border-top-right-radius: 5px;
+}
+
+
 .tab-item:hover {
-    opacity: 1;
-    background-color: rgba(194, 53, 100, 0.05);
-    border-color: rgba(194, 53, 100, 0.1);
+    color: white;
+    background: #00033bf0;
 }
 
 .tab-item.active {
-    color: var(--text-brown-cl);
+    color: white;
+    background: #00033b;
 }
 
 .tab-content {
-    padding: 28px 0;
+    padding: 24px 12px;
+    border-radius: 4px;
 }
 
 .tab-pane {
@@ -1689,6 +1702,7 @@ img.img-fluid.lazyloaded {
     .header {
         padding: 0 12px;
         box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.5);
+        background-color: var(--default-cl);
     }
     .header__nav {
         position: fixed;
@@ -1697,13 +1711,16 @@ img.img-fluid.lazyloaded {
         bottom: 0;
         height: auto;
         width: 320px;
-        background-color: var(--black-cl-1);
         padding-top: 20px;
         z-index: 9;
         will-change: opacity;
         animation: fadeInRight linear 0.3s;
         display: none;
         overflow: scroll;
+        background-color: var(--black-cl-2);
+    }
+    .header.scrolling .header__nav {
+        background-color: var(--black-cl-2);
     }
     .header__nav.show {
         display: block;
@@ -1734,6 +1751,9 @@ img.img-fluid.lazyloaded {
         right: 0;
         will-change: opacity;
         animation: fadeInLeft linear 0.3s;
+    }
+    .header__cart-amount{
+        background-color : #ff0000;
     }
 
     .authen-list {

@@ -20,7 +20,9 @@
 .header.scrolling .header__search-wrap {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
+.header.scrolling .navbar-icon span {
+    background: #ffffff;
+}
 .header.scrolling .header__search-input,
 .header.scrolling .header__nav-item > a,
 .header.scrolling .header__search-icon i,
@@ -115,7 +117,8 @@
 
 .main__slice .caption a {
     display: inline-block;
-    color: var(--white-cl-1);
+    color: #3b3b3b;
+    font-size: 1.6rem;
 }
 
 .main__slice .slide.active .caption a {
@@ -478,10 +481,6 @@
 /*========Responsive========*/
 
 @media(max-width: 1023px) {
-    .header__nav,
-    .header.scrolling .header__nav {
-        background-color: var(--black-cl-2);
-    }
     .header__nav-item,
     .header.scrolling .header__nav-item {
         border-top: none;
@@ -518,7 +517,7 @@
         height: 350px;
     }
     .main__slice .caption {
-        width: 78%;
+        width: 90%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -530,7 +529,8 @@
         margin: 12px 0 10px 0;
     }
     .main__slice .caption a {
-        padding: 10px;
+        padding: 8px;
+        font-size: 1.4rem;
     }
     .sale-heading {
         text-align: center;
