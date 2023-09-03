@@ -25,7 +25,7 @@
                         <div th:each="cartDto, itrStat : ${session.listCart}" class="row cart-item" >
 <!--                            <input type="hidden" name="nameProd" th:value="${cartDto.nameProduct}">-->
 <!--                            <input type="hidden" name="priceProd" th:value="${cartDto.priceProduct}">-->
-                            <div class="col l-1 m-1 s-0">
+                            <div class="col l-1 m-1 s-1">
                                 <input name="chkCartItem" type="checkbox"
                                        th:value="${cartDto}">
                             </div>
@@ -48,7 +48,7 @@
                                     <input class="plus is-form" type="button" value="+" th:onclick="plusProduct([[${cartDto.nameProduct}]], [[${'cartIndex'+itrStat.index}]])">
                                 </div>
                             </div>
-                            <div class="col l-2 m-2 s-4">
+                            <div class="col l-2 m-2 s-3">
                                 <div class="main__cart-price">
                                     [[${#numbers.formatDecimal((cartDto.priceProduct * cartDto.quantity), 3,'POINT', 0,'COMMA')}]] đ
                                 </div>
