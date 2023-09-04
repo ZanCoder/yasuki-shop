@@ -48,7 +48,11 @@
                 <span></span>
             </div>
             <a th:href="@{/}" class="header__logo">
-                <img th:src="@{/assets/logo1.png}" alt="logo">
+                <img th:src="@{/assets/test.png}" alt="logo">
+                <div class="logo__description">
+                    <span class="name__brand">Yasuki</span>
+                    <span class="slogan">Uy tín - Chất lượng</span>
+                </div>
             </a>
             <div class="header__search">
                 <form th:action="@{/list-product}" method="get" class="header__search-wrap">
@@ -66,12 +70,12 @@
                 <span class="header__account-login">Hi, [[${#authentication.principal.fullName}]] !</span>
                 <i class="fas fa-user-alt "></i>
                 <div class="header__authenticated-wrap">
-                    <a sec:authorize="hasAuthority('admin')" th:href="@{/admin}" class="btn btn--brown cart-btn mb-10">
-                        <i class="fas fa-tachometer-alt color-black fz-20"></i>
+                    <a sec:authorize="hasAuthority('admin')" th:href="@{/admin}" class="btn btn--purple cart-btn mb-10">
+                        <i class="fas fa-tachometer-alt fz-20"></i>
                         <span>Quản lí Admin</span>
                     </a>
                     <a th:href="@{/logout}" class="btn btn--default cart-btn">
-                        <i class="fas fa-sign-out-alt color-black fz-20"></i>
+                        <i class="fas fa-sign-out-alt fz-20"></i>
                         <span>Đổi tài khoản</span>
                     </a>
                 </div>
@@ -81,11 +85,11 @@
                 <div th:if="${#authorization.expression('isAnonymous()')}" class="header__cart header__account_icon have" >
                     <i class="fas fa-user"></i>
                     <div  class="header__cart-wrap cart_scroll">
-                        <a href="#my-Login" class="btn btn--default cart-btn">
+                        <a href="#my-Login" class="btn btn--purple cart-btn">
                             <i class="fas fa-sign-in-alt color-black"></i>
                             <span class="me-10">Đăng nhập</span>
                         </a>
-                        <a href="#my-Register" class="btn btn--brown cart-btn">
+                        <a href="#my-Register" class="btn btn--default cart-btn">
                             <i class="fas fa-user-plus color-black"></i>
                             <span class="me-10">Đăng kí</span>
                         </a>
@@ -101,14 +105,14 @@
                         <ul class="order__list">
                         </ul>
                         <!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
-                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--default cart-btn">
-                            <i class="fas fa-cart-plus color-black"></i>
+                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--purple cart-btn">
+                            <i class="fas fa-cart-plus"></i>
                             <span class="me-10">Xem giỏ hàng</span>
                         </a>
-                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn--brown cart-btn">
+                      <!--  <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn&#45;&#45;brown cart-btn">
                             <i class="fab fa-amazon-pay color-black"></i>
                             <span class="me-10">Thanh toán</span>
-                        </a>
+                        </a>-->
                     </div>
                 </div>
             </div>
@@ -129,8 +133,11 @@
                 <a th:href="@{/}" class="header__nav-link">Trang chủ</a>
             </li>
             <li class="header__nav-item">
-                <a th:href="@{/list-product}" class="header__nav-link">Sản Phẩm</a>
-                <div class="sub-nav-wrap sub-nav-wrap-responsive">
+                <a href="#" class="header__nav-link nav__link-accordion">
+                    Sản Phẩm
+                    <i class="fas fa-angle-up"></i>
+                </a>
+                <div class="sub-nav-wrap-responsive active">
                     <ul th:each="grCategory : ${session.dataCategory}" class="sub-nav">
                         <li class="sub-nav__item sub-1">
                             <a th:href="@{'/list-product?group-category=' +${grCategory.name}}" class="sub-nav__link heading">[[${grCategory.name}]]</a>
@@ -145,11 +152,14 @@
                 </div>
             </li>
             <li class="header__nav-item">
-                <a th:href="@{/list-product}" class="header__nav-link">Thương hiệu</a>
-                <div class="sub-nav-wrap list-brand sub-nav-wrap-responsive">
+                <a th:href="@{/list-product}" class="header__nav-link nav__link-accordion">
+                    Thương hiệu
+                    <i class="fas fa-angle-down"></i>
+                </a>
+                <div class="list-brand sub-nav-wrap-responsive">
                     <ul th:each="item : ${session.dataBrand}" class="sub-nav">
-                        <li  class="sub-nav__item ">
-                            <a th:href="@{'/list-product?keyword=' +${item}}" class="sub-nav__link">[[${item}]]</a>
+                        <li  class="sub-nav__item">
+                            <a th:href="@{'/list-product?keyword=' +${item}}" class="sub-nav__link heading">[[${item}]]</a>
                         </li>
                     </ul>
                 </div>
@@ -300,8 +310,8 @@
                 <span class="form-message invalid_password_message"  style="display : none;">Sai mật khẩu</span>
             </div>
             <div class="authen__btns">
-                <div id="submit_modal_login" class="btn btn--default">Đăng Nhập</div>
-                <a href="#my-Register" class=" btn btn--brown">Đăng Kí</a>
+                <div id="submit_modal_login" class="btn btn--purple">Đăng Nhập</div>
+                <a href="#my-Register" class=" btn btn--default">Đăng Kí</a>
 <!--                <input  id="remember_me" type="checkbox" class="authen-checkbox">-->
 <!--                <label  for="remember_me" class="form-label">Ghi nhớ mật khẩu</label>-->
             </div>
@@ -336,7 +346,7 @@
                 <span class="form-message  msg_pass_not_match" style="display : none;">Mật khẩu không khớp!</span>
             </div>
             <div id="btn_forgotSubmit" class="authen__btns">
-                <div class="btn btn--default w-100">Đổi mật khẩu</div>
+                <div class="btn btn--purple w-100">Đổi mật khẩu</div>
             </div>
         </div>
     </div>

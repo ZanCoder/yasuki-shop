@@ -16,10 +16,10 @@
             <div class="main__taskbar">
                 <div class="main__breadcrumb">
                     <div class="breadcrumb__item">
-                        <a href="#" class="breadcrumb__link">Trang chủ</a>
+                        <a th:href="@{/}" class="breadcrumb__link">Trang chủ</a>
                     </div>
                     <div class="breadcrumb__item">
-                        <a href="#" class="breadcrumb__link">Sản phẩm</a>
+                        <a th:href="@{/list-product}" class="breadcrumb__link">Sản phẩm</a>
                     </div>
                     <div class="breadcrumb__item">
                         <a href="#" class="breadcrumb__link" th:text="${breadcrumb}"></a>

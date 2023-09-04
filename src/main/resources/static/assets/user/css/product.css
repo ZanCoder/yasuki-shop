@@ -205,7 +205,7 @@
     left: 0;
     height: 1px;
     width: 130px;
-    background-color: var(--default-cl);
+    background-color: var(--pink-cl);
 }
 
 .productInfo__name::before {
@@ -215,23 +215,26 @@
     left: 0;
     height: 1px;
     width: 60px;
-    background-color: var(--default-cl);
+    background-color: var(--pink-cl);
 }
 
 .productInfo__price {
     font-size: 3rem;
     line-height: 3rem;
     font-weight: 500;
-    color: var(--text-brown-cl);
+    color: var(--pink-cl);
     margin-top: 30px;
 }
 
 .priceInfo__unit {
-    color: var(--text-brown-cl);
+    color: var(--pink-cl);
     font-size: 2rem;
     text-decoration: underline;
     position: relative;
     top: -4px;
+}
+.product__brand {
+   color: var(--pink-cl) !important;
 }
 
 .productInfo__description {
@@ -355,7 +358,7 @@
 }
 
 .productDes__ratting {
-    border: 2px solid var(--default-cl);
+    border: 2px solid var(--default-cl-2);
     padding: 20px 16px;
 }
 
