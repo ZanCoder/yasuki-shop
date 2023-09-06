@@ -2,18 +2,20 @@
     width : 100%;
 }
 .main__order-history{
-   margin-top: 145px;
+   margin-top: 100px;
 }
 .main__order_history{
     margin: 20px 0;
     padding: 10px;
     border: 1px solid gray;
     border-radius: 4px;
-    background: #f9f9f9;
+    background: #f7eaf0;
+    transition: all .5s;
 }
 .main__order_history:hover{
-    border: 1px solid #db5d08;
+    border: 1px solid #873987;
     cursor: pointer;
+    background: #f1d6f1;
 }
 .tab__filter-order .item__filter-order{
     padding: 10px 20px;
@@ -112,13 +114,13 @@
     font-weight: 500;
 }
 .main__product-name:hover {
-    color: #ad5311;
+    color: var(--pink-cl);
     cursor: pointer;
 }
 .main__product-price{
     font-size: 1.8rem;
     font-weight: 500;
-    color: var(--text-brown-cl);
+    color: var(--pink-cl);
     text-align: end;
 }
 .main__product-amount{
@@ -140,7 +142,7 @@
 .total-order {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--text-brown-cl);
+    color: var(--pink-cl);
     margin-left: 10px;
 }
 .wrapper__empty-order .info{

@@ -1,6 +1,7 @@
 package com.poly.Yasuki.controller;
 
 import com.poly.Yasuki.dto.CartDto;
+import com.poly.Yasuki.dto.FeedBackDto;
 import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.RoleApp;
 import com.poly.Yasuki.entity.UserApp;
@@ -118,6 +119,26 @@ public class AccountController {
             return "NOT MATCH";
         }
         myUserService.updatePassword(userApp, newPassword);
+        return "OK";
+    }
+
+    @PostMapping("/feedback")
+    @ResponseBody
+    public String sendFeedBack(@RequestBody FeedBackDto feedBackDto){
+        String subject = "Phản hồi từ khách hàng!";
+        String bodySendMail =
+                "<ul>" +
+                "  <li><strong>Tên khách hàng :</strong> "+ feedBackDto.getName() +"</li>" +
+                "  <li><strong>SDT            :</strong> "+ feedBackDto.getPhoneNumber() +"</li>" +
+                "  <li><strong>Địa chỉ        :</strong> "+ feedBackDto.getAddress() +"</li>" +
+                "  <li><strong>Lời nhắn       :</strong> "+ feedBackDto.getContent() +"</li>" +
+                "</ul>";
+
+        try{
+            sendEmail.sendMailHtml(subject, feedBackDto.getEmail(), bodySendMail);
+        }catch(Exception e) {
+            return "ERROR";
+        }
         return "OK";
     }
 

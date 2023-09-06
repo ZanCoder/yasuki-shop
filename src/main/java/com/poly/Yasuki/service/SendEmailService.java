@@ -38,11 +38,11 @@ public class SendEmailService {
     public static final String BODY_HTML = "ss";
     final String BODY_TEXT = "";
 
-    public void sendMailHtml(String toEmail, String body) throws MessagingException {
+    public void sendMailHtml(String subject, String toEmail, String body) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         mimeMessage.setFrom( new InternetAddress(FORM_EMAIL));
         mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, false));
-        mimeMessage.setSubject(SUBJECT);
+        mimeMessage.setSubject(subject);
         mimeMessage.setContent(body, "text/html; charset=utf-8");
 
         javaMailSender.send(mimeMessage);

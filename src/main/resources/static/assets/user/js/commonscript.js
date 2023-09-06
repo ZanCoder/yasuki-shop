@@ -94,6 +94,7 @@ var urlSignup       =   '/signup-with-ajax';
 var urlRare         =   '/rate';
 var urlSendCode     =   '/forgot-password/send-code';
 var urlForgotPass   =   '/forgot-password';
+var urlFeedback   =   '/feedback';
 
 //login
 $('#submit_modal_login').on('click', ()=>{
@@ -304,6 +305,43 @@ $('#btnSendRate').on('click', ()=>{
 
     }
 
+});
+
+/*contact page*/
+$('#sendContact').on('click', ()=>{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    let name = $('#name_contact').val();
+    let email = $('#email_contact').val();
+    let address = $('#address_contact').val();
+    let phone = $('#sdt_contact').val();
+    let content = $('#content_contact').val();
+
+    $(".email_not_valid").hide();
+
+    if(!emailPattern.test(email)){
+        $(".email_not_valid").show();
+        return;
+    }else{
+        let dataToSend =  {
+                              name : name,
+                              email : email,
+                              address : address,
+                              phoneNumber : phone,
+                              content : content
+                          }
+         $.ajax({
+              url: urlFeedback,
+              method: 'POST',
+              contentType:"application/json; charset=utf-8",
+              data : JSON.stringify(dataToSend),
+              dataType: "text",
+        }).then(function(response) {
+            SwalAlertSuccess("Gửi thành công!");
+        }).fail(function(error) {
+          console.log("error : " + error);
+        });
+    }
 })
 
 // update html Evaluate

@@ -803,7 +803,7 @@ textarea.form-control {
     animation: fadeInRight linear 0.3s;
     display: none;
     overflow: scroll;
-    background-color: #ffe1fd;
+    background-color: #f7eaf0;
 }
 .header__nav.show {
     display: block;

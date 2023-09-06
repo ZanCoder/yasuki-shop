@@ -54,20 +54,21 @@
                         <div class="about-us__heading">Liên hệ với chúng tôi</div>
                         <div class="form__group">
                             <div>
-                                <input type="text" placeholder="Họ và tên">
+                                <input id="name_contact" type="text" placeholder="Họ và tên">
                             </div>
                             <div>
-                                <input type="text" placeholder="Email">
+                                <input id="email_contact" type="text" placeholder="Email">
+                                <span class="form-message email_not_valid" style="display : none;">Định dạng email không hợp lệ!</span>
                             </div>
                             <div>
-                                <input type="text" placeholder="Địa chỉ">
+                                <input id="address_contact" type="text" placeholder="Địa chỉ">
                             </div>
                             <div>
-                                <input type="text" placeholder="Số điện thoại">
+                                <input id="sdt_contact" type="text" placeholder="Số điện thoại">
                             </div>
                         </div>
-                        <textarea name="" id="" cols="30" rows="5" placeholder="Lời nhắn"></textarea>
-                        <button type="submit" class="btn btn--default">
+                        <textarea id="content_contact"  cols="30" rows="5" placeholder="Lời nhắn"></textarea>
+                        <button id="sendContact" class="btn btn--purple">
                             <i class="fas fa-paper-plane"></i> Gửi
                         </button>
                     </div>

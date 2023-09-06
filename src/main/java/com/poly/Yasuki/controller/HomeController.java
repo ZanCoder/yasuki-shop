@@ -1,6 +1,7 @@
 package com.poly.Yasuki.controller;
 
 
+import com.poly.Yasuki.dto.FeedBackDto;
 import com.poly.Yasuki.entity.Evaluate;
 import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.UserApp;
@@ -16,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -26,8 +29,6 @@ public class HomeController {
     private final GroupCategoryService groupCategoryService;
     private final ProductService productService;
     private final NewsAppService newsAppService;
-
-
 
     @GetMapping("/")
     public String mainPage(Model model, HttpSession httpSession){
@@ -81,5 +82,7 @@ public class HomeController {
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
         return userDetails.getUserApp();
     }
+
+
 
 }
