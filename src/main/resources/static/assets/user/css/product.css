@@ -18,7 +18,7 @@
 
 .sort__title {
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 500;
     margin-right: 20px;
 }
 
@@ -277,7 +277,7 @@
 }
 .policy .sub__wrapper i{
     font-size: 3.4rem;
-    color: #d5d4d5;
+    color: #ffffff;
     padding: 6px 0;
 }
 .productIndfo__policy-img {
@@ -308,6 +308,7 @@
     font-size: 1.6rem;
     color: var(--black-cl-2);
     line-height: 2.6rem;
+    font-weight: 600;
 }
 
 .productIndfo__category-link {
@@ -369,8 +370,10 @@
 }
 
 .productDes__ratting {
-    border: 2px solid var(--default-cl-2);
+    border: 3px solid #00033b;
     padding: 20px 16px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .ratecomment {
@@ -398,7 +401,9 @@
 
 
 /* Rate list */
-
+.tab-content{
+    padding: 24px 0;
+}
 .rate__list {
     margin-top: 20px;
 }

@@ -42,10 +42,10 @@
                     <div class="col l-7 m-12s s-12 pl">
                         <div class="main__breadcrumb">
                             <div class="breadcrumb__item">
-                                <a href="#" class="breadcrumb__link">Trang chủ</a>
+                                <a th:href="@{/}" class="breadcrumb__link">Trang chủ</a>
                             </div>
                             <div class="breadcrumb__item">
-                                <a href="#" class="breadcrumb__link">Sản phẩm</a>
+                                <a th:href="@{/list-product}" class="breadcrumb__link">Sản phẩm</a>
                             </div>
                             <div class="breadcrumb__item">
                                 <a th:href="@{'/list-product?keyword='+${product.brand}}" class="product__brand breadcrumb__link">[[${product.brand}]]</a>

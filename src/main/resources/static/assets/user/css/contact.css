@@ -30,6 +30,7 @@
     font-size: 1.6rem;
     color: var(--black-cl-2);
     margin-top: 12px;
+    font-weight: 500;
 }
 
 .contact__link i,
