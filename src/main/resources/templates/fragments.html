@@ -91,7 +91,7 @@
                         </a>
                         <a href="#my-Register" class="btn btn--default cart-btn">
                             <i class="fas fa-user-plus color-black"></i>
-                            <span class="me-10">Đăng kí</span>
+                            <span class="me-10">Đăng ký</span>
                         </a>
                     </div>
                 </div>
@@ -131,6 +131,9 @@
             </li>-->
             <li class="header__nav-item">
                 <a th:href="@{/}" class="header__nav-link">Trang chủ</a>
+            </li>
+            <li class="header__nav-item">
+                <a th:href="@{/list-product?sortBy=percentDiscount&orderBy=desc}" class="header__nav-link">Khuyến mãi</a>
             </li>
             <li class="header__nav-item">
                 <a href="#" class="header__nav-link nav__link-accordion">
@@ -242,7 +245,7 @@
                 </ul>
             </div>
             <div class="col l-3 m-6 s-12">
-                <h3 class="footer__title">Đăng kí</h3>
+                <h3 class="footer__title">Đăng ký</h3>
                 <ul class="footer__list">
                     <li class="footer__item">
                             <span class="footer__text">Đăng ký để nhận được được thông tin ưu đãi mới nhất từ chúng

@@ -38,12 +38,20 @@ public class OrderServiceImpl implements OrderService {
             newOrder = orderRepo.findById(orderDtoList.getIdOrder()).get();
         }
         BeanUtils.copyProperties(orderDtoList, newOrder);
-        BigDecimal totalPrice = orderDtoList.getCartDtoList().stream()
+        /*BigDecimal totalPrice = orderDtoList.getCartDtoList().stream()
                         .map(CartDto::getTotalPrice)
-                        .reduce(BigDecimal.ZERO,BigDecimal::add);
+                        .reduce(BigDecimal.ZERO,BigDecimal::add);*/
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (CartDto cartDto : orderDtoList.getCartDtoList()) {
+            Product product = productService.findByKeyword(cartDto.getNameProduct()).get(0);
+            BigDecimal totalItem = product.getPriceDiscount().multiply(BigDecimal.valueOf(cartDto.getQuantity()));
+            totalPrice = totalPrice.add(totalItem);
+        }
+
         newOrder.setStatus(orderDtoList.getStatus());
         newOrder.setUserApp(currentUser);
         newOrder.setTotalPayment(totalPrice);
+
         orderRepo.save(newOrder);
 
         orderItemRepo.deleteAllByOrder(newOrder);

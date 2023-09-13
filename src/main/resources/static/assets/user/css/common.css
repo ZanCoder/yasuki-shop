@@ -19,8 +19,10 @@
     --blue-pacific-cl: #515cb7;
     --purple-cl: #a568c3;
     --pink-cl: #ff0c7a;
-    --dark-blue-cl: #00033b;
+    --dark-blue-cl: #0000ff;
     --yellow-cl: #ffff00;
+    --bg-policy-1: #f3eacf;
+    --bg-policy-2: #fde3ee;
 }
 
 * {
@@ -804,7 +806,7 @@ textarea.form-control {
     bottom: 0;
     height: auto;
     width: 320px;
-    padding-top: 20px;
+    padding-top: 14px;
     z-index: 9;
     will-change: opacity;
     animation: fadeInRight linear 0.3s;
@@ -945,15 +947,14 @@ textarea.form-control {
     display: block;
     font-size: 1.6rem;
     padding: 10px 12px;
-    color: #ff00a3;
+    color: var(--dark-blue-cl);
     font-weight: 600;
 }
 
 .sub-nav__link.heading {
     font-size: 1.7rem;
     font-weight: 700;
-    color: #c5156c;
-/*    text-transform: uppercase;*/
+    color: var(--pink-cl);
 }
 
 .sub-nav__item.sub-1:hover {
@@ -1226,12 +1227,12 @@ textarea.form-control {
 
 .tab-item:hover {
     color: white;
-    background: #00033bf0;
+    background: var(--dark-blue-cl);
 }
 
 .tab-item.active {
     color: white;
-    background: #00033b;
+    background: #0000ff;
 }
 
 .tab-content {

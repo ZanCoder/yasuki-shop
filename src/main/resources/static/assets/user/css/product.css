@@ -272,12 +272,21 @@
 }
 .policy .sub__wrapper{
     margin: 2px;
-    background: #818181;
     border-radius: 5px;
 }
+.bg-policy-3,
+.bg-policy-1{
+    background: var(--bg-policy-1);
+}
+
+.bg-policy-4,
+.bg-policy-2{
+    background: var(--bg-policy-2);
+}
+
 .policy .sub__wrapper i{
     font-size: 3.4rem;
-    color: #ffffff;
+    color: #272727;
     padding: 6px 0;
 }
 .productIndfo__policy-img {
@@ -286,14 +295,14 @@
 
 .productIndfo__policy-title {
     font-size: 1.3rem;
-    color: var(--white-cl-1);
+    color: black;
     margin-bottom: 4px;
     font-weight: 600;
 }
 
 .productIndfo__policy-description {
     font-size: 1.2rem;
-    color: var(--white-cl-1);
+    color: black;
     padding-bottom: 4px;
 }
 
@@ -370,7 +379,7 @@
 }
 
 .productDes__ratting {
-    border: 3px solid #00033b;
+    border: 3px solid var(--dark-blue-cl);
     padding: 20px 16px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -780,5 +789,11 @@
     }
     .productIndfo__policy-description{
        padding-bottom: 2px;
+    }
+    .bg-policy-3{
+        background-color: var(--bg-policy-2);
+    }
+    .bg-policy-4{
+        background-color: var(--bg-policy-1);
     }
 }

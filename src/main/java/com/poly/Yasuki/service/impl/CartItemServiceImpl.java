@@ -43,7 +43,7 @@ public class CartItemServiceImpl implements CartItemService {
         List<CartItem> cartItemList = cartItemRepo.findByUserApp(currentUser);
         List<CartDto> cartDtoList = cartItemList.stream().map( cartItem -> {
             String nameProduct =  cartItem.getProduct().getName();
-            BigDecimal priceProduct = cartItem.getProduct().getPrice();
+            BigDecimal priceProduct = cartItem.getProduct().getPriceDiscount();
             return new CartDto(cartItem.getQuantity(), nameProduct, priceProduct, cartItem.getProduct().getMainImage());
         }).collect(Collectors.toList());
         return cartDtoList;

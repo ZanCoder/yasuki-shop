@@ -67,14 +67,14 @@
                                 <input id="quantityAddCart" aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
                                 <input class="plus is-form" type="button" value="+" onclick="plusProductToAddCart()">
                             </div>
-                            <div th:onclick="addToCart([[${product.name}]], [[${product.price}]], [[${product.mainImage}]])" class=" btn btn--purple">
+                            <div th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])" class=" btn btn--purple">
                                 <i class="fas fa-cart-plus"></i>
                                 Thêm vào giỏ
                             </div>
                         </div>
                         <div class="productIndfo__policy ">
                             <div class="policy">
-                                <div class="sub__wrapper">
+                                <div class="sub__wrapper bg-policy-1">
 <!--                                    <img th:src="@{/assets/img/policy/policy1.png}" class="productIndfo__policy-img "></img>-->
                                     <i class="fas fa-shipping-fast"></i>
                                     <div class="productIndfo__policy-info ">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="policy">
-                                <div class="sub__wrapper">
+                                <div class="sub__wrapper bg-policy-2">
 <!--                                    <img th:src="@{/assets/img/policy/policy2.png}" class="productIndfo__policy-img "></img>-->
                                     <i class="fas fa-history"></i>
                                     <div class="productIndfo__policy-info ">
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="policy">
-                                <div class="sub__wrapper">
+                                <div class="sub__wrapper bg-policy-3">
 <!--                                    <img th:src="@{/assets/img/policy/policy3.png}" class="productIndfo__policy-img "></img>-->
                                     <i class="fas fa-award"></i>
                                     <div class="productIndfo__policy-info ">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="policy">
-                                <div class="sub__wrapper">
+                                <div class="sub__wrapper bg-policy-4">
 <!--                                    <img th:src="@{/assets/img/policy/policy4.png}" class="productIndfo__policy-img "></img>-->
                                     <i class="fas fa-question-circle"></i>
                                     <div class="productIndfo__policy-info ">
