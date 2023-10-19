@@ -94,7 +94,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="price_prod">Giá sản phẩm</label>
-                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number" required class="form-control" id="price_prod" placeholder="Price product ...">
+                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number"  max="2147483646" required class="form-control" id="price_prod" placeholder="Price product ...">
                                     </div>
                                     <div class="col">
                                         <label for="percent_discount">Giảm giá (%)</label>

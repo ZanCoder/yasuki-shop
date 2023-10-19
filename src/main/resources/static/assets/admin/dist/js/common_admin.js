@@ -43,6 +43,7 @@ function callAjax(url, method, data) {
            window.location.reload();
        }
        updateDataField(response);
+       console.log("response" + response)
     }).fail(function(error) {
        myToastr('error',  error.responseText);
     });

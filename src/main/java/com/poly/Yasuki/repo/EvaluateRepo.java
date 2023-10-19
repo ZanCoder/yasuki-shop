@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface EvaluateRepo extends JpaRepository<Evaluate, Integer> {
-
     List<Evaluate> findAllByProduct(Product product);
 }

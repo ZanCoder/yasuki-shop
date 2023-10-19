@@ -1066,7 +1066,7 @@ textarea.form-control {
     font-size: 1.8rem;
     text-transform: uppercase;
     margin-bottom: 16px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .footer__link,
@@ -1077,7 +1077,7 @@ textarea.form-control {
     line-height: 2.4rem;
     padding: 6px 0;
     align-items: center;
-    font-weight: 300;
+    font-weight: 600;
 }
 
 .footer__link:hover {
@@ -1279,7 +1279,7 @@ textarea.form-control {
 
 .product__name {
     font-size: 1.6rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.8rem;
     height: calc(18px);
     overflow: hidden;

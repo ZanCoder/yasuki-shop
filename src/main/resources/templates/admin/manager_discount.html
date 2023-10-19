@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'Quản lí danh mục')">
+      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'Quản lí khuyến mãi')">
 <body>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Quản lí danh mục</h1>
+                        <h1 class="m-0">Quản lí khuyến mãi</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
-                            <li class="breadcrumb-item active">Quản lí danh mục</li>
+                            <li class="breadcrumb-item active">Quản lí khuyến mãi</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -34,34 +34,32 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="w-50">
                                             <button  type="button" class="btn btn-block btn-success btn-modal-app" data-bs-toggle="modal" data-bs-target="#myModal">
-                                                Thêm danh mục
+                                                Thêm khuyến mãi
                                             </button>
                                             <!-- Modal add account-->
                                             <div class="modal fade"  id="myModal">
                                                 <div class="modal-dialog">
-                                                    <form th:action="@{/admin/manager-category/add}" method="post" th:object="${newCategory}" class="modal-content">
-                                                        <input type="hidden" th:field="*{id}" th:value="${newCategory.id}" data-field="id">
+                                                    <form th:action="@{/admin/manager-discount/create}" method="post" th:object="${newDiscount}" class="modal-content">
+                                                        <input type="hidden" th:field="*{id}" th:value="${newDiscount.id}" data-field="id">
+                                                        <input type="hidden" th:field="*{dateCreate}" th:value="${newDiscount.dateCreate}" data-field="dateCreateString">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5 mode" >Thêm danh mục SP</h1>
+                                                            <h1 class="modal-title fs-5 mode" >Thêm khuyến mãi</h1>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="card-body">
-                                                                <div class="form-group">
+                                                                <div class="form-group" >
                                                                     <label for="name_category">Tên danh mục : </label>
-                                                                    <input name="name" th:field="*{name}" th:value="${newCategory.name}" data-field="name"
-                                                                           type="text" class="form-control" id="name_category" placeholder="Enter category ...">
+                                                                    <select data-field="category" required th:field="*{category}"  id="name_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" >
+                                                                        <option th:each="item : ${listCategories}"
+                                                                                th:value="${item.id}"
+                                                                                th:text="${item.name}"></option>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="img_category">Link ảnh : </label>
-                                                                    <input name="image" th:field="*{image}" th:value="${newCategory.image}" data-field="image"
-                                                                           type="text" class="form-control" id="img_category" placeholder="Enter image ...">
-                                                                </div>
-                                                                <div class="form-group" data-select2-id="45">
-                                                                    <label for="name_gr_category">Tên nhóm danh mục : </label>
-                                                                    <select data-field="groupCategory" th:field="*{groupCategory}" id="name_gr_category"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                                        <option th:each="item : ${listGroupCategory}" th:value="${item.id}" th:text="${item.name}"></option>
-                                                                    </select>
+                                                                    <label >Phần trăm khuyến mãi : </label>
+                                                                    <input name="percentDiscount" th:field="*{percentDiscount}" th:value="${newDiscount.percentDiscount}" data-field="percentDiscount"
+                                                                           type="number" min="1" max="100" class="form-control" placeholder="Nhập % khuyến mãi ...">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -72,10 +70,10 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                            <!-- modal add account-->
+                                            <!-- modal add discount-->
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
+                                    <!--<div class="col-sm-12 col-md-6">
                                         <form th:action="@{/admin/manager-category}" method="get" class="input-group" >
                                             <input name="keyword" th:value="${keyword}" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
                                             <div class="input-group-append">
@@ -84,7 +82,7 @@
                                                 </button>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -96,25 +94,21 @@
                                                 <thead>
                                                 <tr>
                                                     <th class="sorting">#</th>
-                                                    <th class="sorting">Nhóm Danh Mục</th>
-                                                    <th class="sorting">Tên Danh Mục</th>
-                                                    <th class="sorting">Action </th>
+                                                    <th class="sorting">Ngày tạo</th>
+                                                    <th class="sorting">Loại khuyến mãi</th>
+                                                    <th class="sorting">Điều kiện</th>
+                                                    <th class="sorting">Phần trăm KM (%)</th>
+                                                    <th class="sorting">Hành động</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr th:each="item, iStat  : ${listCategories}">
-                                                        <td th:text="${1 + iStat.index + (currentPage -1)*5}"></td>
-                                                        <td th:text="${item.groupCategory.name}"></td>
-                                                        <td th:text="${item.name}"></td>
-                                                   <!--     <td >
-                                                            <label th:for="${item.name}" class="switch switch-status">
-                                                                <input th:id="${item.name}" type="checkbox"
-                                                                       th:checked="${item.isActive}"
-                                                                       th:onclick="$(this).changeStatus([[${item.id}]])">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </td>-->
-                                                        <td>
+                                                    <tr th:each="item, iStat  : ${listDiscount}">
+                                                        <td th:text="${1 + iStat.index}"></td>
+                                                        <td th:text="${#dates.format(item.dateCreate, 'yyyy-MM-dd')}"></td>
+                                                        <td th:text="${item.type}"></td>
+                                                        <td th:text="${item.category.name}"></td>
+                                                        <td th:text="${item.percentDiscount}"></td>
+                                                        <td class="d-flex">
                                                             <button th:onclick="editWithAjax([[${item.id}]])" class="btn btn-primary me-2 btnEditAccount">
                                                                 <i class="nav-icon fas fa-edit"></i>
                                                             </button>
@@ -127,7 +121,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <th:block th:replace="admin/fragments :: pagination('manager-category')"></th:block>
+
                                 </div>
                             </div>
                             <!-- /.card-body -->

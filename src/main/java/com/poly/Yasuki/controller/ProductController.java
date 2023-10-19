@@ -41,7 +41,6 @@ public class ProductController {
                 .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
 
         Page<Product> listProduct ;
-
         if(!categoryShow.equals("")){
             String slug = SlugGenerator.generateSlug(categoryShow);
             listProduct = productService.getListProductsByCategory(slug, pageable);

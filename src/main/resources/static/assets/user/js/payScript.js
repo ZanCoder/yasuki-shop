@@ -42,7 +42,6 @@
                     dataType: "text",
                     data : JSON.stringify(dataToSend)
                 }).then(function(data){
-
                     if(data == 'OK'){
                         localStorage.removeItem('dataOrder');
                     }
@@ -60,4 +59,5 @@
                    return total + item.priceProduct * item.quantity;
               },0);
         }
+
   });

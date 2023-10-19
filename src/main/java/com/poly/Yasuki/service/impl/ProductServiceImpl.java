@@ -188,6 +188,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void updatePercentDiscountByCategory(Double percentDiscount, MyCategory category) {
+        productRepo.updatePercentDiscountByCategory(percentDiscount, category);
+    }
+
+    @Override
     public List<Product> getListProductsByCategoryId(Integer id) {
         MyCategory category = categoryService.findById(id).get();
         return productRepo.findByCategory(category);

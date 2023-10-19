@@ -302,9 +302,7 @@ $('#btnSendRate').on('click', ()=>{
         }).fail(function(error) {
               alert("error : " + error);
         });
-
     }
-
 });
 
 /*contact page*/
@@ -378,7 +376,7 @@ function updateHtmlAfterAddCart(listCart){
                     <li  class="item-order">
                         <div class="order-wrap">
                             <a href="#" class="order-img">
-                                <img src='${cartItem.mainImageProduct}'alt="error">
+                                <img src='${cartItem.mainImageProduct}'alt="img">
                             </a>
                             <div class="order-main">
                                 <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
@@ -426,7 +424,6 @@ function SwalAlertOrderSuccess(message){
     Swal.fire({
         title: message,
         icon: "success",
-
         confirmButtonText: "Tiếp tục mua hàng!"
     }).then((result) => {
         if (result.isConfirmed) {

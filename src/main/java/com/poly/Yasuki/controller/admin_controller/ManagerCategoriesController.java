@@ -1,10 +1,12 @@
 package com.poly.Yasuki.controller.admin_controller;
 
+import com.poly.Yasuki.dto.MyCategoryDto;
 import com.poly.Yasuki.entity.MyCategory;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.MyCategoryService;
 import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -69,10 +71,14 @@ public class ManagerCategoriesController {
 
     @GetMapping("/admin/manager-category/edit")
     @ResponseBody
-    public MyCategory editCategories(@RequestParam(name = "id") Integer id,
-            Model model){
+    public MyCategoryDto editCategories(@RequestParam(name = "id") Integer id,
+                                        Model model){
         model.addAttribute("mode", "edit");
-        return categoryService.findById(id).get();
+        MyCategoryDto categoryDto = new MyCategoryDto();
+        MyCategory myCategory = categoryService.findById(id).get();
+        BeanUtils.copyProperties(myCategory, categoryDto);
+        categoryDto.setGroupCategory(myCategory.getGroupCategory().getId());
+        return categoryDto;
     }
 
     @GetMapping("/admin/manager-category/change-status")

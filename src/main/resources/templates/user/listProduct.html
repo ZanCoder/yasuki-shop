@@ -87,7 +87,7 @@
                 <div class="pagination">
                     <ul class="pagination__list">
                         <li class="pagination__item">
-                            <a id="prevPage" href="#" th:onclick="$(this).changePage('[[${currentPage -1}]]')"
+                            <a id="prevPage" href="#" th:onclick="$(this).changePage('[[${currentPage -1}]]', 'prev')"
                                th:classappend="${currentPage <= 1 ? 'disable' : ''}"
                                class="pagination__link">
                                 <i class="fas fa-chevron-left"></i>
@@ -104,7 +104,7 @@
                             </li>
                         </th:block>
                         <li class="pagination__item">
-                            <a id="nextPage" href="#" th:onclick="$(this).changePage('[[${currentPage + 1}]]')"
+                            <a id="nextPage" href="#" th:onclick="$(this).changePage('[[${currentPage + 1}]]', 'next')"
                                th:classappend="${currentPage >= totalPages ? 'disable' : ''}"
                                class="pagination__link">
                                 <i class="fas fa-chevron-right"></i>
@@ -200,7 +200,12 @@
                     updateQueryStringParameter('orderBy', orderBy);
             }
 
-            $.fn.changePage = function(item) {
+            $.fn.changePage = function(item, type) {
+                if(type === 'prev' && [[${currentPage}]] <= 1){
+                    return;
+                }else if(type === 'next' && [[${currentPage}]] >= [[${totalPages}]]){
+                    return;
+                }
                 var currentUrl = window.location.href;
                 var separator = currentUrl.indexOf('?') !== -1 ? '&' : '?';
 

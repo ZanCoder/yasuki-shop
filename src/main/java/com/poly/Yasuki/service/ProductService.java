@@ -48,4 +48,6 @@ public interface ProductService {
     Page<Product> getListProductsByNameGroupCategory(String groupCategory, Pageable pageable);
 
     List<String> getAllBrand();
+
+    void updatePercentDiscountByCategory(Double percentDiscount, MyCategory category);
 }
