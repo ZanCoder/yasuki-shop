@@ -11,6 +11,7 @@ import com.poly.Yasuki.service.SendEmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +30,6 @@ import java.util.List;
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
-    private final CartItemService cartItemService;
-    private final SendEmailService sendEmail;
-    private final TemplateEngine templateEngine;
 
     @GetMapping("/order")
     public String viewOrderPage(Model model){
@@ -40,46 +38,16 @@ public class OrderController {
     @GetMapping("/order/history")
     public String viewOrderHistoryPage(
             @RequestParam(name = "status", required = false, defaultValue = "")String status,
+            @AuthenticationPrincipal MyUserDetails myUserDetails,
             Model model){
         List<Order> listOrder ;
         if(!status.equals("")){
-            listOrder = orderService.findByUserAndStatus(getCurrentUser(), status);
+            listOrder = orderService.findByUserAndStatus(myUserDetails.getUserApp(), status);
         }else{
-            listOrder = orderService.findByUser(getCurrentUser());
+            listOrder = orderService.findByUser(myUserDetails.getUserApp());
         }
         model.addAttribute("listOrder", listOrder);
         model.addAttribute("status", status);
         return "user/order_history";
     }
-
-    @PostMapping("/order")
-    @ResponseBody
-    public String doOrder(@RequestBody OrderDto orderDtoList, HttpSession session
-    ){
-        orderService.create(orderDtoList, getCurrentUser());
-        resetListCart(session);
-
-        try {
-            UserApp cureUserApp = getCurrentUser();
-            sendEmail.sendMailWithInline(
-                    cureUserApp.getEmail(),orderDtoList);
-//            sendEmail.sendMailHtml(cureUserApp.getEmail(), SendEmailService.BODY_HTML);
-            log.info("sent email for : {}", cureUserApp.getEmail());
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-        return "OK";
-    }
-
-    public UserApp getCurrentUser(){
-        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        return userDetails.getUserApp();
-    }
-
-    private void resetListCart(HttpSession session){
-        List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
-        session.setAttribute("listCart", cartDtoList);
-    }
-
 }

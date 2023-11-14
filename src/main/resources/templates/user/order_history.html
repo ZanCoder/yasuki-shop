@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <head th:replace="fragments :: main_header('tag')"></head>
-  <title>Đơn hàng của tôi</title>
+  <title>Tra cứu đơn hàng - Yasuki.shop | Mỹ phẩm</title>
   <!-- index -->
  <!-- <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/cart.css}">-->
   <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/order_history.css}">
@@ -56,12 +56,12 @@
               <div th:each="orderItem, itrStat : ${order.listOrderItem}" class="order__item" >
                 <div class="col l-8 ">
                   <div class="wrapper__info-product">
-                    <img th:src="${orderItem.imageProduct}" alt="error">
+                    <img th:src="${orderItem.product.mainImage}" alt="img">
                     <div class="info_product">
-                      <a th:href="@{'/detail-product/'+${orderItem.productSlug}}" class="main__product-name">[[${orderItem.name}]]</a>
+                      <a th:href="@{'/detail-product/'+${orderItem.product.name}}" class="main__product-name">[[${orderItem.product.name}]]</a>
                       <div class="main__product-amount">
                         <div class="main__product-price">
-                          [[${#numbers.formatDecimal(orderItem.price, 3,'POINT', 0,'COMMA')}]] đ
+                          [[${#numbers.formatDecimal(orderItem.product.price, 3,'POINT', 0,'COMMA')}]] đ
                         </div>
                         <span>x</span>
                         <div>[[${orderItem.quantity}]]</div>
@@ -72,7 +72,7 @@
 
                 <div class="col l-2 s-3">
                   <div class="main__product-price">
-                    [[${#numbers.formatDecimal((orderItem.price * orderItem.quantity), 3,'POINT', 0,'COMMA')}]] đ
+                    [[${#numbers.formatDecimal((orderItem.oldPrice * orderItem.quantity), 3,'POINT', 0,'COMMA')}]] đ
                   </div>
                 </div>
               </div>
@@ -147,14 +147,6 @@
                     return listCartSelected;
             }
      });
-    </script>
-<script th:inline="javascript">
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                var listCart = /*[[${session.listCart}]]*/ [];
-                updateHtmlAfterAddCart(listCart);
-            });
-        });
     </script>
 </body>
 

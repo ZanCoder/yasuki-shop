@@ -38,12 +38,9 @@ public class OrderServiceImpl implements OrderService {
             newOrder = orderRepo.findById(orderDtoList.getIdOrder()).get();
         }
         BeanUtils.copyProperties(orderDtoList, newOrder);
-        /*BigDecimal totalPrice = orderDtoList.getCartDtoList().stream()
-                        .map(CartDto::getTotalPrice)
-                        .reduce(BigDecimal.ZERO,BigDecimal::add);*/
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (CartDto cartDto : orderDtoList.getCartDtoList()) {
-            Product product = productService.findByKeyword(cartDto.getNameProduct()).get(0);
+            Product product = productService.findById(cartDto.getProductId()).get();
             BigDecimal totalItem = product.getPriceDiscount().multiply(BigDecimal.valueOf(cartDto.getQuantity()));
             totalPrice = totalPrice.add(totalItem);
         }
@@ -51,21 +48,15 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setStatus(orderDtoList.getStatus());
         newOrder.setUserApp(currentUser);
         newOrder.setTotalPayment(totalPrice);
-
         orderRepo.save(newOrder);
-
         orderItemRepo.deleteAllByOrder(newOrder);
 
-        Set<OrderItem> listOrderItem = new HashSet<>();
-
         for (CartDto item : orderDtoList.getCartDtoList() ) {
-            OrderItem orderItem = new OrderItem(item.getQuantity(),
-                    item.getNameProduct(), item.getPriceProduct());
-            String productSlug = SlugGenerator.generateSlug(item.getNameProduct());
-            Product product = productService.findBySlug(productSlug);
-            orderItem.setImageProduct(product.getMainImage());
-            orderItem.setProductSlug(productSlug);
-            listOrderItem.add(orderItem);
+            Product product = productService.findById(item.getProductId()).get();
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOldPrice(product.getPriceDiscount());
+            orderItem.setProduct(product);
+            orderItem.setQuantity(item.getQuantity());
             orderItem.setOrder(newOrder);
             orderItemRepo.save(orderItem);
         }
@@ -83,8 +74,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order insert(Order order) {
-        return orderRepo.save(order);
+    public Order insert(Order orderUpdate) {
+        return orderRepo.save(orderUpdate);
     }
 
     @Override
@@ -114,13 +105,9 @@ public class OrderServiceImpl implements OrderService {
     private void updateAfterOrder(List<CartDto> cartDtoList, UserApp currentUser) {
         cartDtoList.stream().forEach(item -> {
             // update quantity product after order
-            String slug = SlugGenerator.generateSlug(item.getNameProduct());
-            Product product = productService.findBySlug(slug);
-            product.setQuantityLeft(product.getQuantityLeft() - 1);
-            product.setQuantitySold(product.getQuantitySold() + 1);
-
+            Product product = productService.findById(item.getProductId()).get();
             // remove cart item  after order
-            cartItemService.deleteCartItem(item.getNameProduct(), currentUser);
+            cartItemService.deleteCartItem(item.getProductId(), currentUser);
         });
     }
 }

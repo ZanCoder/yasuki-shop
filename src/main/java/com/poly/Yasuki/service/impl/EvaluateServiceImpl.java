@@ -11,9 +11,12 @@ import com.poly.Yasuki.repo.RoleRepo;
 import com.poly.Yasuki.service.EvaluateService;
 import com.poly.Yasuki.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +37,23 @@ public class EvaluateServiceImpl implements EvaluateService {
     @Override
     public List<Evaluate> findByProduct(Product product) {
         return evaluateRepo.findAllByProduct(product);
+    }
+
+    @Override
+    public Page<Evaluate> findByKeyword(String keyword, Integer productId, Pageable pageable) {
+        Optional<Product> product = productService.findById(productId);
+        if(product.isEmpty()) throw new RuntimeException("Product doe not exist!");
+        return evaluateRepo.findByKeyword(keyword, product.get(), pageable);
+    }
+
+    @Override
+    public Page<Evaluate> getCommentsWithPagination(Integer productId, Pageable pageable) {
+        Optional<Product> product = productService.findById(productId);
+        if(product.isEmpty()) throw new RuntimeException("Product doe not exist!");
+        return evaluateRepo.findAllByProduct(product.get(), pageable);
+    }
+    @Override
+    public void deleteById(Integer id) {
+        evaluateRepo.deleteById(id);
     }
 }

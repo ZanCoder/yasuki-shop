@@ -15,7 +15,7 @@
 .main__order_history:hover{
     border: 1px solid #873987;
     cursor: pointer;
-    background: #f1d6f1;
+    background: #ffddff;
 }
 .tab__filter-order .item__filter-order{
     padding: 10px 20px;

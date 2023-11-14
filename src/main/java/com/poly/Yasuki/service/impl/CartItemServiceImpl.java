@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,13 +25,13 @@ public class CartItemServiceImpl implements CartItemService {
     private final ProductService productService;
 
     @Override
-    public void addToCart(CartDto cartDto, UserApp userApp) {
-        Product product = getProductByName(cartDto.getNameProduct());
-        CartItem cartItem = new CartItem(cartDto.getQuantity(),product, userApp);
+    public void addToCart(Integer quantity, Integer productId, UserApp userApp) {
+        Product product = productService.findById(productId).get();
+        CartItem cartItem = new CartItem(quantity,  product, userApp);
         // cart is exist | + 1
         CartItem oldCart = getExistCartItem(userApp, product);
         if(oldCart != null){
-            Integer newQuantity = oldCart.getQuantity() + 1;
+            Integer newQuantity = oldCart.getQuantity() + quantity;
             oldCart.setQuantity(newQuantity);
             cartItemRepo.save(oldCart);
         }else{ // new cart item
@@ -39,26 +40,22 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public List<CartDto> getCartsByUser(UserApp currentUser) {
+    public List<CartItem> getCartsByUser(UserApp currentUser) {
         List<CartItem> cartItemList = cartItemRepo.findByUserApp(currentUser);
-        List<CartDto> cartDtoList = cartItemList.stream().map( cartItem -> {
-            String nameProduct =  cartItem.getProduct().getName();
-            BigDecimal priceProduct = cartItem.getProduct().getPriceDiscount();
-            return new CartDto(cartItem.getQuantity(), nameProduct, priceProduct, cartItem.getProduct().getMainImage());
-        }).collect(Collectors.toList());
-        return cartDtoList;
+        return cartItemList;
     }
 
 
     @Override
-    public void deleteCartItem(String productName, UserApp currentUser) {
-        Product product = getProductByName(productName);
-        cartItemRepo.deleteByProductAndUserApp(product, currentUser);
+    public void deleteCartItem(Integer productId, UserApp currentUser) {
+        Optional<Product> product = productService.findById(productId);
+        cartItemRepo.deleteByProductAndUserApp(product.get(), currentUser);
     }
 
     @Override
-    public void updateCartItem(String action, String nameProduct, UserApp currentUser) {
-        CartItem currentCart =  cartItemRepo.findByUserAppAndProduct(currentUser, getProductByName(nameProduct));
+    public void updateCartItem(String action, Integer productId, UserApp currentUser) {
+        Optional<Product> product = productService.findById(productId);
+        CartItem currentCart =  cartItemRepo.findByUserAppAndProduct(currentUser, product.orElse(null));
         if(action.equals("increase")){
             currentCart.setQuantity( currentCart.getQuantity() + 1);
         }else if(action.equals("decrease")){
@@ -76,5 +73,10 @@ public class CartItemServiceImpl implements CartItemService {
         String slugProduct = SlugGenerator.generateSlug(productName);
         Product product = productService.findBySlug(slugProduct);
         return product;
+    }
+    @Override
+    public int getSize(UserApp userApp) {
+        List<CartItem>  cartItemList = getCartsByUser(userApp);
+        return cartItemList.size();
     }
 }

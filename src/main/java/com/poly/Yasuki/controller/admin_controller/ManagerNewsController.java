@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequiredArgsConstructor
 public class ManagerNewsController {
@@ -45,6 +47,10 @@ public class ManagerNewsController {
     public String doCreateNews(@ModelAttribute(name = "addNews") NewsApp newsApp,
                                   Model model){
         try{
+            if(newsApp.getId() != null){
+                Optional<NewsApp> oldNews = newsAppService.findById(newsApp.getId());
+                newsApp.setCreateAt(oldNews.get().getCreateAt());
+            }
             newsAppService.create(newsApp);
             model.addAttribute("success", MessageUtils.ADD_SUCCESS);
         }catch(Exception ex){

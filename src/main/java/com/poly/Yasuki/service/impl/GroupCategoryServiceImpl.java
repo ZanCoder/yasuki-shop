@@ -19,6 +19,10 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
     private final GroupCategoryRepo groupCategoryRepo;
     @Override
     public List<GroupCategory> getAllCategoryGroupIsActive() {
+        return groupCategoryRepo.getAllCategoryGroupActiveTrue();
+    }
+    @Override
+    public List<GroupCategory> findTop6ByIsActiveTrue() {
         return groupCategoryRepo.findTop6ByIsActiveTrue();
     }
 

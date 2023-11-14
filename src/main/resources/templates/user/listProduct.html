@@ -3,7 +3,7 @@
 
 <head>
     <head th:replace="fragments :: main_header('tag')"></head>
-    <title>Danh sách sản phẩm</title>
+    <title>[[${breadcrumb}]] [[${breadcrumb != "" ? "-" : ""}]] Yasuki.shop - Sản phẩm chính hãng, giá rẻ.</title>
     <!-- index -->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/product.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/productSale.css}">
@@ -79,7 +79,7 @@
                                     <span class="product__sale-text">Giảm</span>
                                 </div>
                                 <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                <a  th:onclick="addToCart([[${product.name}]], [[${product.price}]])"   class="addToCart">Thêm vào giỏ</a>
+                                <a  th:onclick="addToCart([[${product.id}]], 1)"   class="addToCart">Thêm vào giỏ</a>
                             </div>
                         </div>
                     </div>
@@ -228,15 +228,6 @@
                 searchParams.set(key, value);
                 window.history.replaceState({}, '', url.toString());
             }
-        });
-    </script>
-    <!--Script show html cart item-->
-    <script th:inline="javascript">
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                var listCart = /*[[${session.listCart}]]*/ [];
-                updateHtmlAfterAddCart(listCart);
-            });
         });
     </script>
 </body>

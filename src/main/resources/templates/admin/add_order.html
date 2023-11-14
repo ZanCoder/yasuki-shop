@@ -166,7 +166,7 @@
                                                     <tr>
                                                         <th class="sorting">Tên sản phẩm</th>
                                                         <th class="sorting">SL trong kho</th>
-                                                        <th class="sorting">Đơn giá</th>
+                                                        <th class="sorting">Đơn giá (Đã giảm giá)</th>
                                                         <th class="sorting">Action</th>
                                                     </tr>
                                                     </thead>
@@ -200,9 +200,8 @@
             if(mode == 'edit'){
                 let dataEdit = /*[[${editOrder}]]*/{};
                 updateDataField(dataEdit);
-                localStorage.setItem('listProductSelected', JSON.stringify(dataEdit.listOrderItem));
-                updateHtmlListProdSelected(dataEdit.listOrderItem);
-<!--                console.log( JSON.stringify(dataEdit))-->
+                localStorage.setItem('listProductSelected', JSON.stringify(dataEdit.orderItems));
+                updateHtmlListProdSelected(dataEdit.orderItems);
             }
         });
     </script>

@@ -18,4 +18,7 @@ public interface GroupCategoryRepo extends JpaRepository<GroupCategory, Integer>
     List<GroupCategory> findTop6ByIsActiveTrue();
     @Query(value = "SELECT * FROM group_categories  WHERE name LIKE %:keyword%", nativeQuery = true)
     Page<GroupCategory> findByKeyword(String keyword, Pageable pageable);
+
+    @Query(value = "SELECT * FROM group_categories WHERE is_active = 1", nativeQuery = true)
+    List<GroupCategory> getAllCategoryGroupActiveTrue();
 }

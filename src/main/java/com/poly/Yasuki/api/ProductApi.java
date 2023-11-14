@@ -20,25 +20,6 @@ import java.util.stream.Collectors;
 public class ProductApi {
     private final ProductService productService;
 
-    @GetMapping(value = "/admin/manager-order/find-by-keyword", produces = MediaType.APPLICATION_JSON_VALUE )
-    public List<Product> findListProdToOrderByKeyword(
-            @RequestParam(name = "keyword") String keyword,
-            Model model){
-        return productService.findByKeyword(keyword);
-    }
-    @GetMapping(value = "/admin/manager-order/find-by-group", produces = MediaType.APPLICATION_JSON_VALUE )
-    public List<Product> findListProdToOrderByGroup(
-            @RequestParam(name = "id") Integer id,
-            Model model){
-        return productService.getListProductsByGroupId(id);
-    }
-    @GetMapping(value = "/admin/manager-order/find-by-category", produces = MediaType.APPLICATION_JSON_VALUE )
-    public List<Product> findListProdToOrderCategory(
-            @RequestParam(name = "id") Integer id,
-            Model model){
-        return productService.getListProductsByCategoryId(id);
-    }
-
     @GetMapping("/detail-product")
     public Product viewProductPage(@RequestParam(name = "productId") Integer productId, Model model){
         Optional<Product> product = productService.findById(productId);

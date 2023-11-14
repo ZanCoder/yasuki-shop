@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.*;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class initDB implements CommandLineRunner {
     private final MyCategoryService categoryService;
@@ -21,7 +21,6 @@ public class initDB implements CommandLineRunner {
     private final ProductService productService;
     private final RoleService roleService;
     private final MyUserService userService;
-    private final CartItemService cartItemService;
     private final OrderService orderService;
     private final NewsAppService newsAppService;
     @Override
@@ -112,7 +111,7 @@ public class initDB implements CommandLineRunner {
         //        init user
         Set<RoleApp> roles1 = new HashSet<>();
         roles1.add(roleApp1);
-        UserApp userApp1 = new UserApp(null,"luctuankietkg@gmail.com", "123", "Tuan Kiet", true, roles1);
+        UserApp userApp1 = new UserApp(null,"admin", "123", "Tuan Kiet", true, roles1);
 
         Set<RoleApp> roles2 = new HashSet<>();
         roles2.add(roleApp2);
@@ -122,14 +121,14 @@ public class initDB implements CommandLineRunner {
         userService.create(userApp2);
 
         //init cart
-        CartDto cartDto1 = new CartDto(1,"Cetapil", BigDecimal.valueOf(1998979), "" );
+        /*CartDto cartDto1 = new CartDto(1,"Cetapil", BigDecimal.valueOf(1998979), "" );
         CartDto cartDto2 = new CartDto(1, "MAC", BigDecimal.valueOf(222676),"");
         CartDto cartDto3 = new CartDto(1, "Kiehl", BigDecimal.valueOf(899777),"");
-        cartItemService.addToCart(cartDto1, userApp2);
-        cartItemService.addToCart(cartDto2, userApp2);
-        cartItemService.addToCart(cartDto3, userApp2);
-        cartItemService.addToCart(cartDto3, userApp2);
-        cartItemService.addToCart(cartDto3, userApp1);
+        cartItemService.addToCart(1, , userApp2);
+        cartItemService.addToCart(1, , userApp2);
+        cartItemService.addToCart(1, userApp2);
+        cartItemService.addToCart(2, userApp2);
+        cartItemService.addToCart(cartDto3, userApp1);*/
 
         //init order
         Order order1 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "luctuankietkg@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");

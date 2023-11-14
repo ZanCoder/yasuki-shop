@@ -1,16 +1,19 @@
 package com.poly.Yasuki.service;
 
 import com.poly.Yasuki.dto.CartDto;
+import com.poly.Yasuki.entity.CartItem;
 import com.poly.Yasuki.entity.UserApp;
 
 import java.util.List;
 
 public interface CartItemService {
-    void addToCart(CartDto cartDto, UserApp userApp);
+    void addToCart(Integer quantity, Integer productId, UserApp userApp);
 
-    List<CartDto> getCartsByUser(UserApp currentUser);
+    List<CartItem> getCartsByUser(UserApp currentUser);
 
-    void deleteCartItem(String nameProduct, UserApp currentUser);
+    void deleteCartItem(Integer productId, UserApp currentUser);
 
-    void updateCartItem(String action, String nameProduct, UserApp currentUser);
+    void updateCartItem(String action, Integer productId, UserApp currentUser);
+
+    int getSize(UserApp userApp);
 }

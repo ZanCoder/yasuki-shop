@@ -6,13 +6,11 @@ import com.poly.Yasuki.entity.Evaluate;
 import com.poly.Yasuki.entity.GroupCategory;
 import com.poly.Yasuki.entity.UserApp;
 import com.poly.Yasuki.security.MyUserDetails;
-import com.poly.Yasuki.service.EvaluateService;
-import com.poly.Yasuki.service.GroupCategoryService;
-import com.poly.Yasuki.service.NewsAppService;
-import com.poly.Yasuki.service.ProductService;
+import com.poly.Yasuki.service.*;
 import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +27,12 @@ public class HomeController {
     private final GroupCategoryService groupCategoryService;
     private final ProductService productService;
     private final NewsAppService newsAppService;
+    private final CartItemService cartItemService;
+
 
     @GetMapping("/")
-    public String mainPage(Model model, HttpSession httpSession){
+    public String mainPage(Model model, HttpSession httpSession,
+                           @AuthenticationPrincipal MyUserDetails myUserDetails){
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();
         httpSession.setAttribute("dataCategory", myCategoryList);
 
@@ -43,9 +44,19 @@ public class HomeController {
         model.addAttribute("listTopDiscount", productService.getTopDiscount());
         model.addAttribute("listTopDateRelease", productService.getTopDateRelease());
         model.addAttribute("top5Newest", newsAppService.getTop5ByDateAndActive());
-        model.addAttribute("listSkincare", productService.getListProductsByGroupId(myCategoryList.get(0).getId()));
-        model.addAttribute("listMakeup", productService.getListProductsByGroupId(myCategoryList.get(1).getId()));
-        model.addAttribute("listBodyCare", productService.getListProductsByGroupId(myCategoryList.get(2).getId()));
+        if(myCategoryList.size() > 1){
+            model.addAttribute("listSkincare", productService.getListProductsByGroupId(myCategoryList.get(0).getId()));
+        }
+        if(myCategoryList.size() > 2){
+            model.addAttribute("listMakeup", productService.getListProductsByGroupId(myCategoryList.get(1).getId()));
+        }
+        if(myCategoryList.size() > 3){
+            model.addAttribute("listBodyCare", productService.getListProductsByGroupId(myCategoryList.get(2).getId()));
+        }
+
+        int sizeCart = 0;
+        if(myUserDetails != null) sizeCart = cartItemService.getSize(myUserDetails.getUserApp());
+        httpSession.setAttribute("sizeCart", sizeCart);
         return "user/index";
     }
 

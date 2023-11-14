@@ -16,7 +16,7 @@
                     <tr>
                         <td>
                             <table cellpadding="0" cellspacing="0" width="100%"
-                                   style=" background-color: #e0c528; color: #fff;  border-bottom: 0; font-weight: bold;
+                                   style=" background-color: #4ed5ef; color: #fff;  border-bottom: 0; font-weight: bold;
                       line-height: 100%; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;border-radius: 3px 3px 0 0;">
                                 <tbody>
                                 <tr>
@@ -47,13 +47,13 @@
                                       font-family: 'Helvetica Neue', Helvetica,
                                         Roboto, Arial, sans-serif;
                                       font-size: 14px;line-height: 150%; text-align: left;">
-                                                        <p style="margin: 0 0 16px">Xin chào ,[[${orderDto.name}]]</p>
+                                                        <p style="margin: 0 0 16px">Xin chào, [[${orderDto.name}]]</p>
                                                         <p style="margin: 0 0 16px">
                                                             Đơn hàng của bạn đã được xác nhận.
                                                         </p>
 
                                                         <h2 style="
-                                        color: #e0c528; display: block; font-family: 'Helvetica Neue', Helvetica,
+                                        color: #4ed5ef; display: block; font-family: 'Helvetica Neue', Helvetica,
                                           Roboto, Arial, sans-serif; font-size: 18px; font-weight: bold; line-height: 130%;
                                         margin: 0 0 18px; text-align: left; ">
                                                             [Đơn hàng ] ([[${#dates.format(dateOrder, 'dd/MM/yyyy')}]])
@@ -109,7 +109,7 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr th:each="item : ${orderDto.cartDtoList}">
+                                                                <tr th:each="item : ${orderList}">
                                                                     <td
                                                                             style="
                                                 color: #636363;
@@ -122,7 +122,7 @@
                                                   sans-serif;
                                                 word-wrap: break-word;
                                               "
-                                                                            th:text="${item.nameProduct}">
+                                                                            th:text="${item.product.name}">
 
                                                                     </td>
                                                                     <td
@@ -151,7 +151,7 @@
                                                   sans-serif;
                                               "
                                                                     >
-                                                                        <span>[[${#numbers.formatDecimal(item.priceProduct, 3,'POINT', 0,'COMMA')}]]<span>₫</span></span>
+                                                                        <span>[[${#numbers.formatDecimal(item.product.priceDiscount * item.quantity, 3,'POINT', 0,'COMMA')}]]<span>₫</span></span>
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>
@@ -244,7 +244,7 @@
                                                                 >
                                                                     <h2
                                                                             style="
-                                                color: #e0c528;
+                                                color: #4ed5ef;
                                                 display: block;
                                                 font-family: 'Helvetica Neue',
                                                   Helvetica, Roboto, Arial,
@@ -269,6 +269,7 @@
                                                                         <p>Người nhận : [[${orderDto.name}]]</p>
                                                                         <p>SDT : [[${orderDto.phoneNumber}]]</p>
                                                                         <p>Email : [[${orderDto.email}]]</p>
+                                                                        <p>Địa chỉ : [[${orderDto.address}]]</p>
 
 
                                                                     </address>

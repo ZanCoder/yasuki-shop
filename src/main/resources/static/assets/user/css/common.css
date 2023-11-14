@@ -550,6 +550,7 @@ textarea.form-control {
     margin-top: 16px;
     cursor: pointer;
     text-align: center;
+    font-weight: 600;
 }
 
 .authen__link:hover {
@@ -644,10 +645,9 @@ textarea.form-control {
     top: 15px;
     right: 0;
 }
-
 .header__cart:hover i,
 .header__search:hover i {
-/*    color: var(--default-cl);*/
+    opacity : .7;
     transition: all 0.3s;
 }
 
@@ -734,7 +734,7 @@ textarea.form-control {
 
 .order-main-name {
     color: var(--black-cl-1);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.4rem;
     line-height: 1.8rem;
     max-height: 18px;
@@ -1040,7 +1040,29 @@ textarea.form-control {
     -o-transform: rotate(-135deg);
     transform: rotate(-135deg);
 }
-
+.brand__group{
+    display: flex;
+    background-color: #4ed5ef;
+    margin-left: 14px;
+    padding: 2px;
+    align-items: center;
+}
+.brand__group img{
+    width : 40px;
+}
+.brand__group .brand__name__hyper{
+    color: #FFFF00;
+}
+.sub_web {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    justify-content: space-between;
+    color: #87064c;
+}
+.fw-700{
+   font-weight: 700;
+}
 
 /* Footer */
 
@@ -1073,7 +1095,7 @@ textarea.form-control {
 .footer__text {
     display: block;
     color: rgb(0 0 0 / 90%);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 2.4rem;
     padding: 6px 0;
     align-items: center;
@@ -1302,6 +1324,7 @@ textarea.form-control {
 .price__old {
     color: var(--black-cl-1);
     text-decoration: line-through;
+    font-size: 1.2rem;
 }
 
 .price__new {
@@ -1330,7 +1353,7 @@ textarea.form-control {
     content: "";
     position: absolute;
     border-style: solid;
-    border-width: 0 18px 5px 18px;
+    border-width: 0 19.1px 5px 18px;
     border-color: transparent #f8d133;
     bottom: -5px;
     left: 0;
@@ -1560,6 +1583,7 @@ textarea.form-control {
     font-size: 1.6rem;
     text-align: center;
     margin-bottom: 12px;
+    font-weight: 600;
 }
 
 .category__heading {
@@ -1615,7 +1639,7 @@ textarea.form-control {
     display: flex;
 }
 .header__logo img{
-    width: 66px;
+    width: 64px;
 }
 .logo__description{
     display: flex;
@@ -1630,6 +1654,7 @@ textarea.form-control {
 .slogan{
     margin-top: 2px;
     font-size: 1.4rem;
+    font-weight: 600;
 }
 /* ----account---- */
 
@@ -1714,6 +1739,7 @@ textarea.form-control {
     display : block;
     font-size: 1.6em;
     color : black;
+    font-weight: 600;
 }
 .link__more a:hover{
     var(--text-brown-cl);
@@ -1766,7 +1792,6 @@ textarea.form-control {
 }
 .index-category{
     width: calc(100% / 9);
-    padding: 0 15px;
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -1784,9 +1809,9 @@ textarea.form-control {
 .index-category-title {
     font-size: 1.6em;
     margin-top: 8px;
-    overflow: hidden;
+/*    overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
 }
 .index-category-img{
    border-radius: 50%;
@@ -1949,4 +1974,11 @@ img.img-fluid.lazyloaded {
         padding: 0 0 0 10px;
         width: 50%;
     }
+}
+
+.alertify .ajs-body .ajs-content {
+    font-size: 18px;
+}
+.alertify .ajs-header {
+    font-size: 20px;
 }

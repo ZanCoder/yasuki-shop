@@ -19,21 +19,19 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private Integer quantity;
 
-    private String name; // name product
-    private BigDecimal price;
+    private BigDecimal oldPrice;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
-    private String productSlug;
-    private String imageProduct;
 
-    public OrderItem(Integer quantity, String name, BigDecimal price) {
-        this.quantity = quantity;
-        this.name = name;
-        this.price = price;
-    }
 }

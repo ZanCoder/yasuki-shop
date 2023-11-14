@@ -2,7 +2,11 @@ package com.poly.Yasuki.controller.admin_controller;
 
 import com.poly.Yasuki.dto.CartDto;
 import com.poly.Yasuki.dto.OrderDto;
+import com.poly.Yasuki.dto.OrderItemResponse;
+import com.poly.Yasuki.dto.OrderResponse;
 import com.poly.Yasuki.entity.Order;
+import com.poly.Yasuki.entity.OrderItem;
+import com.poly.Yasuki.entity.Product;
 import com.poly.Yasuki.entity.UserApp;
 import com.poly.Yasuki.security.MyUserDetails;
 import com.poly.Yasuki.service.CartItemService;
@@ -10,6 +14,7 @@ import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.OrderService;
 import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -63,15 +69,6 @@ public class ManagerOrderController {
         return "admin/add_order";
     }
 
-    @PostMapping("/admin/manager-order/add")
-    @ResponseBody
-    public String doCreateNewOrder(@RequestBody OrderDto orderDtoList, HttpSession session
-    ){
-        orderService.create(orderDtoList, getCurrentUser());
-        resetListCart(session);
-        return "OK";
-    }
-
     @PostMapping("/admin/manager-order/update")
     public String doUpdateOrder(@ModelAttribute(name = "newOrder") Order order,
                                      Model model){
@@ -85,37 +82,29 @@ public class ManagerOrderController {
         return "redirect:/admin/manager-order";
     }
 
-    @DeleteMapping("/admin/manager-order/delete")
-    @ResponseBody
-    public ResponseEntity<?> doDeleteOrder(@RequestParam(name = "id") Integer id){
-        try{
-            orderService.deleteById(id);
-        }catch(Exception e){
-            return ResponseEntity.status(500).body(MessageUtils.ERROR_FOREIGN_KEY);
-        }
-        return ResponseEntity.status(204).body("DELETED");
-    }
-
     @GetMapping("/admin/manager-order/edit")
     public String editOrder(@RequestParam(name = "id") String id,
                               Model model){
         Integer idIn = Integer.parseInt(id);
         Order order = orderService.findById(idIn).get();
+
+        OrderResponse orderResponse = new OrderResponse();
+        List<OrderItemResponse> orderItemResponseList = new ArrayList<>();
+        BeanUtils.copyProperties(order, orderResponse);
+        for (OrderItem orderItem : order.getListOrderItem()) {
+            Product product = orderItem.getProduct();
+            orderItemResponseList.add(new OrderItemResponse(
+                    product.getId(),
+                    orderItem.getQuantity(),
+                    product.getName(),
+                    orderItem.getOldPrice()
+            ));
+        }
+        orderResponse.setOrderItems(orderItemResponseList);
         model.addAttribute("mode", "edit");
-        model.addAttribute("editOrder", order);
+        model.addAttribute("editOrder", orderResponse);
         model.addAttribute("groupCategories", groupCategoryService.getAll());
         return "admin/add_order.html";
-    }
-
-    public UserApp getCurrentUser(){
-        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        return userDetails.getUserApp();
-    }
-
-    private void resetListCart(HttpSession session){
-        List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
-        session.setAttribute("listCart", cartDtoList);
     }
 
 }

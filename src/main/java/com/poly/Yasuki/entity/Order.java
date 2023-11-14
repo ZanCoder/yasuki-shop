@@ -45,9 +45,9 @@ public class Order implements Serializable {
     @CreationTimestamp
     private Timestamp createAt;
 
-    @Transient
+/*    @Transient
     @ElementCollection
-    private List<CartDto> cartDtoList;
+    private List<CartDto> cartDtoList;*/
 
     @JsonIgnore //
     @ManyToOne

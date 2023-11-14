@@ -92,6 +92,11 @@
                                                                     <i class="nav-icon fas fa-edit"></i>
                                                                 </a>
                                                             </button>
+                                                            <button class="btn btn-success  me-2 ">
+                                                                <a th:href="@{'/admin/manager-comment/'+${item.id}}" class="text-white">
+                                                                    <i class="far fa-comments"></i>
+                                                                </a>
+                                                            </button>
                                                             <button th:onclick="deleteWithAjax([[${item.id}]])" class="btn btn-danger btnDelAccount">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </button>

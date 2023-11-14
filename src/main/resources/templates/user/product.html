@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments :: main_header('tag')"></head>
-    <title>Chi tiết sản phẩm</title>
+    <title>Yasuki.shop | Chi tiết sản phẩm</title>
     <!-- index -->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/product.css}">
 </head>
@@ -22,7 +22,7 @@
                                 <div class="product__avt" th:style="'background-image: url('+${product.mainImage}+');'">
                                 </div>
                             </a>
-                            <a  th:each="item : ${product.productImages}" th:if="item.url != null" href="#" class="product">
+                            <a  th:each="item : ${product.productImages}" th:if="${item.url != null}" href="#" class="product">
                                 <div class="product__avt" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
@@ -32,7 +32,7 @@
                                 <div class="product__avt" th:style="'background-image: url('+${product.mainImage}+');'">
                                 </div>
                             </a>
-                            <a  th:each="item : ${product.productImages}" th:if="item.url != null" href="#" class="product">
+                            <a  th:each="item : ${product.productImages}" th:if="${item.url != null}" href="#" class="product">
                                 <div class="product__avt" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
@@ -67,7 +67,7 @@
                                 <input id="quantityAddCart" aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
                                 <input class="plus is-form" type="button" value="+" onclick="plusProductToAddCart()">
                             </div>
-                            <div th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])" class=" btn btn--purple">
+                            <div th:onclick="addToCart([[${product.id}]], 0)" class=" btn btn--purple">
                                 <i class="fas fa-cart-plus"></i>
                                 Thêm vào giỏ
                             </div>
@@ -249,26 +249,6 @@
     </div>
 
     <script>
-        var chatbox = document.getElementById('fb-customer-chat');
-        chatbox.setAttribute("page_id", "105913298384666");
-        chatbox.setAttribute("attribution", "biz_inbox");
-        window.fbAsyncInit = function() {
-            FB.init({
-                xfbml: true,
-                version: 'v10.0'
-            });
-        };
-
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <script>
         $(document).ready(function() {
             var sync1 = $("#sync1 ");
             var sync2 = $("#sync2 ");
@@ -375,6 +355,7 @@
             id && (document.getElementById(id).checked = !0)
         }
     </script>
+
 <!--    add to cart-->
     <script>
         function plusProductToAddCart(){
@@ -384,7 +365,7 @@
             function minusProductToAddCart(){
                 let currentVal = $('#quantityAddCart').val();
                 if(currentVal == 1 ) return ;
-                $('#quantityAddCart').val(parseInt(currentVal)+1);
+                $('#quantityAddCart').val(parseInt(currentVal)-1);
             }
     </script>
 </body>

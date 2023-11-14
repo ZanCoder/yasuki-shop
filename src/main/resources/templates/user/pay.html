@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments :: main_header('tag')"></head>
-    <title>Thanh Toán</title>
+    <title>Mua sắm trực tuyến - Yasuki.shop | Mỹ phẩm</title>
     <!-- index -->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/pay.css}">
 </head>
@@ -68,15 +68,6 @@
     <script th:src="@{assets/user/js/payScript.js}" ></script>
     <!-- Script common -->
     <script th:src="@{/assets/user/js/commonscript.js}"></script>
-    <!--script order-->
-    <script th:inline="javascript">
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                var listCart = /*[[${session.listCart}]]*/ [];
-                updateHtmlAfterAddCart(listCart);
-            });
-        });
-    </script>
 
 </body>
 

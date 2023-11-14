@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'Quản lí sản phẩm')">
+<body>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lí đánh giá</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
+                            <li class="breadcrumb-item active">Quản lí đánh giá</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="w-50">
+                                            <!--<button  type="button" class="btn btn-block btn-success">
+                                                <a class="text-white" th:href="@{/admin/manager-product/add}">Thêm sản phẩm</a>
+                                            </button>-->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <form th:action="@{'/admin/manager-comment/'+${productId}}" method="get" class="input-group" >
+                                            <input name="keyword" th:value="${keyword}" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button type="submit" id="btnSearch" class="btn btn-sidebar">
+                                                    <i class="fas fa-search fa-fw"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Tên User</th>
+                                                        <th>SL Sao</th>
+                                                        <th>Nội dung</th>
+                                                        <th>Action </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="item, iStat  : ${listComments}">
+                                                        <td th:text="${1 + iStat.index + (currentPage -1)*10}"></td>
+                                                        <td th:text="${item.nameUser}"></td>
+                                                        <td th:text="${item.numStar}"></td>
+                                                        <td class="truncate_td" th:text="${item.content}"></td>
+                                                        <td class="d-flex">
+                                                            <button th:onclick="deleteWithAjax([[${item.id}]])" class="btn btn-danger  me-2 btnDelAccount">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                         </div>
+                                      </div>
+                                     <th:block th:if="${currentPage != null}" th:replace="admin/fragments :: pagination('manager-comment/' + ${productId})"></th:block>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</body>
+</html>

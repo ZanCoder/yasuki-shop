@@ -13,27 +13,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CartDto {
     private Integer quantity;
+    private Integer productId;
 
-    @JsonProperty("nameProduct")
-    @JsonAlias({"nameProduct", "name"})
-    private String nameProduct;
-
-    @JsonProperty("priceProduct")
-    @JsonAlias({"nameProduct", "price"})
-    private BigDecimal priceProduct;
-    private String mainImageProduct;
-
-    public BigDecimal getTotalPrice(){
-        BigDecimal result = BigDecimal.valueOf(quantity).multiply(priceProduct);
-        return result;
-    }
-
-    public CartDto(String nameProduct, BigDecimal priceProduct) {
-        this.nameProduct = nameProduct;
-        this.priceProduct = priceProduct;
-    }
-
-    @Override
+/*    @Override
     public String toString() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -42,5 +24,5 @@ public class CartDto {
             e.printStackTrace();
             return "{}";
         }
-    }
+    }*/
 }

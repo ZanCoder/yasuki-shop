@@ -31,6 +31,7 @@
     color: var(--black-cl-2);
     margin-top: 12px;
     font-weight: 500;
+    line-height: 18px;
 }
 
 .contact__link i,

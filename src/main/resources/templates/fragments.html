@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="+5000 Sản Phẩm Chính Hãng ✓ Giá Luôn Tốt Mọi Thời Điểm ✓Giao Nhanh Miễn Phí 2H (Trễ Tặng 100k)" />
+          content="+5000 Sản Phẩm Chính Hãng ✓ Giá Luôn Tốt Mọi Thời Điểm ✓Giao Nhanh Miễn Phí 2H" />
     <meta name="keywords"
-          content="Yasuki.com, mua mỹ phẩm chính hãng, son môi, chăm sóc da, chăm sóc tóc,trang điểm môi, chăm sóc cơ thể, kem dưỡng da, sữa rửa mặt, xịt khoáng, giá tốt nhất thị trường." />
+          content="Yasuki.shop, mua mỹ phẩm chính hãng, son môi, chăm sóc da, chăm sóc tóc,trang điểm môi, chăm sóc cơ thể, kem dưỡng da, sữa rửa mặt, xịt khoáng, giá tốt nhất thị trường." />
+
+    <link rel="icon" type="image/x-icon"  class="favicon-icon" th:href="@{/assets/img/favicon.png}">
 
     <!-- Font Quicksand -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,21 +23,22 @@
     <!-- Reset css & grid sytem -->
     <link rel="stylesheet" th:href="@{/assets/user/css/library.css}">
     <link th:href="@{/assets/user/owlCarousel/assets/owl.carousel.min.css}" rel="stylesheet" />
-    <!-- Layout -->
-    <link rel="stylesheet" th:href="@{/assets/user/css/common.css}">
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Owl caroucel Js-->
     <script th:src="@{/assets/user/owlCarousel/owl.carousel.min.js}"></script>
-    <!-- Format number   -->
-    <script src="https://cdn.jsdelivr.net/npm/numbro@2.3.6/dist/numbro.min.js"></script>
-    <!-- toastr -->
-<!--    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />-->
-<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>-->
 
-    <!--sweetalert2-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
+    <!--alertify js-->
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/user/alertifyjs/css/alertify.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/user/alertifyjs/css/themes/default.min.css}">
+    <script th:src="@{/assets/user/alertifyjs/alertify.min.js}"></script>
+
+    <!-- Format number   -->
+    <script th:src="@{/assets/user/numbro@2.3.6/numbro.min.js}"></script>
+
+    <!-- Layout -->
+    <link rel="stylesheet" th:href="@{/assets/user/css/common.css}">
  </head>
 <body>
 <!--start header fragment-->
@@ -48,7 +51,7 @@
                 <span></span>
             </div>
             <a th:href="@{/}" class="header__logo">
-                <img th:src="@{/assets/test.png}" alt="logo">
+                <img th:src="@{/assets/img/yasuki_logo.jpg}" alt="logo">
                 <div class="logo__description">
                     <span class="name__brand">Yasuki</span>
                     <span class="slogan">Uy tín - Chất lượng</span>
@@ -96,25 +99,25 @@
                     </div>
                 </div>
                 <!-- Cart on nav-->
-                <div class="header__cart have" >
+                <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="header__cart have" >
                     <i class="fas fa-shopping-basket"></i>
                     <div class="header__cart-amount">
-                        0
+                        [[${session.sizeCart != null ? session.sizeCart : '0'}]]
                     </div>
-                    <div class="header__cart-wrap cart_scroll">
+                    <!--<div class="header__cart-wrap cart_scroll">
                         <ul class="order__list">
                         </ul>
-                        <!--                    <div class="total-money">Tổng cộng: 120.000đ</div>-->
-                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn--purple cart-btn">
+                        &lt;!&ndash;                    <div class="total-money">Tổng cộng: 120.000đ</div>&ndash;&gt;
+                        <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" th:onclick="" class="btn btn&#45;&#45;purple cart-btn">
                             <i class="fas fa-cart-plus"></i>
                             <span class="me-10">Xem giỏ hàng</span>
                         </a>
-                      <!--  <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn&#45;&#45;brown cart-btn">
+                      &lt;!&ndash;  <a th:href="@{${#authorization.expression('isAnonymous()')? '#my-Login' : '/cart'}}" class="btn btn&#45;&#45;brown cart-btn">
                             <i class="fab fa-amazon-pay color-black"></i>
                             <span class="me-10">Thanh toán</span>
-                        </a>-->
-                    </div>
-                </div>
+                        </a>&ndash;&gt;
+                    </div>-->
+                </a>
             </div>
         </div>
     </div>
@@ -225,10 +228,19 @@
                     </li>
                     <li class="footer__item">
                         <a href="#" class="footer__link">
-                            <i class="fas fa-envelope"></i> yasuki.shop@gmail.com
+                            <!--<i class="fas fa-envelope"></i>-->
+                            ketnoitieudungviet@gmail.com
                         </a>
                     </li>
-                    <li class="footer__item">
+                    <li class="nav-item mb-2">
+                        <a href="https://ketnoitieudungviet.shop" class="nav-link p-0 text-footer sub_web fw-700">
+                            WEBSITE CÙNG CÔNG TY
+                            <div class="brand__group">
+                                <img th:src="@{/assets/img/gia_dung_logo.jpg}" alt="img">
+                            </div>
+                        </a>
+                    </li>
+                    <!--<li class="footer__item">
                         <div class="social-group">
                             <a href="#" class="social-item"><i class="fab fa-facebook-f"></i>
                             </a>
@@ -241,7 +253,7 @@
                             <a href="#" class="social-item"><i class="fab fa-youtube"></i>
                             </a>
                         </div>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div class="col l-3 m-6 s-12">

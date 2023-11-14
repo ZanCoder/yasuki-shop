@@ -38,9 +38,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     }
 
     private void setGlobalData(HttpServletRequest request) {
-        // set cart in session
-        List<CartDto> cartDtoList = cartItemService.getCartsByUser(getCurrentUser());
-        request.getSession().setAttribute("listCart", cartDtoList);
 
         // set global category in session
         List<GroupCategory> myCategoryList = groupCategoryService.getAllCategoryGroupIsActive();

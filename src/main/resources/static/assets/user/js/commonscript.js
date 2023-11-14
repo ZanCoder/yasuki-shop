@@ -41,31 +41,6 @@ tabs.forEach((tab, index) => {
         pane.classList.add("active");
     };
 });
-//resize and load to responsive header__nav
-/*window.addEventListener("load", function() {
-  var widthWindow = window.innerWidth;
-    if (widthWindow <= 1024) {
-     $('.sub-nav-wrap-responsive').removeClass('sub-nav-wrap');
-     $('.sub-nav__item.sub-1').on('click', (event) => {
-         event.preventDefault();
-         $(event.currentTarget).toggleClass("active");
-         $(event.currentTarget).next('.wrapper__sub-2').toggleClass("show");
-         $(event.currentTarget).find('i').toggleClass("show");
-         $(event.currentTarget).find('i').toggleClass("fa-angle-up");
-     });
-    }else{
-      $('.sub-nav-wrap-responsive').addClass('sub-nav-wrap');
-    }
-});*/
-/*window.addEventListener("resize", function() {
-  var widthWindow = window.innerWidth;
-  if (widthWindow <= 1024) {
-   $('.sub-nav-wrap-responsive').removeClass('sub-nav-wrap');
-
-  }else{
-    $('.sub-nav-wrap-responsive').addClass('sub-nav-wrap');
-  }
-});*/
 
 $('.nav__link-accordion').on('click', (event) => {
        event.preventDefault();
@@ -81,11 +56,8 @@ $('.sub-nav__item.sub-1').on('click', (event) => {
        $(event.currentTarget).find('i').toggleClass("fa-angle-up");
 });
 
-
-
 //url
-var urlInCreaseCart =   '/cart/update?action=increase';
-var urlDecreaseCart =   '/cart/update?action=decrease';
+var urlUpdateCart   =   '/cart/update';
 var urlDeleteCart   =   '/cart/delete';
 var urlAddCart      =   '/cart/add';
 var urlListProduct  =   '/list-product';
@@ -94,7 +66,7 @@ var urlSignup       =   '/signup-with-ajax';
 var urlRare         =   '/rate';
 var urlSendCode     =   '/forgot-password/send-code';
 var urlForgotPass   =   '/forgot-password';
-var urlFeedback   =   '/feedback';
+var urlFeedback     =   '/feedback';
 
 //login
 $('#submit_modal_login').on('click', ()=>{
@@ -120,7 +92,6 @@ $('#submit_modal_login').on('click', ()=>{
         });
 
 });
-
 
 //sign up
 $('#btn_signup').on('click', ()=>{
@@ -168,64 +139,24 @@ $('#btn_signup').on('click', ()=>{
 
 
 // cart func
-async function addToCart(name, price, mainImageProduct){
-      try {
-        let data = {nameProduct : name, priceProduct : price, mainImageProduct : mainImageProduct}
-        let listCartItems = await callAjaxCartPromise(urlAddCart, 'POST', data) || [];
+async function addToCart(productId, quantity){
+      if(parseInt(quantity) == 0){
+            quantity = $('#quantityAddCart').val();
+      }
 
-        updateHtmlAfterAddCart(listCartItems);
+      try {
+        let data  = {
+            productId: productId,
+            quantity: parseInt(quantity)
+        }
+        let sizeCart = await callAjaxCartPromise(urlAddCart, 'POST', data) || [];
+
+        updateHtmlAfterAddCart(sizeCart);
       } catch (error) {
         window.location.hash = "my-Login";
         return;
       }
       SwalAlertSuccess("Thêm thành công!");
-}
-
-async function deleteCart(nameProduct){
-    let data =  {nameProduct : nameProduct}
-    await callAjaxCartPromise(urlDeleteCart,'DELETE', data);
-    window.location.reload();
-}
-
-async  function plusProduct(nameProduct, cartIndex){
-    let data = {nameProduct : nameProduct};
-    await  callAjaxCartPromise(urlInCreaseCart, 'POST', data);
-    window.location.reload();
- }
-async  function minusProduct(nameProduct, cartIndex){
-    var currentVal = parseInt($('#'+ cartIndex).val());
-    if(currentVal <= 1) return;
-    let data =  {nameProduct : nameProduct}
-    await  callAjaxCartPromise(urlDecreaseCart, 'POST', data);
-    window.location.reload();
-}
-
-//ajax func
-function callAjaxCart(url, method, data) {
-    $.ajax({
-      url: url,
-      method: method,
-      data: data
-    }).then(function(response) {
-
-    }).fail(function(error) {
-      console.log("error : " + error);
-    });
-}
-
-function callAjaxCartPromise(url, method, data) {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url: url,
-        method: method,
-        data: data
-      }).then(function(response) {
-        resolve(response);
-      }).fail(function(error) {
-        console.log("error : " + error);
-        reject(error);
-      });
-    });
 }
 
 /* forgot password*/
@@ -342,6 +273,21 @@ $('#sendContact').on('click', ()=>{
     }
 })
 
+$('#order').on('click', function(){
+    let currentItemSelected = JSON.parse(localStorage.getItem('listCartItemSelected')) || [];
+    let totalPay = parseInt(localStorage.getItem('totalPay')) || 0;
+    try{
+        parseInt(totalPay);
+    }catch(error){
+         event.preventDefault();
+    }
+    if(currentItemSelected.length !== 0){
+        window.location.href = "/order"
+    }else{
+        event.preventDefault();
+        SwalAlertWarning('Bạn chưa chọn sản phẩm nào!');
+    }
+});
 // update html Evaluate
 function addRateHtml(content, numStar){
     let nameUser = $('#nameUser').val();
@@ -367,8 +313,9 @@ function addRateHtml(content, numStar){
 }
 
 // update html cart
-function updateHtmlAfterAddCart(listCart){
-    if(listCart != null){
+function updateHtmlAfterAddCart(sizeCart){
+    $('.header__cart-amount').text(sizeCart ? sizeCart : '0')
+    /*if(listCart != null){
         let html = '';
              listCart.forEach( cartItem => {
              let nameProd = cartItem.nameProduct.replace("'", "\\'");
@@ -382,14 +329,14 @@ function updateHtmlAfterAddCart(listCart){
                                 <a href="#" class="order-main-name">${cartItem.nameProduct}</a>
                                 <div class="order-main-price">${cartItem.quantity} x ${formatDecimal(cartItem.priceProduct)} ₫</div>
                             </div>
-                            <a onclick="deleteCart('${nameProd}')" class="order-close pointer"><i class="far fa-times-circle"></i></a>
+                            <a onclick="deleteCart('${productId}')" class="order-close pointer"><i class="far fa-times-circle"></i></a>
                         </div>
                     </li>
                 `
              })
             $('.order__list').html(html);
             $('.header__cart-amount').text(listCart.length);
-    }
+    }*/
 }
 //common function
 function formatDecimal(num){
@@ -402,62 +349,55 @@ function isValidEmail(email) {
 
 // Swal alert
 function SwalAlertSuccess(message){
-    Swal.fire({
-        title: message,
-        icon: "success",
-        showConfirmButton: false,
-        timer : 2000
-    });
-
+    alertify.dialog('alert').set({
+        transition:'zoom',
+        title:'Thông báo',
+        message: message
+    }).show();
 }
 
 function SwalAlertWarning(message){
-    Swal.fire({
-        title: message,
-        icon: 'warning',
-        confirmButtonText: 'Đóng',
-        timer: 2000,
-    });
+    alertify.dialog('alert').set({
+        transition:'zoom',
+        title:'Thông báo',
+        message: message
+    }).show();
 }
 
 function SwalAlertOrderSuccess(message){
-    Swal.fire({
-        title: message,
-        icon: "success",
-        confirmButtonText: "Tiếp tục mua hàng!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-             window.location.href = urlListProduct;
+     alertify.alert('Thông báo', message).setting({
+        'transition': 'zoom',
+        'label': 'Tiếp tục mua hàng!',
+        'onok': function() {
+            window.location.href = urlListProduct;
         }
     });
 }
 
+//ajax func
+function callAjaxCart(url, method, data) {
+    $.ajax({
+      url: url,
+      method: method,
+      data: data
+    }).then(function(response) {
 
+    }).fail(function(error) {
+      console.log("error : " + error);
+    });
+}
 
-
-// // // Rateting js
-// // $(':radio').change(function() {
-// //     console.log('New star rating: ' + this.value);
-// // });
-// var value = parseInt(document.querySelector('.input-qty').value, 10);
-// var maxProduct = document.querySelector('.input-qty').getAttribute('max')
-
-// function minusProduct() {
-//     if (value > 0) {
-//         value = isNaN(value) ? 1 : value;
-//         value--;
-//     }
-
-//     document.querySelector('.input-qty').value = value;
-// }
-
-// function plusProduct() {
-//     value = isNaN(value) ? 0 : value;
-//     value++;
-//     if (value > maxProduct) {
-//         value = maxProduct;
-//         alert('Số sản phẩm trong kho của shop đã đạt  giới hạn')
-//     }
-//     document.querySelector('.input-qty').value = value;
-// }
-
+function callAjaxCartPromise(url, method, data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: url,
+        method: method,
+        data: data
+      }).then(function(response) {
+        resolve(response);
+      }).fail(function(error) {
+        console.log("error : " + error);
+        reject(error);
+      });
+    });
+}

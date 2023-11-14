@@ -71,15 +71,7 @@
 
 <!-- Script common -->
 <script th:src="@{/assets/user/js/commonscript.js}"></script>
-<!--Script show html cart item-->
-<script th:inline="javascript">
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                var listCart = /*[[${session.listCart}]]*/ [];
-                updateHtmlAfterAddCart(listCart);
-            });
-        });
-    </script>
+
 </body>
 
 </html>

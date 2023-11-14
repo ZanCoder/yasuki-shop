@@ -5,6 +5,8 @@
   <head >
     <meta charset="UTF-8">
     <title>[[${titlePage}]]</title>
+
+    <link rel="icon" type="image/x-icon"  class="favicon-icon" th:href="@{/assets/img/favicon.png}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" type="text/css">
     <!-- Icon fontanwesome -->
@@ -26,11 +28,11 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <!-- Format number   -->
-    <script src="https://cdn.jsdelivr.net/npm/numbro@2.3.6/dist/numbro.min.js"></script>
-    <!-- toastr -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
+    <script th:src="@{/assets/user/numbro@2.3.6/numbro.min.js}"></script>
+    <!--alertify js-->
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/user/alertifyjs/css/alertify.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/user/alertifyjs/css/themes/default.min.css}">
+    <script th:src="@{/assets/user/alertifyjs/alertify.min.js}"></script>
     <!-- Custom -->
     <link rel="stylesheet" th:href="@{/assets/admin/dist/css/admin_custom.css}">
   </head>
@@ -123,8 +125,8 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a th:href="@{/admin/manager-user}" class="brand-link">
-      <img th:src="@{/assets/admin/dist/img/AdminLTELogo.png}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a th:href="@{/}" class="brand-link">
+      <img th:src="@{/assets/img/yasuki_logo.jpg}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">YASUKI</span>
     </a>
 
@@ -136,7 +138,7 @@
           <img th:src="@{/assets/admin/dist/img/user2-160x160.jpg}" class="img-circle elevation-2" alt="Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Luc Tuan Kiet</a>
+          <a href="#" class="d-block">[[${#authentication.principal.fullName}]]</a>
         </div>
       </div>
 
@@ -152,10 +154,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/admin/manager-product}" class="nav-link">
-              <i class="nav-icon fas fa-spray-can"></i>
+            <a th:href="@{/admin/group-category}" class="nav-link">
+              <i class="nav-icon fas fa-sitemap"></i>
               <p>
-                Quản lí sản phẩm
+                Quản lí nhóm danh mục
               </p>
             </a>
           </li>
@@ -168,10 +170,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/admin/group-category}" class="nav-link">
-              <i class="nav-icon fas fa-sitemap"></i>
+            <a th:href="@{/admin/manager-product}" class="nav-link">
+              <i class="nav-icon fas fa-spray-can"></i>
               <p>
-                Quản lí nhóm danh mục
+                Quản lí sản phẩm
               </p>
             </a>
           </li>
@@ -191,14 +193,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a th:href="@{/admin/manager-discount}" class="nav-link">
               <i class="nav-icon far fa-newspaper"></i>
               <p>
                 Quản lí khuyến mãi
               </p>
             </a>
-          </li>
+          </li>-->
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -213,7 +215,7 @@
 
   <!-- Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2023 <a href="#">Yasuki.io</a>.</strong>
+    <strong>Copyright &copy; 2023 <a href="#">Yasuki.shop</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0

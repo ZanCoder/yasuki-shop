@@ -185,6 +185,7 @@
 
 .productInfo .breadcrumb__link {
     font-size: 1.6rem;
+    font-weight: 600;
 }
 
 .productInfo .pl {
@@ -194,8 +195,10 @@
 .productInfo__name {
     position: relative;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 700;
     margin-top: 12px;
+    color: var(--pink-cl);
+    color: #a1047e;
 }
 
 .productInfo__name::after {
@@ -221,7 +224,7 @@
 .productInfo__price {
     font-size: 3rem;
     line-height: 3rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--pink-cl);
     margin-top: 30px;
 }

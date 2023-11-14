@@ -68,25 +68,4 @@ public class ManagerUserController {
         }
         return "redirect:/admin/manager-user";
     }
-
-    @DeleteMapping("/admin/manager-user/delete")
-    @ResponseBody
-    public ResponseEntity<?> doDeleteUser(@RequestParam(name = "id") Integer id){
-        try{
-            userService.deleteUser(id);
-        }catch(Exception e){
-            return ResponseEntity.status(500).body(MessageUtils.ERROR_FOREIGN_KEY);
-        }
-        return ResponseEntity.status(204).body("DELETED");
-    }
-
-    @GetMapping("/admin/manager-user/edit")
-    @ResponseBody
-    public UserApp editUser(@RequestParam(name = "id") Integer id,
-            Model model){
-        model.addAttribute("mode", "edit");
-        return userService.findById(id).get();
-    }
-
-
 }

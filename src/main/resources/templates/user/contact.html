@@ -39,13 +39,13 @@
                                     <i class="fas fa-phone"></i> 0862 153 723
                                 </a>
                                 <a href="tel:076 922 0162" class="contact__link">
-                                    &#8212; 076 922 0162
+                                     &#8212; 076 922 0162
                                 </a>
                             </li>
 
                             <li>
                                 <a href="#" class="contact__link">
-                                    <i class="fas fa-envelope"></i> yasuki.cometics@gmail.com
+                                    <i class="fas fa-envelope"></i> ketnoitieudungviet@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -83,13 +83,5 @@
 
     <!-- Script common -->
     <script th:src="@{/assets/user/js/commonscript.js}"></script>
-    <script th:inline="javascript">
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                var listCart = /*[[${session.listCart}]]*/ [];
-                updateHtmlAfterAddCart(listCart);
-            });
-        });
-    </script>
 </body>
 </html>

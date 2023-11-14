@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface GroupCategoryService {
     List<GroupCategory> getAllCategoryGroupIsActive();
+    List<GroupCategory> findTop6ByIsActiveTrue();
 
     GroupCategory create(GroupCategory groupCategory);
 

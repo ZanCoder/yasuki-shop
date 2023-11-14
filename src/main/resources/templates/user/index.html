@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <head th:replace="fragments :: main_header('tag')"></head>
-    <title>Yasuki.com | Mỹ phẩm</title>
+    <title>Yasuki.shop | Mỹ phẩm</title>
     <!-- index -->
     <link th:href="@{/assets/user/css/home.css}" rel="stylesheet" />
 </head>
@@ -39,7 +39,6 @@
                             <h1>Giảm giá 30%</h1>
                             <p>Giảm giá cực sốc trong tháng 9!</p>
                             <a th:href="@{/list-product}" class="btn btn--default">Xem ngay</a>
-
                         </div>
                     </div>
                 </div>
@@ -58,8 +57,7 @@
             </div>
         </div>
 
-
-        <div class="main__bands">
+       <!-- <div class="main__bands">
             <div class="grid wide">
                 <div class="owl-carousel bands">
                     <a  th:href="@{/list-product?keyword=Neutrogena}" class="band__item"
@@ -78,7 +76,7 @@
                         style="background-image: url(./assets/img/band/band7.png)"></a>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!--  Top category   -->
         <div class="main__top__category">
             <div class="grid wide">
@@ -89,7 +87,7 @@
                         <div th:each="category : ${grCategory.categories}" class="index-category">
                             <a th:href="@{'/list-product?category=' +${category.name}}">
                             <span class="index-category-img">
-                                <img class="img-fluid lazyloaded" alt="category" th:src="${category.image}">
+                                <img class="img-fluid lazyloaded" alt="img" th:src="${category.image}">
                             </span>
                                 <span class="index-category-title">[[${category.name}]]</span>
                             </a>
@@ -152,7 +150,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +189,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.id}]], 1)" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -230,7 +228,7 @@
                                         </div>
                                     </div>
                                     <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                                    <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])" class="addToCart">Thêm vào giỏ</a>
+                                    <a th:onclick="addToCart([[${product.id}]], 1)" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +238,7 @@
         </div>
 
         <!--Face care  -->
-        <div class="main__tabnine">
+        <div th:if="${session.dataCategory[0] != null}" class="main__tabnine">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
                 <h3 class="category__heading pink">[[${session.dataCategory[0].name}]]</h3>
@@ -250,7 +248,7 @@
                     </a>
                 </div>
                 <div class="row">
-                    <div th:each="product : ${listSkincare}" class="col l-2 m-4 s-6">
+                    <div th:each="product, state : ${listSkincare}" class="col l-2 m-4 s-6" th:if="${state.index < 20}">
                         <div class="product">
                             <div class="product__avt"
                                  th:style="'background-image: url('+${__product.mainImage__}+');'">
@@ -277,7 +275,7 @@
                                 </div>
                             </div>
                             <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                            <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                            <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
                         </div>
                     </div>
                 </div>
@@ -285,7 +283,7 @@
         </div>
 
         <!--make up  -->
-        <div class="main__tabnine">
+        <div th:if="${session.dataCategory[1] != null}" class="main__tabnine">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
                 <h3 class="category__heading pink">[[${session.dataCategory[1].name}]]</h3>
@@ -295,7 +293,7 @@
                     </a>
                 </div>
                 <div class="row">
-                    <div th:each="product : ${listMakeup}" class="col l-2 m-4 s-6">
+                    <div th:each="product, state : ${listMakeup}" class="col l-2 m-4 s-6" th:if="${state.index < 20}">
                         <div class="product">
                             <div class="product__avt"
                                  th:style="'background-image: url('+${__product.mainImage__}+');'">
@@ -322,7 +320,7 @@
                                 </div>
                             </div>
                             <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                            <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                            <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
                         </div>
                     </div>
                 </div>
@@ -330,7 +328,7 @@
         </div>
 
         <!--CHĂM SÓC CƠ THỂ -->
-        <div class="main__tabnine">
+        <div th:if="${session.dataCategory[2] != null}"class="main__tabnine">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
                 <h3 class="category__heading pink">[[${session.dataCategory[2].name}]]</h3>
@@ -340,7 +338,7 @@
                     </a>
                 </div>
                 <div class="row">
-                    <div th:each="product : ${listBodyCare}" class="col l-2 m-4 s-6">
+                    <div th:each="product, state: ${listBodyCare}" class="col l-2 m-4 s-6" th:if="${state.index < 20}">
                         <div class="product">
                             <div class="product__avt"
                                  th:style="'background-image: url('+${__product.mainImage__}+');'">
@@ -367,7 +365,7 @@
                                 </div>
                             </div>
                             <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                            <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])"  class="addToCart">Thêm vào giỏ</a>
+                            <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
                         </div>
                     </div>
                 </div>
@@ -407,7 +405,7 @@
                             </div>
                         </div>
                         <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                        <a th:onclick="addToCart([[${product.name}]], [[${product.priceDiscount}]], [[${product.mainImage}]])"  class="addToCart" >Thêm vào giỏ</a>
+                        <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart" >Thêm vào giỏ</a>
                     </div>
                 </div>
             </div>
@@ -544,13 +542,9 @@
     <script th:src="@{/assets/user/js/homeScript.js}"></script>
     <script th:src="@{/assets/user/js/commonscript.js}"></script>
     <!--    add to cart-->
-    <script th:inline="javascript">
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                var listCart = /*[[${session.listCart}]]*/ [];
-                updateHtmlAfterAddCart(listCart);
-            });
-        });
+    <script>
+     localStorage.removeItem('listCartItemSelected');
+     localStorage.removeItem('totalPay');
     </script>
 </body>
 </html>
