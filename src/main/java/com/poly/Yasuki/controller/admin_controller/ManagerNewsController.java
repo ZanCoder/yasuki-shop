@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ManagerNewsController {
     private final NewsAppService newsAppService;
-    private static final int ITEM_PER_PAGE = 5;
+    private final int ITEM_PER_PAGE = 10;
     @GetMapping("/admin/manager-news")
     public String  viewManagerNewsPage(
                 @RequestParam(name="page", defaultValue = "1", required = false)  int page,

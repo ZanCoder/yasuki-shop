@@ -24,7 +24,7 @@ import java.util.Set;
 public class ManagerUserController {
     private final MyUserService userService;
     private final RoleService roleService;
-    private static final int ITEM_PER_PAGE = 5;
+    private final int ITEM_PER_PAGE = 10;
 
     @GetMapping("/admin")
     public String viewMainPage(){

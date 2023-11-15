@@ -24,7 +24,7 @@
                         </div>
                         <div th:each="cartItem, itrStat : ${listCart}" class="row cart-item" th:id="${'cartItem' + cartItem.product.id}">
                             <div class="col l-1 m-1 s-1">
-                                <input name="chkCartItem" type="checkbox"
+                                <input name="chkCartItem" type="checkbox" th:if="${cartItem.product.isActive}"
                                        th:data-product-id="${cartItem.product.id}"
                                        th:data-product-price="${cartItem.product.priceDiscount}">
                             </div>
@@ -89,7 +89,7 @@
                                 <span class="totalCart">0</span> ₫
                             </div>
                         </div>
-                        <div id="order" class="btn btn--purple">Tiến hành thanh toán</div>
+                        <div id="order" class="btn btn--purple">TIẾN HÀNH ĐẶT HÀNG</div>
                        <!-- <div class="main__pay-title">Phiếu ưu đãi</div>
                         <input type="text" class="form-control">
                         <div class="btn btn&#45;&#45;default">Áp dụng</div>-->
@@ -106,46 +106,6 @@
     <script th:src="@{/assets/user/js/commonscript.js}"></script>
     <script th:src="@{/assets/user/js/cartScript.js}"></script>
 
-    <!--Script show html cart item-->
-<!--    <script>
-        "use strict";
-        $(document).ready(function(){
-            $(window).on('load', function() {
-                updateTotalPriceCart();
-            });
-            $("input[type='checkbox'][name='chkCartItem']").on('click', function(){
-                updateTotalPriceCart();
-             });
-            $('#order').on('click', function(){
-                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
-                    let listCartSelected = getListCartSelected(selectedItems);
-                    if(listCartSelected.length !== 0){
-                        var listCartJSon = JSON.stringify(listCartSelected);
-                        localStorage.setItem('dataOrder', listCartJSon);
-                        window.location = '/order';
-                    }else{
-                        SwalAlertWarning('Bạn chưa chọn sản phẩm nào!')
-                    }
-            });
-            function updateTotalPriceCart(){
-                    let selectedItems = $("input[type='checkbox'][name='chkCartItem']:checked");
-                    let totalPrice = getListCartSelected(selectedItems).reduce((total, item) => {
-                       return total + item.totalPrice;
-                    },0);
-                     $('.totalCart').text(formatDecimal(totalPrice));
-            }
-            function getListCartSelected(selectedItems){
-                    let listCartSelected = [];
-                    selectedItems.each(function(index, element){
-                        let item = $(this).val();
-                        let itemObject = JSON.parse(item);
-                        let quantityValue = parseInt(itemObject.quantity)
-                        listCartSelected.push(itemObject);
-                    });
-                    return listCartSelected;
-            }
-     });
-    </script>-->
 </body>
 
 </html>

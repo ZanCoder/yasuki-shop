@@ -189,41 +189,34 @@
     <div class="grid wide">
         <div class="row">
             <div class="col l-3 m-6 s-12">
-                <h3 class="footer__title">Menu</h3>
-                <ul class="footer__list">
-                    <li th:each="grCategory : ${session.dataCategory}" class="footer__item">
-                        <a th:href="@{'/list-product?group-category=' +${grCategory.name}}" class="footer__link">[[${grCategory.name}]]</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col l-3 m-6 s-12">
-                <h3 class="footer__title">Hỗ trợ khách hàng</h3>
-                <ul class="footer__list">
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Hướng dẫn mua hàng</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Giải đáp thắc mắc</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Chính sách mua hàng</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">Chính sách đổi trả</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col l-3 m-6 s-12">
                 <h3 class="footer__title">Liên hệ</h3>
                 <ul class="footer__list">
                     <li class="footer__item">
                             <span class="footer__text">
-                                <i class="fas fa-map-marked-alt"></i> Đường số 7, Phường Linh Xuân, Quận Thủ Đức, Tp.HCM
+                                <i class="fas fa-building"></i>
+                                Công Ty TMDV Kết Nối Tiêu Dùng Việt
+                            </span>
+                    </li>
+                    <li class="footer__item">
+                            <span class="footer__text">
+                                <i class="fas fa-map-marked-alt"></i>
+                                 Địa chỉ 1: 27 Châu Văn Liêm, phường Xuân Thanh, TP Long Khánh, tỉnh Đồng Nai
+                            </span>
+                    </li>
+                    <li class="footer__item">
+                            <span class="footer__text">
+                                <i class="fas fa-map-marked-alt"></i>
+                                 Địa chỉ 2: Đường số 7, phường Linh Xuân, quận Thủ Đức, TP Thủ Đức
                             </span>
                     </li>
                     <li class="footer__item">
                         <a href="#" class="footer__link">
-                            <i class="fas fa-phone"></i> 0862 153 723
+                            <i class="fas fa-phone"></i> 096 5030 581 (Mr. Đông)
+                        </a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="#" class="footer__link">
+                            <i class="fas fa-phone"></i> 094 6324 094 (Ms. Thảo)
                         </a>
                     </li>
                     <li class="footer__item">
@@ -254,6 +247,31 @@
                             </a>
                         </div>
                     </li>-->
+                </ul>
+            </div>
+            <div class="col l-3 m-6 s-12">
+                <h3 class="footer__title">Menu</h3>
+                <ul class="footer__list">
+                    <li th:each="grCategory : ${session.dataCategory}" class="footer__item">
+                        <a th:href="@{'/list-product?group-category=' +${grCategory.name}}" class="footer__link">[[${grCategory.name}]]</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col l-3 m-6 s-12">
+                <h3 class="footer__title">Hỗ trợ khách hàng</h3>
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a href="#" class="footer__link">Hướng dẫn mua hàng</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="#" class="footer__link">Giải đáp thắc mắc</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="#" class="footer__link">Chính sách mua hàng</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="#" class="footer__link">Chính sách đổi trả</a>
+                    </li>
                 </ul>
             </div>
             <div class="col l-3 m-6 s-12">

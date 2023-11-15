@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartApi {
     private final CartItemService cartItemService;
-    @PostMapping( value = "/cart/add", produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping( value = "/cart/add")
     public ResponseEntity<?> addToCart(
             @RequestParam(name = "productId") Integer productId,
             @RequestParam(name = "quantity") Integer quantity,

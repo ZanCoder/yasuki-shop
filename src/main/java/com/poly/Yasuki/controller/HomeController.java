@@ -44,7 +44,7 @@ public class HomeController {
         model.addAttribute("listTopDiscount", productService.getTopDiscount());
         model.addAttribute("listTopDateRelease", productService.getTopDateRelease());
         model.addAttribute("top5Newest", newsAppService.getTop5ByDateAndActive());
-        if(myCategoryList.size() > 1){
+/*        if(myCategoryList.size() > 1){
             model.addAttribute("listSkincare", productService.getListProductsByGroupId(myCategoryList.get(0).getId()));
         }
         if(myCategoryList.size() > 2){
@@ -52,7 +52,7 @@ public class HomeController {
         }
         if(myCategoryList.size() > 3){
             model.addAttribute("listBodyCare", productService.getListProductsByGroupId(myCategoryList.get(2).getId()));
-        }
+        }*/
 
         int sizeCart = 0;
         if(myUserDetails != null) sizeCart = cartItemService.getSize(myUserDetails.getUserApp());

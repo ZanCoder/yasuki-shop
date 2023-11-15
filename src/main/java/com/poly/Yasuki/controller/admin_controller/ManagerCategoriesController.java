@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class ManagerCategoriesController {
     private final MyCategoryService categoryService;
     private final GroupCategoryService groupCategoryService;
-    private static final int ITEM_PER_PAGE = 5;
+    private final int ITEM_PER_PAGE = 10;
     @GetMapping("/admin/manager-category")
     public String  viewManagerCategoriesPage(
                 @RequestParam(name="page", defaultValue = "1", required = false)  int page,

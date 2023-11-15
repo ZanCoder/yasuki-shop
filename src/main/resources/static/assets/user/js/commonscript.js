@@ -137,28 +137,25 @@ $('#btn_signup').on('click', ()=>{
     }
 });
 
-
 // cart func
 async function addToCart(productId, quantity){
-      if(parseInt(quantity) == 0){
-            quantity = $('#quantityAddCart').val();
-      }
-
-      try {
-        let data  = {
-            productId: productId,
-            quantity: parseInt(quantity)
-        }
+    if(parseInt(quantity) == 0){
+        quantity = $('#quantityAddCart').val();
+    }
+    let data  = {
+        productId: productId,
+        quantity: parseInt(quantity)
+    }
+    try {
         let sizeCart = await callAjaxCartPromise(urlAddCart, 'POST', data) || [];
-
         updateHtmlAfterAddCart(sizeCart);
-      } catch (error) {
+    } catch (error) {
         window.location.hash = "my-Login";
-        return;
-      }
-      SwalAlertSuccess("Thêm thành công!");
+        return false;
+    }
+    SwalAlertSuccess("Thêm thành công!");
+    return true;
 }
-
 /* forgot password*/
 $('#btnSendCode').on('click', async ()=>{
     let email = $('#email_forgot').val();

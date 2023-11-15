@@ -237,140 +237,57 @@
             </div>
         </div>
 
+        <th:block th:each="grCategory, state : ${session.dataCategory}" th:if="${state.index < 4}">
+            <th:block th:each="category, state : ${grCategory.categories}" th:if="${state.index < 1}">
+                <div th:if="${category != null}" class="main__tabnine">
+                    <div class="grid wide">
+                        <h3 class="category__title">Yasuki Cometics</h3>
+                        <h3 class="category__heading pink">[[${category.name}]]</h3>
+                        <div class="link__more">
+                            <a th:href="@{'/list-product?category='+${category.name}}" >Xem tất cả
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div th:each="product, state : ${category.products}" class="col l-2 m-4 s-6" th:if="${product.isActive && state.index < 24}">
+                                <div class="product">
+                                    <div class="product__avt"
+                                         th:style="'background-image: url('+${__product.mainImage__}+');'">
+                                    </div>
+                                    <div class="product__info">
+                                        <h3 class="product__name">[[${product.name}]]</h3>
+                                        <div class="product__price">
+                                            <div class="price__old">
+                                                <span th:if="${product.percentDiscount > 0}">
+                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
+                                                </span>
+                                            </div>
+                                            <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
+                                        </div>
+                                        <div class="rate__star">
+                                            <div class="group-star__prod">
+                                                <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
+                                                <span>([[${product.evaluates.size()}]] đánh giá)</span>
+                                            </div>
+                                        </div>
+                                        <div th:if="${product.percentDiscount > 0}" class="product__sale">
+                                            <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
+                                            <span class="product__sale-text">Giảm</span>
+                                        </div>
+                                    </div>
+                                    <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
+                                    <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </th:block>
+
         <!--Face care  -->
-        <div th:if="${session.dataCategory[0] != null}" class="main__tabnine">
-            <div class="grid wide">
-                <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading pink">[[${session.dataCategory[0].name}]]</h3>
-                <div class="link__more">
-                    <a th:href="@{'/list-product?group-category='+${session.dataCategory[0].name}}" >Xem tất cả
-                        <i class="fas fa-long-arrow-alt-right"></i>
-                    </a>
-                </div>
-                <div class="row">
-                    <div th:each="product, state : ${listSkincare}" class="col l-2 m-4 s-6" th:if="${state.index < 20}">
-                        <div class="product">
-                            <div class="product__avt"
-                                 th:style="'background-image: url('+${__product.mainImage__}+');'">
-                            </div>
-                            <div class="product__info">
-                                <h3 class="product__name">[[${product.name}]]</h3>
-                                <div class="product__price">
-                                    <div class="price__old">
-                                                <span th:if="${product.percentDiscount > 0}">
-                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
-                                                </span>
-                                    </div>
-                                    <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
-                                </div>
-                                <div class="rate__star">
-                                    <div class="group-star__prod">
-                                        <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
-                                        <span>([[${product.evaluates.size()}]] đánh giá)</span>
-                                    </div>
-                                </div>
-                                <div th:if="${product.percentDiscount > 0}" class="product__sale">
-                                    <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
-                                    <span class="product__sale-text">Giảm</span>
-                                </div>
-                            </div>
-                            <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                            <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!--make up  -->
-        <div th:if="${session.dataCategory[1] != null}" class="main__tabnine">
-            <div class="grid wide">
-                <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading pink">[[${session.dataCategory[1].name}]]</h3>
-                <div class="link__more">
-                    <a th:href="@{'/list-product?group-category='+${session.dataCategory[1].name}}" >Xem tất cả
-                        <i class="fas fa-long-arrow-alt-right"></i>
-                    </a>
-                </div>
-                <div class="row">
-                    <div th:each="product, state : ${listMakeup}" class="col l-2 m-4 s-6" th:if="${state.index < 20}">
-                        <div class="product">
-                            <div class="product__avt"
-                                 th:style="'background-image: url('+${__product.mainImage__}+');'">
-                            </div>
-                            <div class="product__info">
-                                <h3 class="product__name">[[${product.name}]]</h3>
-                                <div class="product__price">
-                                    <div class="price__old">
-                                                <span th:if="${product.percentDiscount > 0}">
-                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
-                                                </span>
-                                    </div>
-                                    <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
-                                </div>
-                                <div class="rate__star">
-                                    <div class="group-star__prod">
-                                        <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
-                                        <span>([[${product.evaluates.size()}]] đánh giá)</span>
-                                    </div>
-                                </div>
-                                <div th:if="${product.percentDiscount > 0}" class="product__sale">
-                                    <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
-                                    <span class="product__sale-text">Giảm</span>
-                                </div>
-                            </div>
-                            <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                            <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!--CHĂM SÓC CƠ THỂ -->
-        <div th:if="${session.dataCategory[2] != null}"class="main__tabnine">
-            <div class="grid wide">
-                <h3 class="category__title">Yasuki Cometics</h3>
-                <h3 class="category__heading pink">[[${session.dataCategory[2].name}]]</h3>
-                <div class="link__more">
-                    <a th:href="@{'/list-product?group-category='+${session.dataCategory[2].name}}" >Xem tất cả
-                        <i class="fas fa-long-arrow-alt-right"></i>
-                    </a>
-                </div>
-                <div class="row">
-                    <div th:each="product, state: ${listBodyCare}" class="col l-2 m-4 s-6" th:if="${state.index < 20}">
-                        <div class="product">
-                            <div class="product__avt"
-                                 th:style="'background-image: url('+${__product.mainImage__}+');'">
-                            </div>
-                            <div class="product__info">
-                                <h3 class="product__name">[[${product.name}]]</h3>
-                                <div class="product__price">
-                                    <div class="price__old">
-                                                <span th:if="${product.percentDiscount > 0}">
-                                                    [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]]đ
-                                                </span>
-                                    </div>
-                                    <div class="price__new">[[${#numbers.formatDecimal(product.priceDiscount, 3,'POINT', 0,'COMMA')}]]<span class="price__unit">đ</span></div>
-                                </div>
-                                <div class="rate__star">
-                                    <div class="group-star__prod">
-                                        <i th:each="star_item : ${#numbers.sequence(1, product.avgStar)}" class="fas fa-star"></i>
-                                        <span>([[${product.evaluates.size()}]] đánh giá)</span>
-                                    </div>
-                                </div>
-                                <div th:if="${product.percentDiscount > 0}" class="product__sale">
-                                    <span class="product__sale-percent">[[${product.percentDiscount}]]%</span>
-                                    <span class="product__sale-text">Giảm</span>
-                                </div>
-                            </div>
-                            <a th:href="@{'/detail-product/'+${product.slug}}" class="viewDetail">Xem chi tiết</a>
-                            <a th:onclick="addToCart([[${product.id}]], 1)"  class="addToCart">Thêm vào giỏ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 

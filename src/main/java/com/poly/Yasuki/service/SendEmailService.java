@@ -51,12 +51,13 @@ public class SendEmailService {
         javaMailSender.send(mimeMessage);
     }
 
-    public void sendMail(String subject, String toEmail, String body) throws MessagingException {
+    public void sendMail(String subject, String toEmail, String body) throws MessagingException, UnsupportedEncodingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setTo(toEmail);
         mimeMessageHelper.setSubject(subject);
         mimeMessageHelper.setText(body);
+        mimeMessageHelper.setFrom(FORM_EMAIL, MAIL_NAME);
         javaMailSender.send(mimeMessage);
     }
 

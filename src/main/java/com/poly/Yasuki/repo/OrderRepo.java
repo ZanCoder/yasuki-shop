@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Integer> {
-    @Query(value = "SELECT * FROM [order]  WHERE CONCAT(name, ' ', email, ' ', phoneNumber) LIKE %:keyword%", nativeQuery = true)
+    @Query(value = "SELECT * FROM `order` WHERE CONCAT(name, ' ', email, ' ', phone_number) LIKE %?1%", nativeQuery = true)
     Page<Order> findByKeyword(String keyword, Pageable pageable);
 
     @Query(value = "SELECT o FROM Order o ORDER BY o.createAt DESC")

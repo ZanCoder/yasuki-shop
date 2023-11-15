@@ -390,7 +390,7 @@
 
 .ratecomment {
    width: 100%;
-   font-size: 1.6rem;
+   font-size: 1.4rem;
    padding: 12px;
    margin-bottom: 10px;
 }
@@ -410,8 +410,29 @@
 .productDes__content{
     overflow: hidden;
 }
-
-
+.productDes__content iframe,
+.productDes__content img{
+    width : 100% !important;
+}
+.productDes__content span,
+.productDes__content p{
+    font-size : 1.6rem !important;
+}
+.product_detail_info table {
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    border: 1px solid #d3d4d5;
+    font-size: 1.6rem;
+}
+.product_detail_info table td,
+.product_detail_info table th {
+    border: 1px solid #d3d4d5;
+    padding: 1rem;
+    vertical-align: top;
+    border-top: 1px solid #e9ecef;
+    width: 50%;
+}
 /* Rate list */
 .tab-content{
     padding: 24px 0;

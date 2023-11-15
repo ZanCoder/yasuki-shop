@@ -13,7 +13,23 @@ var urlFindByCategory = '/admin/manager-order/find-by-category';
 var urlManagerOrder = '/admin/manager-order';
 var urlAddOrder = '/admin/manager-order/add';
 
-
+//delete order
+function deleteOrder(id){
+    alertify.dialog('confirm').set({
+        transition:'zoom',
+        title: 'Xác nhận xóa',
+        message: 'Bạn có muốn xóa đơn hàng này không ?',
+        'onok': function(){
+            deleteWithAjax(id);
+        }
+    })
+    .show();
+}
+/*add product to order*/
+$('.btnAddProductToOrder').on('click', ()=>{
+    event.preventDefault();
+    filterByGroupCategory();
+})
 //manager user
 $('.btn-modal-app').on('click', function(){
     updateTitle('Thêm mới');

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 public class ManagerCommentController {
-    private final int PRODUCT_PER_PAGE = 10;
+    private final int ITEM_PER_PAGE = 10;
 
     private final EvaluateService evaluateService;
 
@@ -26,7 +26,7 @@ public class ManagerCommentController {
             @RequestParam(name="keyword",  required = false) String keyword,
                                       Model model ){
         Page<Evaluate> evaluateList = null;
-                Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE);
+                Pageable pageable = PageRequest.of(page - 1, ITEM_PER_PAGE);
         if(keyword != null){
             evaluateList = evaluateService.findByKeyword(keyword, productId, pageable);
             model.addAttribute("keyword", keyword);

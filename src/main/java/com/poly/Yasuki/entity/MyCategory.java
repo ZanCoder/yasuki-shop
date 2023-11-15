@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +38,12 @@ public class MyCategory implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private GroupCategory groupCategory;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private List<Product> products = new ArrayList<>();
+
     public MyCategory( String name,GroupCategory groupCategory ) {
         this.name = name;
         this.groupCategory = groupCategory;

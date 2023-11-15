@@ -37,7 +37,7 @@ public class ManagerOrderController {
     private final OrderService orderService;
     private final GroupCategoryService groupCategoryService;
     private final CartItemService cartItemService;
-    private static final int PRODUCT_PER_PAGE = 5;
+    private final int ITEM_PER_PAGE = 10;
 
     @GetMapping("/admin/manager-order")
     public String  viewManagerOrderPage(
@@ -46,7 +46,7 @@ public class ManagerOrderController {
                              @RequestParam(name="orderBy", defaultValue = "asc",  required = false) String orderBy,
                              @RequestParam(name="keyword",  required = false) String keyword,
                              Model model){
-        Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)
+        Pageable pageable = PageRequest.of(page - 1, ITEM_PER_PAGE)
                 .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
         Page<Order> listOrders = null;
         if(keyword != null){

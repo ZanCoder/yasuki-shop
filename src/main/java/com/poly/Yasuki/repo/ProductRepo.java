@@ -26,7 +26,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT * FROM products p WHERE is_active = true ORDER BY date_release DESC", nativeQuery = true )
     Page<Product> getTopDateRelease(Pageable pageable);
 
-    @Query(value = "SELECT p FROM Product p WHERE p.category.slug = :categorySlug" )
+    @Query(value = "SELECT p FROM Product p WHERE p.category.slug = :categorySlug and p.isActive = true " )
     Page<Product> getSameProductByCategory(String categorySlug, Pageable pageable);
 
     @Query(value = "SELECT * FROM products  WHERE CONCAT(name, ' ',brand ) LIKE %:keyword%", nativeQuery = true)
@@ -45,7 +45,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT p FROM Product p  WHERE CONCAT(name, ' ', brand ) LIKE %:keyword% AND p.isActive = true" )
     Page<Product> findByKeywordAndActive(String keyword, Pageable pageable);
 
-    @Query(value = "SELECT p FROM Product p WHERE p.category.groupCategory.slug = :slug" )
+    @Query(value = "SELECT p FROM Product p WHERE p.category.groupCategory.slug = :slug AND p.isActive = true" )
     Page<Product> findBySlugGroupCategoryAndPagination(String slug, Pageable pageable);
 
     @Query(value = "SELECT distinct p.brand FROM Product p" )

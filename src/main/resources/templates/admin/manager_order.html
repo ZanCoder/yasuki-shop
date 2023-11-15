@@ -39,14 +39,14 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <div class="input-group" >
-                                            <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
+                                        <form th:action="@{/admin/manager-order}" method="get" class="input-group" >
+                                            <input name="keyword" th:value="${keyword}" id="inputSearch" class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm ..." aria-label="Search">
                                             <div class="input-group-append">
-                                                <button class="btn btn-sidebar">
+                                                <button type="submit" id="btnSearch" class="btn btn-sidebar">
                                                     <i class="fas fa-search fa-fw"></i>
                                                 </button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                                         <i class="nav-icon fas fa-edit"></i>
                                                     </a>
                                                 </button>
-                                                <button th:onclick="deleteWithAjax([[${item.id}]])" class="btn btn-danger btnDelAccount">
+                                                <button th:onclick="deleteOrder([[${item.id}]])" class="btn btn-danger btnDelAccount">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                             </td>

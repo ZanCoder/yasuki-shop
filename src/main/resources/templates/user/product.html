@@ -2,7 +2,8 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments :: main_header('tag')"></head>
-    <title>Yasuki.shop | Chi tiết sản phẩm</title>
+    <title>[[${product.name}]] - Yasuki.shop</title>
+
     <!-- index -->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/user/css/product.css}">
 </head>
@@ -19,21 +20,21 @@
                     <div class="col l-5 m-12 s-12">
                         <div class="owl-carousel owl-theme" id="sync1">
                             <a  href="#" class="product">
-                                <div class="product__avt" th:style="'background-image: url('+${product.mainImage}+');'">
+                                <div class="product__avt s_slide" th:style="'background-image: url('+${product.mainImage}+');'">
                                 </div>
                             </a>
                             <a  th:each="item : ${product.productImages}" th:if="${item.url != null}" href="#" class="product">
-                                <div class="product__avt" th:style="'background-image: url('+${item.url}+');'">
+                                <div class="product__avt s_slide" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
                         </div>
                         <div class="owl-carousel owl-theme" id="sync2">
                             <a  href="#" class="product">
-                                <div class="product__avt" th:style="'background-image: url('+${product.mainImage}+');'">
+                                <div class="product__avt s_slide" th:style="'background-image: url('+${product.mainImage}+');'">
                                 </div>
                             </a>
                             <a  th:each="item : ${product.productImages}" th:if="${item.url != null}" href="#" class="product">
-                                <div class="product__avt" th:style="'background-image: url('+${item.url}+');'">
+                                <div class="product__avt s_slide" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
                         </div>
@@ -133,6 +134,9 @@
                                 Mô tả
                             </div>
                             <div class="tab-item ">
+                                Thông số
+                            </div>
+                            <div class="tab-item ">
                                 Đánh giá
                             </div>
                             <div class="line "></div>
@@ -143,6 +147,19 @@
                                 <div class="productDes ">
                                     <div class="productDes__title ">MÔ TẢ SẢN PHẨM – DESCRIPTION</div>
                                     <div class="productDes__content" th:utext="${product.fullDescription}"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane ">
+                                <div class="productDes__title ">THÔNG SỐ SẢN PHẨM</div>
+                                <div th:if="${titleCompare.size() > 0}" class="product_detail_info">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr th:each="item, state : ${product.expressionCompare}">
+                                            <td th:text="${titleCompare[state.index]}"></td>
+                                            <td th:text="${item}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div class="tab-pane ">

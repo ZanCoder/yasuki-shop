@@ -5,6 +5,7 @@ import com.poly.Yasuki.security.MyUserDetails;
 import com.poly.Yasuki.service.CartItemService;
 import com.poly.Yasuki.service.EvaluateService;
 import com.poly.Yasuki.service.ProductService;
+import com.poly.Yasuki.utils.GlobalDataUtils;
 import com.poly.Yasuki.utils.SlugGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class ProductController {
     private final ProductService productService;
     private final CartItemService cartItemService;
     private final EvaluateService evaluateService;
-    private static final int PRODUCT_PER_PAGE = 12;
+    private static final int PRODUCT_PER_PAGE = 24;
 
     @GetMapping("/list-product")
     public String viewListProductPage(
@@ -73,6 +74,7 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("sameProduct", getListProductsByCategory(product.getCategory().getSlug()));
         model.addAttribute("evaluateList", evaluateService.findByProduct(product));
+        model.addAttribute("titleCompare", GlobalDataUtils.getTitleCompare());
         return "user/product";
     }
     private List<Product> getAllProducts(){

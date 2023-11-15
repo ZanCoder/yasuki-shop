@@ -26,7 +26,7 @@ public class ManagerProductController {
     private final ProductService productService;
     private final GroupCategoryService groupCategoryService;
     private final MyCategoryService categoryService;
-    private static final int PRODUCT_PER_PAGE = 5;
+    private final int ITEM_PER_PAGE = 10;
 
     @GetMapping("/admin/manager-product")
     public String viewListProductPage(
@@ -35,7 +35,7 @@ public class ManagerProductController {
             @RequestParam(name="orderBy", defaultValue = "desc",  required = false) String orderBy,
             @RequestParam(name="keyword",  required = false) String keyword,
             Model model){
-        Pageable pageable = PageRequest.of(page - 1, PRODUCT_PER_PAGE)
+        Pageable pageable = PageRequest.of(page - 1, ITEM_PER_PAGE)
                 .withSort(Sort.by(Sort.Direction.fromString(orderBy), sortBy));
         Page<Product> listProduct = null;
         if(keyword != null){

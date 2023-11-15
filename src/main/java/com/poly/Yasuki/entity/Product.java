@@ -59,7 +59,7 @@ public class Product implements Serializable {
     private Boolean isActive = true;
 
     //data compare
-    @JsonIgnore
+//    @JsonIgnore
     @ElementCollection
     @Column(name = "expression_compare")
     private List<String> expressionCompare = new ArrayList<>();

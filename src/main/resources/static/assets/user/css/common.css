@@ -1293,6 +1293,12 @@ textarea.form-control {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    transition: all 0.3s;
+}
+.product__avt.s_slide:hover{
+    transform: scale(1.5);
+    cursor: zoom-in;
+    z-index: 10;
 }
 
 .product__info {
