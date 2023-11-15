@@ -12,6 +12,7 @@ import com.poly.Yasuki.security.MyUserDetails;
 import com.poly.Yasuki.service.CartItemService;
 import com.poly.Yasuki.service.GroupCategoryService;
 import com.poly.Yasuki.service.OrderService;
+import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -28,15 +29,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class ManagerOrderController {
     private final OrderService orderService;
     private final GroupCategoryService groupCategoryService;
-    private final CartItemService cartItemService;
+    private final ProductService productService;
     private final int ITEM_PER_PAGE = 10;
 
     @GetMapping("/admin/manager-order")
@@ -86,8 +89,33 @@ public class ManagerOrderController {
     public String editOrder(@RequestParam(name = "id") String id,
                               Model model){
         Integer idIn = Integer.parseInt(id);
-        Order order = orderService.findById(idIn).get();
+        OrderResponse orderResponse = mapByOrderResponse(idIn);
+        model.addAttribute("mode", "edit");
+        model.addAttribute("editOrder", orderResponse);
+        model.addAttribute("groupCategories", groupCategoryService.getAll());
+        return "admin/add_order.html";
+    }
 
+    @GetMapping("/admin/manager-order/print")
+    public String printOrder(
+            @RequestParam(name = "id") String id,
+            Model model){
+        Integer idIn = Integer.parseInt(id);
+        OrderResponse orderResponse = mapByOrderResponse(idIn);
+
+        BigDecimal totalPayment = BigDecimal.ZERO;
+        for (OrderItemResponse orderItem: orderResponse.getOrderItems()) {
+            Optional<Product> product = productService.findById(orderItem.getProductId());
+            BigDecimal itemTotal = product.get().getPriceDiscount()
+                    .multiply(BigDecimal.valueOf(orderItem.getQuantity()));
+            totalPayment = totalPayment.add(itemTotal); // Update totalPayment correctly
+        }
+        model.addAttribute("dataOrder", orderResponse);
+        model.addAttribute("totalPayment", totalPayment);
+        return "admin/print_order";
+    }
+    private OrderResponse mapByOrderResponse(Integer orderId) {
+        Order order = orderService.findById(orderId).get();
         OrderResponse orderResponse = new OrderResponse();
         List<OrderItemResponse> orderItemResponseList = new ArrayList<>();
         BeanUtils.copyProperties(order, orderResponse);
@@ -101,10 +129,6 @@ public class ManagerOrderController {
             ));
         }
         orderResponse.setOrderItems(orderItemResponseList);
-        model.addAttribute("mode", "edit");
-        model.addAttribute("editOrder", orderResponse);
-        model.addAttribute("groupCategories", groupCategoryService.getAll());
-        return "admin/add_order.html";
+        return orderResponse;
     }
-
 }

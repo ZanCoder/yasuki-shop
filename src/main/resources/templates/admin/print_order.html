@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/_layout :: view(~{:: .content-wrapper}, 'In hóa đơn')">
+<body>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0" >In hóa đơn</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
+                            <li class="breadcrumb-item active">In hóa đơn</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div id="printableArea" >
+                    <div class="img_wrapper">
+                        <img th:src="@{/assets/admin/dist/img/background_bill.jpg}" alt="img">
+                    </div>
+                    <h1 class="title_bill">HÓA ĐƠN BÁN HÀNG</h1>
+                    <ul class="info_company">
+                        <li>
+                            <i>Công Ty TMDV Kết Nối Tiêu Dùng Việt</i>
+                        </li>
+                        <li>
+                            <i>Địa chỉ: TP Thủ Đức – TP Long Khánh</i>
+                        </li>
+                        <li>
+                            <i>Hotline: 094 6324 094</i>
+                        </li>
+                    </ul>
+                    <ul class="info_customer">
+                        <li>
+                            <span>Tên khách hàng :</span>
+                            <span>[[${dataOrder.name}]]</span>
+                        </li>
+                        <li>
+                            <span>Số điện thoại :</span>
+                            <span>[[${dataOrder.phoneNumber}]]</span>
+                        </li>
+                        <li>
+                            <span>Địa chỉ giao hàng :</span>
+                            <span>[[${dataOrder.address}]]</span>
+                        </li>
+                    </ul>
+                    <table class="order_items">
+                        <thead>
+                        <th>STT</th>
+                        <th>TÊN SP</th>
+                        <th>SL</th>
+                        <th>THÀNH TIỀN</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item, state : ${dataOrder.orderItems}">
+                            <td>[[${state.index +1}]]</td>
+                            <td>[[${item.name}]]</td>
+                            <td>[[${item.quantity}]]</td>
+                            <td>[[${#numbers.formatDecimal(item.price*item.quantity, 0,'POINT', 0,'COMMA')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="total">
+                        <span>TỔNG CỘNG :</span>
+                        <span>[[${#numbers.formatDecimal(totalPayment, 0,'POINT', 0,'COMMA')}]] đ</span>
+                    </div>
+                    <div class="sign">
+                        <div class="right_group">
+                            <div class="date_order">
+                                <span>Ngày</span>
+                                <span>[[${#dates.format(#dates.createNow(), 'dd')}]]</span>
+                                <span>Tháng</span>
+                                <span>[[${#dates.format(#dates.createNow(), 'MM')}]]</span>
+                                <span>Năm</span>
+                                <span>[[${#dates.format(#dates.createNow(), 'yyyy')}]]</span>
+                            </div>
+                            <div class="user_sell">
+                                <h4>NGƯỜI BÁN HÀNG</h4>
+                                <span class="name">[[${#authentication.principal.fullName}]]</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="btnPrint">
+                    <button class="btn btn-success non-printable">In</button>
+                </div>
+                <!-- /.card -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+        <script>
+            $('.btnPrint').on('click', ()=>{
+                window.print();
+            })
+        </script>
+    </div>
+    <!-- /.content-wrapper -->
+</body>
+</html>

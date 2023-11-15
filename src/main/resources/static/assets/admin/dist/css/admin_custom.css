@@ -152,3 +152,100 @@ input:checked + .slider:before {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+ /*print css*/
+
+   #printableArea{
+       padding: 30px;
+  /*     background-image: url('../img/image.jpg');*/
+       background-size: cover;
+       background-repeat: no-repeat;
+    }
+    #printableArea .img_wrapper{
+        display: flex;
+        justify-content: flex-end;
+    }
+    #printableArea .img_wrapper img{
+         width: 180px;
+    }
+    #printableArea .title_bill{
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+    #printableArea .info_company{
+      padding: 0;
+    }
+    #printableArea .info_company li{
+      list-style: none;
+      font-size: 20px;
+    }
+    #printableArea .info_customer{
+      padding: 0;
+      list-style: none;
+      font-size: 20px;
+    }
+    #printableArea .info_customer li span:first-child{
+      font-weight: bold;
+    }
+    #printableArea .order_items{
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid rgb(153, 153, 153);
+    }
+    #printableArea  .order_items td,
+    #printableArea .order_items th{
+      border: 1px solid rgb(153, 153, 153);
+      padding: 10px;
+      text-align: center;
+    }
+    #printableArea .total{
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      margin: 30px 0 50px 0;
+    }
+    #printableArea .sign{
+         display: flex;
+         justify-content: flex-end;
+    }
+    #printableArea .right_group{
+        width: 40%;
+        text-align: center;
+    }
+    #printableArea .date_order{
+      text-align: center;
+      font-size: 20px;
+    }
+    #printableArea .user_sell{
+      font-size: 20px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    #printableArea .user_sell .name{
+    }
+    .btnPrint{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .btnPrint button{
+      padding: 6px 80px;
+      margin-bottom: 20px;
+     }
+  @media print {
+      body * {
+          visibility: hidden;
+      }
+      #printableArea, #printableArea * {
+          visibility: visible;
+      }
+      #printableArea {
+          position: absolute;
+          left: 0;
+          right :0;
+          top: 0;
+      }
+  }

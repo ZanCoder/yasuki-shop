@@ -1,17 +1,17 @@
 version: '3.0'
 services:
-  mysqldb:
-    container_name: yasuki-mysqldb
+  mysqldb_yasuki:
+    container_name: mysqldb_yasuki
     image: mysql:8.0
     restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demo_db
+      MYSQL_DATABASE: demo_db1
     volumes:
       - ./mysql-volume:/var/lib/mysql
       - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "3307:3306"
+      - "3308:3306"
     networks:
       springboot-mysql-net:
 
@@ -21,17 +21,17 @@ services:
       dockerfile: Dockerfile
     container_name: yasuki-spring
     ports:
-      - "8080:8080"
+      - "8081:8081"
     restart: on-failure
     environment:
-      DATABASE_HOST: mysqldb
+      DATABASE_HOST: mysqldb_yasuki
       DATABASE_PORT: 3306
       DATABASE_NAME: db_yasuki
       DATABASE_USER: root
       DATABASE_PASSWORD: root
       SPRING_PROFILES_ACTIVE: dev
     depends_on:
-      - mysqldb
+      - mysqldb_yasuki
     networks:
       springboot-mysql-net:
 

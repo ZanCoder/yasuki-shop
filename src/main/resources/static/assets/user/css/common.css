@@ -1116,10 +1116,13 @@ textarea.form-control {
 .social-group {
     display: flex;
 }
+.social-group .social-item img{
+    border-radius: 2px;
+}
 
 .social-item {
     margin-right: 12px;
-    background-color: var(--black-cl-2);
+/*    background-color: var(--black-cl-2);*/
     width: 40px;
     height: 40px;
     display: flex;
