@@ -40,7 +40,7 @@
                             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Hình ảnh</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="false">Dữ liệu so sánh</button>
+                            <button class="nav-link" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="false">Thông số</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -81,24 +81,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row">
                                     <div class="col">
-                                        <label for="q_left">Số lượng trong kho</label>
-                                        <input th:field="*{quantityLeft}" th:value="${newProduct.quantityLeft}" required  max="2147483646" type="number" class="form-control" id="q_left" placeholder="Quantity instock ...">
+                                        <input th:field="*{quantityLeft}" value="0" required  max="2147483646" type="hidden" class="form-control" id="q_left" placeholder="Quantity instock ...">
                                     </div>
                                     <div class="col">
-                                        <label for="q_sold">Số lượng đã bán</label>
-                                        <input th:field="*{quantitySold}" th:value="${newProduct.quantitySold}" required  max="2147483646" type="number" class="form-control" id="q_sold" placeholder="Quantity sold ...">
+                                        <input th:field="*{quantitySold}" value="0" required  max="2147483646" type="hidden" class="form-control" id="q_sold" placeholder="Quantity sold ...">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="price_prod">Giá sản phẩm</label>
-                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number"  max="2147483646" required class="form-control" id="price_prod" placeholder="Price product ...">
+                                        <input th:field="*{price}" th:value="${newProduct.price}" type="number" min="1000" max="2147483646" required class="form-control" id="price_prod" placeholder="Price product ...">
                                     </div>
                                     <div class="col">
                                         <label for="percent_discount">Giảm giá (%)</label>
                                         <input th:field="*{percentDiscount}" th:value="${newProduct.percentDiscount}" type="number" class="form-control" id="percent_discount" placeholder="Percent discount ...">
+                                    </div>
+                                    <div class="col">
+                                        <label for="price_after_discount">Giá sau giảm :</label>
+                                        <input type="number" class="form-control" id="price_after_discount" placeholder="Price after discount ..." readonly>
                                     </div>
                                 </div>
 
@@ -157,10 +159,10 @@
 
                                 <div th:if="${newProduct.expressionCompare != null}" class="col mb-3" th:each="expression, expressionStat : ${newProduct.expressionCompare}">
                                     <label for="expression3">[[${titleCompare[expressionStat.index]}]]</label>
-                                    <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}" required type="text" class="form-control" id="expression3" >
+                                    <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}" type="text" class="form-control" id="expression3" >
                                 </div>
                                 <th:block th:if="${newProduct.expressionCompare.size() == 0}" >
-                                    <div th:each="expression, expressionStat : ${#numbers.sequence(1, 6)}" class="col mb-3" >
+                                    <div th:each="expression, expressionStat : ${#numbers.sequence(1, 7)}" class="col mb-3" >
                                         <label>[[${titleCompare[expressionStat.index]}]]</label>
                                         <input  th:field="*{expressionCompare[__${expressionStat.index}__]}" th:value="${expression}"  type="text" class="form-control"  >
                                     </div>

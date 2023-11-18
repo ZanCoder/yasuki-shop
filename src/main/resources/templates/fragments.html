@@ -211,11 +211,6 @@
                     </li>
                     <li class="footer__item">
                         <a href="#" class="footer__link">
-                            <i class="fas fa-phone"></i> 096 5030 581 (Mr. Đông)
-                        </a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="#" class="footer__link">
                             <i class="fas fa-phone"></i> 094 6324 094 (Ms. Thảo)
                         </a>
                     </li>
@@ -252,7 +247,7 @@
             <div class="col l-3 m-6 s-12">
                 <h3 class="footer__title">Menu</h3>
                 <ul class="footer__list">
-                    <li th:each="grCategory : ${session.dataCategory}" class="footer__item">
+                    <li th:each="grCategory,state : ${session.dataCategory}" class="footer__item" th:if="${state.index < 8}">
                         <a th:href="@{'/list-product?group-category=' +${grCategory.name}}" class="footer__link">[[${grCategory.name}]]</a>
                     </li>
                 </ul>

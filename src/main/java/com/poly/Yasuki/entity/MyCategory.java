@@ -35,13 +35,13 @@ public class MyCategory implements Serializable {
     private Boolean isActive = false;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private GroupCategory groupCategory;
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
     public MyCategory( String name,GroupCategory groupCategory ) {

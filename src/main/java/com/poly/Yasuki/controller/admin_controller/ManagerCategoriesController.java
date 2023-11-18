@@ -58,37 +58,6 @@ public class ManagerCategoriesController {
         return "redirect:/admin/manager-category";
     }
 
-    @DeleteMapping("/admin/manager-category/delete")
-    @ResponseBody
-    public ResponseEntity<?> doDeleteCategories(@RequestParam(name = "id") Integer id){
-        try{
-            categoryService.deleteById(id);
-        }catch(Exception e){
-            return ResponseEntity.status(500).body(MessageUtils.ERROR_FOREIGN_KEY);
-        }
-        return ResponseEntity.status(204).body("DELETED");
-    }
-
-    @GetMapping("/admin/manager-category/edit")
-    @ResponseBody
-    public MyCategoryDto editCategories(@RequestParam(name = "id") Integer id,
-                                        Model model){
-        model.addAttribute("mode", "edit");
-        MyCategoryDto categoryDto = new MyCategoryDto();
-        MyCategory myCategory = categoryService.findById(id).get();
-        BeanUtils.copyProperties(myCategory, categoryDto);
-        categoryDto.setGroupCategory(myCategory.getGroupCategory().getId());
-        return categoryDto;
-    }
-
-    @GetMapping("/admin/manager-category/change-status")
-    @ResponseBody
-    public ResponseEntity<?> changeStatusCategories(
-            @RequestParam(name = "id") Integer id,
-            @RequestParam(name = "statusChanged") Boolean statusChanged){
-        categoryService.updateStatus(id, statusChanged);
-        return ResponseEntity.status(200).body("UPDATED");
-    }
 
 
 }

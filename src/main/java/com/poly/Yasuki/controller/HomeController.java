@@ -40,7 +40,7 @@ public class HomeController {
         List<String> listBrand = productService.getAllBrand();
         httpSession.setAttribute("dataBrand", listBrand);
 
-        model.addAttribute("listTopSelling", productService.getTopSelling());
+/*        model.addAttribute("listTopSelling", productService.getTopSelling());*/
         model.addAttribute("listTopDiscount", productService.getTopDiscount());
         model.addAttribute("listTopDateRelease", productService.getTopDateRelease());
         model.addAttribute("top5Newest", newsAppService.getTop5ByDateAndActive());
