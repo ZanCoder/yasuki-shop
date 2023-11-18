@@ -287,7 +287,6 @@ function roundToNearestThousand(value) {
 }
 
 
-
 //toastr
 function myToastr(type, message){
  var delay = alertify.get('notifier', 'delay', 1);
