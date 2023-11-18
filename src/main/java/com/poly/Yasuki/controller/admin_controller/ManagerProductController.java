@@ -81,16 +81,7 @@ public class ManagerProductController {
     }
 
 
-    @DeleteMapping("/admin/manager-product/delete")
-    @ResponseBody
-    public ResponseEntity<?> doDeleteProduct(@RequestParam(name = "id") Integer id){
-        try{
-            productService.deleteById(id);
-        }catch(Exception e){
-            return ResponseEntity.status(500).body(MessageUtils.ERROR_FOREIGN_KEY);
-        }
-        return ResponseEntity.status(204).body("DELETED");
-    }
+
 
     @GetMapping("/admin/manager-product/edit")
     public String editProduct(@RequestParam(name = "id") String id,

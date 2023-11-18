@@ -22,9 +22,21 @@ function deleteOrder(id){
         'onok': function(){
             deleteWithAjax(id);
         }
-    })
-    .show();
+    }).show();
 }
+
+//delete category (confirm)
+function deleteCategory(id){
+    alertify.dialog('confirm').set({
+        transition:'zoom',
+        title: 'Xác nhận xóa',
+        message: 'Tất cả sản phẩm thuộc danh mục này đều sẽ bị xóa, bạn có muốn xóa không ?',
+        'onok': function(){
+            deleteWithAjax(id);
+        }
+    }).show();
+}
+
 /*add product to order*/
 $('.btnAddProductToOrder').on('click', ()=>{
     event.preventDefault();
@@ -252,6 +264,29 @@ function updateHtmlListProdSelected(listProds){
             });
     }
 }
+
+
+// show price after discount (just for see)
+$("#price_prod").on("blur", function () {
+    showPriceAfterDiscount();
+});
+$("#percent_discount").on("blur", function () {
+    showPriceAfterDiscount();
+});
+
+function showPriceAfterDiscount() {
+    var price = parseFloat($('#price_prod').val());
+    var percentDiscount = parseFloat($('#percent_discount').val());
+    var discountedPrice = price * (1 - percentDiscount / 100);
+    var roundedValue = roundToNearestThousand(discountedPrice);
+    $('#price_after_discount').val(roundedValue.toString());
+}
+
+function roundToNearestThousand(value) {
+    return Math.ceil(value / 1000) * 1000;
+}
+
+
 
 //toastr
 function myToastr(type, message){

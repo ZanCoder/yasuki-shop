@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,9 @@ import java.util.Optional;
 public class MyCategoryServiceImpl implements MyCategoryService {
     private final MyCategoryRepo categoryRepo;
     private final GroupCategoryRepo groupCategoryRepo;
+
+   /* @PersistenceContext
+    private EntityManager entityManager;*/
     @Override
     public List<MyCategory> getAllCategory() {
         return categoryRepo.findAll();
@@ -46,10 +51,13 @@ public class MyCategoryServiceImpl implements MyCategoryService {
         return categoryRepo.findAll(pageable);
     }
 
+    @Transactional
     @Override
     public void deleteById(Integer id) {
-//        Optional<MyCategory> categoryDelete = findById(id);
-        categoryRepo.deleteById(id);
+        Optional<MyCategory> categoryDelete = findById(id);
+        if(categoryDelete.isPresent()){
+            categoryRepo.deleteById(id);
+        }
     }
 
     @Override

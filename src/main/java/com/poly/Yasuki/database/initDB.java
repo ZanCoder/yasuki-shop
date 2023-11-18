@@ -131,13 +131,6 @@ public class initDB implements CommandLineRunner {
         cartItemService.addToCart(cartDto3, userApp1);*/
 
         //init order
-        Order order1 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "luctuankietkg@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
-        Order order2 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "luctuankietkg@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
-        Order order3 = new Order("Tuan Kiet", "799 Quanrg Tring 79234 Go vap ", "luctuankietkg@gmail.com", "093404566",BigDecimal.valueOf(1995468979), "Đặt hàng");
-        orderService.insert(order1);
-        orderService.insert(order2);
-        orderService.insert(order3);
-
         //news init
         NewsApp newsApp1 = NewsApp.builder()
                 .title("Những Item makeup nhà Etude House giá hạt dẻ")

@@ -55,8 +55,14 @@
                         <h3 class="productInfo__name">
                             [[${product.name}]]
                         </h3>
-                        <div class="productInfo__price">
-                            [[${#numbers.formatDecimal(product.price, 3,'POINT', 0,'COMMA')}]] <span class="priceInfo__unit">đ</span>
+                        <div>
+                            <div class="productInfo__price">
+                                [[${#numbers.formatDecimal(product.priceDiscount, 0,'POINT', 0,'COMMA')}]]
+                                <span class="priceInfo__unit">đ</span>
+                            </div>
+                            <div th:if="${product.percentDiscount > 0}" class="productInfo__price_discount" >
+                                [[${#numbers.formatDecimal(product.price, 0,'POINT', 0,'COMMA')}]] đ
+                            </div>
                         </div>
                         <div class="productInfo__description">
                              <th:block th:utext="${product.shortDescription}"></th:block>
@@ -80,7 +86,7 @@
                                     <i class="fas fa-shipping-fast"></i>
                                     <div class="productIndfo__policy-info ">
                                         <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
-                                        <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                        <p class="productIndfo__policy-description ">Cho đơn hàng từ 500K</p>
                                     </div>
                                 </div>
                             </div>
@@ -118,8 +124,8 @@
                         <div class="productIndfo__category ">
                             <p class="productIndfo__category-text"> Danh mục : <a href="# " class="productIndfo__category-link ">[[${product.category.name}]]</a></p>
                             <p class="productIndfo__category-text"> Hãng : <a href="# " class="productIndfo__category-link ">[[${product.brand}]]</a></p>
-                            <p class="productIndfo__category-text"> Số lượng đã bán : [[${product.quantityLeft}]]</p>
-                            <p class="productIndfo__category-text"> Số lượng trong kho : [[${product.quantitySold}]]</p>
+<!--                            <p class="productIndfo__category-text"> Số lượng đã bán : [[${product.quantityLeft}]]</p>
+                            <p class="productIndfo__category-text"> Số lượng trong kho : [[${product.quantitySold}]]</p>-->
 
                         </div>
                     </div>

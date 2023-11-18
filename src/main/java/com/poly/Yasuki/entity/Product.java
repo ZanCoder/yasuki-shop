@@ -35,10 +35,10 @@ public class Product implements Serializable {
     private Double percentDiscount = 0d;
 
     @Column(name="quantity_left")
-    private Integer quantityLeft;
+    private Integer quantityLeft = 0;
 
     @Column(name="quantity_sold")
-    private Integer quantitySold;
+    private Integer quantitySold = 0;
 
     @Column(name="date_release")
     @CreationTimestamp
@@ -59,9 +59,9 @@ public class Product implements Serializable {
     private Boolean isActive = true;
 
     //data compare
-//    @JsonIgnore
+    @JsonIgnore
     @ElementCollection
-    @Column(name = "expression_compare")
+    @Column(name = "ex_compare")
     private List<String> expressionCompare = new ArrayList<>();
 
     @JsonIgnore
@@ -95,8 +95,8 @@ public class Product implements Serializable {
 
     @Transient
     public BigDecimal getPriceDiscount(){
-        BigDecimal priceDiscount = price.multiply(BigDecimal.valueOf((100 - percentDiscount)/100));
-        BigDecimal result = priceDiscount.setScale(0, RoundingMode.CEILING);
+        BigDecimal priceDiscount = price.multiply(BigDecimal.valueOf((100 - percentDiscount)/100.0));
+        BigDecimal result = priceDiscount.setScale(-3, RoundingMode.CEILING);
 //        BigDecimal result =  roundedNumber.setScale(3, RoundingMode.CEILING);
         return result;
     }

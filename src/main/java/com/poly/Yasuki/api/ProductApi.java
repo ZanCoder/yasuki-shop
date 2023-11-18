@@ -5,8 +5,10 @@ import com.poly.Yasuki.entity.Product;
 import com.poly.Yasuki.service.OrderService;
 import com.poly.Yasuki.service.ProductService;
 import com.poly.Yasuki.utils.GlobalDataUtils;
+import com.poly.Yasuki.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,16 @@ public class ProductApi {
     public Product viewProductPage(@RequestParam(name = "productId") Integer productId, Model model){
         Optional<Product> product = productService.findById(productId);
         return product.orElse(null);
+    }
+
+    @DeleteMapping("/admin/manager-product/delete")
+    public ResponseEntity<?> doDeleteProduct(@RequestParam(name = "id") Integer id){
+        try{
+            productService.deleteById(id);
+        }catch(Exception e){
+            return ResponseEntity.status(500).body(MessageUtils.ERROR_FOREIGN_KEY);
+        }
+        return ResponseEntity.status(204).body("DELETED");
     }
 
     @PostMapping("/product/data-compare")

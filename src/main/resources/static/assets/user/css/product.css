@@ -227,6 +227,15 @@
     font-weight: 600;
     color: var(--pink-cl);
     margin-top: 30px;
+    display: inline-block;
+}
+.productInfo__price_discount{
+    display: inline-block;
+    text-decoration: line-through;
+    font-size: 2.4rem;
+    margin-left: 20px;
+    color: #6d6b6b;
+    font-weight: 600;
 }
 
 .priceInfo__unit {
@@ -819,5 +828,14 @@
     }
     .bg-policy-4{
         background-color: var(--bg-policy-1);
+    }
+}
+
+@media(max-width: 525px) {
+    .tab-item{
+        font-size: 1.6rem;
+        min-width: 40px;
+        padding: 12px;
+        text-transform: none;
     }
 }

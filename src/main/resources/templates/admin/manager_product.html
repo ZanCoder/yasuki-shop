@@ -63,8 +63,6 @@
                                                         <th>Tên SP</th>
                                                         <th>Giá</th>
                                                         <th>Giảm giá (%)</th>
-                                                        <th>SL còn</th>
-                                                        <th>SL bán</th>
                                                         <th>Active</th>
                                                         <th>Action </th>
                                                     </tr>
@@ -76,8 +74,8 @@
                                                         <td class="truncate_td" th:text="${item.name}"></td>
                                                         <td th:text="${#numbers.formatDecimal(item.price, 3,'POINT', 0,'COMMA')}"></td>
                                                         <td th:text="${item.percentDiscount}"></td>
-                                                        <td th:text="${item.quantityLeft}"></td>
-                                                        <td th:text="${item.quantitySold}"></td>
+                                             <!--           <td th:text="${item.quantityLeft}"></td>
+                                                        <td th:text="${item.quantitySold}"></td>-->
                                                         <td >
                                                             <label th:for="${item.name}" class="switch switch-status">
                                                                 <input th:id="${item.name}" type="checkbox"
