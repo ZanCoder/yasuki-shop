@@ -17,4 +17,8 @@ public interface MyCategoryRepo extends JpaRepository<MyCategory, Integer> {
     Page<MyCategory> findByKeyword(String keyword, Pageable pageable);
 
     List<MyCategory> findByGroupCategory(GroupCategory groupCategory);
+
+
+    @Query(value = "SELECT o FROM MyCategory o WHERE o.groupCategory.isActive = true")
+    List<MyCategory> findWithGroupTrue(Pageable pageable);
 }

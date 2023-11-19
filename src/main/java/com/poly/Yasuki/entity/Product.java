@@ -61,7 +61,7 @@ public class Product implements Serializable {
     //data compare
     @JsonIgnore
     @ElementCollection
-    @Column(name = "ex_compare")
+    @Column(name = "expression_compare")
     private List<String> expressionCompare = new ArrayList<>();
 
     @JsonIgnore

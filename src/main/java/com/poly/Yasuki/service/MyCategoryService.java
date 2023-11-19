@@ -24,4 +24,6 @@ public interface MyCategoryService {
     void updateStatus(Integer id, Boolean statusChanged);
 
     List<MyCategory> findByGroupCategoryId(Integer id);
+
+    List<MyCategory> findCategoriesWithSize(int size);
 }

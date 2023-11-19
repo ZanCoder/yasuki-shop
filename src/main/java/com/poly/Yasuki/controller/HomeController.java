@@ -25,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
     private final GroupCategoryService groupCategoryService;
+    private final MyCategoryService categoryService;
     private final ProductService productService;
     private final NewsAppService newsAppService;
     private final CartItemService cartItemService;
@@ -39,6 +40,10 @@ public class HomeController {
         // set global category in session
         List<String> listBrand = productService.getAllBrand();
         httpSession.setAttribute("dataBrand", listBrand);
+
+
+
+        model.addAttribute("listCategoryShow", categoryService.findCategoriesWithSize(18));
 
 /*        model.addAttribute("listTopSelling", productService.getTopSelling());*/
         model.addAttribute("listTopDiscount", productService.getTopDiscount());

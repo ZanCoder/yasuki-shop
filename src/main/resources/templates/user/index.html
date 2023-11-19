@@ -121,18 +121,16 @@
                 <h3 class="category__title">Yasuki Cometics</h3>
                 <h3 class="category__heading pink">DANH MỤC HOT</h3>
                 <div class="index-categories-list row">
-                    <th:block th:each="grCategory : ${session.dataCategory}">
-                        <div th:each="category,iStar : ${grCategory.categories}"
-                             th:if="${iStar.index < 18}"
-                            class="index-category">
-                            <a th:href="@{'/list-product?category=' +${category.name}}">
+                    <div th:each="category,iStar : ${listCategoryShow}"
+                         th:if="${iStar.index < 18}"
+                         class="index-category">
+                        <a th:href="@{'/list-product?category=' +${category.name}}">
                             <span class="index-category-img">
                                 <img class="img-fluid lazyloaded" alt="img" th:src="${category.image}">
                             </span>
-                                <span class="index-category-title">[[${category.name}]]</span>
-                            </a>
-                        </div>
-                    </th:block>
+                            <span class="index-category-title">[[${category.name}]]</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 

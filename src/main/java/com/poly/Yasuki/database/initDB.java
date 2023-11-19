@@ -62,15 +62,7 @@ public class initDB implements CommandLineRunner {
         categoryService.create(category9);
 
         //init product
-        Product product0 = Product.builder()
-                .name("Phấn nước").price(BigDecimal.valueOf(999))
-                .category(category1)
-                .percentDiscount(12.0)
-                .shortDescription("Short des")
-                .fullDescription("FullDes")
-                .brand("SHU")
-                .quantitySold(90).quantityLeft(10)
-                .build();
+
         Product product1 = new Product(category1, "Cetapil", BigDecimal.valueOf(1998979), 20, 20, 0d, "C");
         Product product2 = new Product(category1, "Lanegie", BigDecimal.valueOf(3387983), 3, 32, 7.0, "C");
         Product product3 = new Product(category1, "Kiehl", BigDecimal.valueOf(899777), 440, 0, 8.0, "C");
@@ -83,7 +75,6 @@ public class initDB implements CommandLineRunner {
         product1.setMainImage("https://media.hasaki.vn/catalog/product/p/r/promotions-auto-sua-rua-mat-cetaphil-diu-nhe-khong-xa-phong-125ml-moi_A9AYTmiVPjkRo29X_img_358x358_843626_fit_center.png");
         product2.setMainImage("https://media.hasaki.vn/catalog/product/g/o/google-shopping-mat-na-ngu-moi-laneige-huong-qua-mong-mini-8g-1_img_358x358_843626_fit_center.jpg");
         product3.setMainImage("https://media.hasaki.vn/catalog/product/g/o/google-shopping-mat-na-kiehl-s-nghe-hat-viet-quat-lam-sang-da-28ml-1686566767_img_358x358_843626_fit_center.jpg");
-        product0.setMainImage("https://media.hasaki.vn/catalog/product/p/h/phan-nuoc-gilaa-kiem-dau-va-duong-da-2-natural-beige-13g-10_img_358x358_843626_fit_center.jpg");
         product5.setMainImage("https://media.hasaki.vn/catalog/product/p/r/promotions-auto-nuoc-tay-trang-tuoi-mat-l-oreal-3-in-1-danh-cho-da-dau-da-hon-hop-400ml_hT9R6HqHaZS1omAq_img_358x358_843626_fit_center.png");
         product6.setMainImage("https://media.hasaki.vn/catalog/product/f/a/facebook-dynamic-bo-3-hop-bong-tay-trang-co-ban-silcot-82-mieng-hop-1684396744_img_358x358_843626_fit_center.jpg");
         product4.setMainImage("https://media.hasaki.vn/catalog/product/t/o/top_fb_ads_100550094_310523-1685529668_img_358x358_843626_fit_center.jpg");
@@ -91,7 +82,6 @@ public class initDB implements CommandLineRunner {
         product8.setMainImage("https://media.hasaki.vn/catalog/product/f/a/facebook-dynamic-422208882-1689915355_img_358x358_843626_fit_center.jpg");
         product9.setMainImage("https://media.hasaki.vn/catalog/product/p/r/promotions-auto-bo-2-ban-chai-danh-rang-colgate-long-chai-khang-khuan_vZEzJ2ih9fWzpgut_img_358x358_843626_fit_center.png");
 
-        productService.create(product0);
         productService.create(product1);
         productService.create(product2);
         productService.create(product3);

@@ -9,6 +9,7 @@ import com.poly.Yasuki.utils.SlugGenerator;
 import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,6 +81,12 @@ public class MyCategoryServiceImpl implements MyCategoryService {
     public List<MyCategory> findByGroupCategoryId(Integer id) {
         GroupCategory groupCategory = groupCategoryRepo.findById(id).get();
         return categoryRepo.findByGroupCategory(groupCategory);
+    }
+
+    @Override
+    public List<MyCategory> findCategoriesWithSize(int size) {
+        Pageable pageable = PageRequest.of(0, size);
+        return categoryRepo.findWithGroupTrue(pageable);
     }
 
     private MyCategory findCategoryBySlug(String slug){
