@@ -377,7 +377,7 @@
                 <div class="owl-carousel news owl-theme">
                     <a th:each="item : ${top5Newest}" th:href="@{/news}" class="news">
                         <div class="news__img">
-                            <img th:src="${item.image}" alt="error">
+                            <img th:src="${item.image}" alt="img">
                         </div>
                         <div class="news__body">
                             <h3 class="news__body-title">[[${item.title}]]</h3>

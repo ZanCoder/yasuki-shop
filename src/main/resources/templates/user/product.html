@@ -23,7 +23,7 @@
                                 <div class="product__avt s_slide" th:style="'background-image: url('+${product.mainImage}+');'">
                                 </div>
                             </a>
-                            <a  th:each="item : ${product.productImages}" th:if="${item.url != null}" href="#" class="product">
+                            <a  th:each="item : ${product.productImages}" th:if="${item.url != ''}" href="#" class="product">
                                 <div class="product__avt s_slide" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>
@@ -33,7 +33,7 @@
                                 <div class="product__avt s_slide" th:style="'background-image: url('+${product.mainImage}+');'">
                                 </div>
                             </a>
-                            <a  th:each="item : ${product.productImages}" th:if="${item.url != null}" href="#" class="product">
+                            <a  th:each="item : ${product.productImages}" th:if="${item.url != ''}" href="#" class="product">
                                 <div class="product__avt s_slide" th:style="'background-image: url('+${item.url}+');'">
                                 </div>
                             </a>

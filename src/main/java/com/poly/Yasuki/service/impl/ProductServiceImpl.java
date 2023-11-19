@@ -14,12 +14,15 @@ import com.poly.Yasuki.utils.SlugGenerator;
 import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -148,19 +151,39 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
+
+
     @Override
-    public void update(Integer id, Product productUpdate) {
-        Product currentProduct = findById(id).get();
-        if(productUpdate == null){
+    public void update(Integer id, Product product) {
+        Optional<Product> oldProduct = findById(id);
+        if(oldProduct.isEmpty()){
             throw new RuntimeException("Could not found product!");
         }
-        productUpdate.setDateRelease(currentProduct.getDateRelease());
+        /*productUpdate.setDateRelease(currentProduct.getDateRelease());
         String slug = SlugGenerator.generateSlug(productUpdate.getName());
         productUpdate.setSlug(slug);
         productRepo.save(productUpdate);
         if(productUpdate.getProductImages() != null){
             productUpdate.getProductImages().forEach(productImage -> {
                 productImage.setProduct(productUpdate);
+                productImageRepo.save(productImage);
+            });
+        }*/
+        List<ProductImage> productImageList = oldProduct.get().getProductImages();
+        if(productImageList != null){
+            productImageList.forEach(item -> productImageRepo.deleteById(item.getId()));
+        }
+        Timestamp dateRelease = oldProduct.get().getDateRelease();
+        BeanUtils.copyProperties(product, oldProduct.get());
+
+        oldProduct.get().setDateRelease(dateRelease);
+        String slug = SlugGenerator.generateSlug(product.getName());
+        oldProduct.get().setSlug(slug);
+        Product productSaved = productRepo.save(oldProduct.get());
+
+        if(product.getProductImages() != null){
+            product.getProductImages().forEach(productImage -> {
+                productImage.setProduct(productSaved);
                 productImageRepo.save(productImage);
             });
         }

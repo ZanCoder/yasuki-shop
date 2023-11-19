@@ -18,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "[group_categories]")
-public class GroupCategory {
+public class GroupCategory implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,6 +31,6 @@ public class GroupCategory {
     private Boolean isActive = false;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "groupCategory",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<MyCategory> categories =  new ArrayList<>();
 }
