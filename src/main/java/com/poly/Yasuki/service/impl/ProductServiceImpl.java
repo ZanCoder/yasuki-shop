@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -152,38 +153,41 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
+    @Transactional
     @Override
     public void update(Integer id, Product product) {
-        Optional<Product> oldProduct = findById(id);
-        if(oldProduct.isEmpty()){
-            throw new RuntimeException("Could not found product!");
+        Optional<Product> oldProductOptional = findById(id);
+        if (oldProductOptional.isEmpty()) {
+            throw new RuntimeException("Could not find product!");
         }
-        /*productUpdate.setDateRelease(currentProduct.getDateRelease());
-        String slug = SlugGenerator.generateSlug(productUpdate.getName());
-        productUpdate.setSlug(slug);
-        productRepo.save(productUpdate);
-        if(productUpdate.getProductImages() != null){
-            productUpdate.getProductImages().forEach(productImage -> {
-                productImage.setProduct(productUpdate);
-                productImageRepo.save(productImage);
-            });
-        }*/
-        List<ProductImage> productImageList = oldProduct.get().getProductImages();
-        if(productImageList != null){
-            productImageList.forEach(item -> productImageRepo.deleteById(item.getId()));
+
+        Product oldProduct = oldProductOptional.get();
+
+        // Lấy danh sách hình ảnh cũ
+        List<ProductImage> oldProductImages = oldProduct.getProductImages();
+
+        // Xóa hình ảnh cũ
+        if (oldProductImages != null && !oldProductImages.isEmpty()) {
+            oldProductImages.forEach(productImage -> productImageRepo.deleteById(productImage.getId()));
+            oldProduct.getProductImages().clear();
         }
-        Timestamp dateRelease = oldProduct.get().getDateRelease();
-        BeanUtils.copyProperties(product, oldProduct.get());
 
-        oldProduct.get().setDateRelease(dateRelease);
-        String slug = SlugGenerator.generateSlug(product.getName());
-        oldProduct.get().setSlug(slug);
-        Product productSaved = productRepo.save(oldProduct.get());
+        // Sao chép thuộc tính từ product mới vào product cũ (tránh việc ghi đè ngày phát hành và các thuộc tính khác)
+        BeanUtils.copyProperties(product, oldProduct, "id", "productImages");
 
-        if(product.getProductImages() != null){
+        // Cập nhật ngày phát hành và tạo slug
+        Timestamp dateRelease = oldProduct.getDateRelease();
+        oldProduct.setDateRelease(dateRelease);
+        String slug = SlugGenerator.generateSlug(oldProduct.getName());
+        oldProduct.setSlug(slug);
+
+        // Lưu lại thông tin cập nhật của sản phẩm
+        Product updatedProduct = productRepo.save(oldProduct);
+
+        // Cập nhật danh sách hình ảnh cho sản phẩm
+        if (product.getProductImages() != null && !product.getProductImages().isEmpty()) {
             product.getProductImages().forEach(productImage -> {
-                productImage.setProduct(productSaved);
+                productImage.setProduct(updatedProduct);
                 productImageRepo.save(productImage);
             });
         }

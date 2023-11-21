@@ -93,12 +93,4 @@ public class HomeController {
         return "user/compare_product";
     }
 
-    public UserApp getCurrentUser(){
-        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
-        return userDetails.getUserApp();
-    }
-
-
-
 }

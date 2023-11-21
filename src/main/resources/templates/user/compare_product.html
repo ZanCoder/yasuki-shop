@@ -40,7 +40,7 @@
 
                 </div>
             </div>
-            <div th:each="indexCompare, iStar : ${#numbers.sequence(0, 5)}" class="row">
+            <div th:each="indexCompare, iStar : ${#numbers.sequence(0, 6)}" class="row">
                 <div class="list-compare" th:classappend="${iStar.index % 2 == 0 ? 'odd' : ''}">
                     <div class="col  wrapper__item-compare" th:classappend="${session.dataCompare.size() == 2 ? 'col-4': 'col-3'}">
                         <div class="title__part-compare">

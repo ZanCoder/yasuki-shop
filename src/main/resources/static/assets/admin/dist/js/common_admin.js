@@ -37,6 +37,19 @@ function deleteCategory(id){
     }).show();
 }
 
+
+//delete group category (confirm)
+function deleteGroupCategory(id){
+    alertify.dialog('confirm').set({
+        transition:'zoom',
+        title: 'Xác nhận xóa',
+        message: 'Tất cả danh mục thuộc nhóm danh mục này đều sẽ bị xóa, bạn có muốn xóa không ?',
+        'onok': function(){
+            deleteWithAjax(id);
+        }
+    }).show();
+}
+
 /*add product to order*/
 $('.btnAddProductToOrder').on('click', ()=>{
     event.preventDefault();
