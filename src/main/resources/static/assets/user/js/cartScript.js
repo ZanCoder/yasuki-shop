@@ -51,7 +51,7 @@ function updateTotalPay(action, productId) {
             }else {
                 totalPay += parseInt(priceProduct);
             }
-                $('.totalCart').html(formatDecimal(totalPay > 0 ? totalPay : 0));
+            $('.totalCart').html(formatDecimal(totalPay > 0 ? totalPay : 0));
             localStorage.setItem('totalPay', JSON.stringify(totalPay));
         }
     });
@@ -84,6 +84,7 @@ $('input[name=chkCartItem]').on('click', function() {
     localStorage.setItem('listCartItemSelected', JSON.stringify(currentItemSelected));
     localStorage.setItem('totalPay', JSON.stringify(totalPay));
     $('.totalCart').html(formatDecimal(totalPay > 0 ? totalPay : 0));
+    $('.type_order').html(totalPay > 500000 ? 'Giao hàng miễn phí' : 'Người nhận trả ship');
 });
 
 $('#order').on('click', function(){

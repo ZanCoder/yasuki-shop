@@ -276,7 +276,7 @@
         </div>
 
         <th:block th:each="grCategory, state : ${session.dataCategory}" th:if="${state.index < 4}">
-            <th:block th:each="category, state : ${grCategory.categories}" th:if="${state.index < 1}">
+            <th:block th:each="category, state : ${grCategory.categories}" th:if="${state.index < 2}">
                 <div th:if="${category != null}" class="main__tabnine">
                     <div class="grid wide">
                         <h3 class="category__title">Yasuki Cometics</h3>

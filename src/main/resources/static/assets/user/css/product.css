@@ -283,7 +283,7 @@
 /*    padding: 4px;*/
 }
 .policy .sub__wrapper{
-    margin: 2px;
+    margin: 0 4px;
     border-radius: 5px;
 }
 .bg-policy-3,
@@ -418,6 +418,10 @@
 }
 .productDes__content{
     overflow: hidden;
+}
+
+.productDes__content * {
+    width: 100% !important;
 }
 .productDes__content iframe,
 .productDes__content img{
@@ -840,5 +844,12 @@
     }
     .productDes{
         padding-left: 20px;
+    }
+    .policy.full{
+        width: 100%;
+        margin-top: 4px;
+    }
+    .productDes__content{
+
     }
 }

@@ -43,6 +43,15 @@ $('.totalOrder').html(formatDecimal(total));
 
 <!--    send order -->
     $('#sendOrder').on('click', function(){
+        //validate
+        const phonePattern = /^0\d{9,11}$/;
+        let phone = $('#phoneNumber_order').val();
+        if(!phonePattern.test(phone)){
+            $(".error_phone").text('Số điện thoại không hợp lệ!');
+            $(".error_phone").show();
+            return;
+        }
+
         var dataOrder = localStorage.getItem('listCartItemSelected');
         var dataToSend = {
             name:       $('#name_order').val(),

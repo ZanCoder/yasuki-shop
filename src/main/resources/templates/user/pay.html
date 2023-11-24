@@ -21,24 +21,25 @@
                                 <input id="name_order" name="account" type="text" class="form-control" required>
                             </div>
                             <div class="form-item">
-                                <label for="email_order" class="form-label">Email *</label>
-                                <input id="email_order" name="account" type="email" class="form-control" required>
-                                <!--                                <span class="form-message"></span>-->
-                            </div>
-                        </div>
-                        <div class="form__group mt-20">
-                            <div class="form-item">
-                                <label for="address_order" class="form-label">Địa chỉ *</label>
-                                <input id="address_order" name="account" type="text" class="form-control" required>
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-item">
                                 <label for="phoneNumber_order" class="form-label">Số điện thoại *</label>
                                 <input id="phoneNumber_order" name="account" type="text" class="form-control" required>
-                                <span class="form-message"></span>
+                                <span class="error_phone"></span>
+                            </div>
+                            <input
+                                    th:value="${#authentication.principal.username}"
+                                    id="email_order" name="account" type="hidden" class="form-control" disabled>
+                            <!--<div class="form-item">
+                                <label for="email_order" class="form-label">Email *</label>
+
+                            </div>-->
+                        </div>
+                        <div class="mt-10">
+                            <label for="address_order" class="form-label">Địa chỉ *</label>
+                            <div class="mt-10">
+                                <input id="address_order" name="account" type="text" class="form-control" required>
                             </div>
                         </div>
-                        <div>
+                        <div class="mt-10">
                             <label for="note_order" class="form-label">Ghi chú cho đơn hàng</label>
                             <textarea class="form-control mt-10" name="" id="note_order" cols="30" rows="20"></textarea>
                         </div>

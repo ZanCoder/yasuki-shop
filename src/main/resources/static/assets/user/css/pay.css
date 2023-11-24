@@ -82,7 +82,15 @@
 .mt-20{
    margin-top: 20px;
 }
-
+.error_phone{
+    display: block;
+    margin-top: 4px;
+    color: red;
+    font-size: 1.4rem;
+}
+.mt-10{
+    margin-top: 10px;
+}
 @media (max-width: 1023px) {
     .main .grid>.row {
         flex-direction: column-reverse;
