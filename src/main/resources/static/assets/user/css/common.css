@@ -230,10 +230,15 @@ input[type=checkbox]:checked:after {
 
 .main {
     margin-top: calc(var(--hight-header));
-    background: rgb(255 233 199 / 5%)
+/*    background: rgb(255 233 199 / 5%)*/
+    background: #f8f2f5;
 }
-
-
+.main__frame{
+    margin-top: 20px;
+}
+.bg-news {
+    background-color: #d3f5fb;
+}
 .bg-1 {
     background-color: #635d5b;
 }

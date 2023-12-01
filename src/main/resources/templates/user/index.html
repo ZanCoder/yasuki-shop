@@ -277,7 +277,7 @@
 
         <th:block th:each="grCategory, state : ${session.dataCategory}" th:if="${state.index < 4}">
             <th:block th:each="category, state : ${grCategory.categories}" th:if="${state.index < 2}">
-                <div th:if="${category != null}" class="main__tabnine">
+                <div th:if="${category.products != null && category.products.size > 0}" class="main__tabnine">
                     <div class="grid wide">
                         <h3 class="category__title">Yasuki Cometics</h3>
                         <h3 class="category__heading pink">[[${category.name}]]</h3>
@@ -370,7 +370,7 @@
             </div>
         </div>-->
         <!-- News -->
-        <div class="main__frame bg-3">
+        <div class="main__frame bg-news">
             <div class="grid wide">
                 <h3 class="category__title">Yasuki Cometics</h3>
                 <h3 class="category__heading pink">Tin Tức</h3>
