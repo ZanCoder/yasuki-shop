@@ -1,6 +1,5 @@
 package com.poly.Yasuki.utils;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class GlobalDataUtils {
         listTitleCompare.add("Nơi sản xuất");
         listTitleCompare.add("Đặc tính");
         listTitleCompare.add("Giới tính");
-        listTitleCompare.add("Vấn đề về da");
+        listTitleCompare.add("Giải pháp cho");
         return listTitleCompare;
     }
 }
